@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobius Club — ตลาดกลางซื้อขายปลอดภัยด้วย Escrow (ค่าธรรมเนียม 5%)</title>
+<title>Mobius Club — ตลาดกลางซื้อขายปลอดภัยด้วย Escrow</title>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <style>
@@ -28,18 +28,17 @@
     font-family: 'Prompt', sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.5;
+    line-height: 1.45;
   }
 
-  /* แถบสลับบทบาทด้านบนสุด */
+  /* แถบควบคุมการทดสอบด้านบนสุดที่เดียว */
   .role-bar {
-    background: #ffffff;
-    border-bottom: 2px solid var(--gold-border);
-    padding: 10px 16px;
+    background: #0f172a;
+    color: #fff;
+    padding: 8px 16px;
     position: sticky;
     top: 0;
     z-index: 60;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
   }
   .role-bar-inner {
     max-width: 1180px;
@@ -48,69 +47,79 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
   }
-  .role-tabs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .role-tabs { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .role-tab {
-    padding: 8px 14px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #1e293b;
     cursor: pointer;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    color: var(--text);
+    color: #e2e8f0;
     transition: .15s;
   }
-  .role-tab:hover { background: #f1f5f9; }
+  .role-tab:hover { background: #334155; }
   .role-tab.active {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: #fff;
     border-color: transparent;
   }
-  .role-tab.admin-active {
-    background: #0f172a;
-    color: #fbbf24;
-    border-color: transparent;
-  }
   .notify-dot {
     background: #ef4444;
     color: #fff;
-    font-size: 11px;
+    font-size: 10px;
     padding: 1px 6px;
     border-radius: 99px;
     margin-left: 4px;
   }
+  .floating-role-toggle {
+    position: fixed;
+    top: 10px;
+    right: 12px;
+    z-index: 90;
+    background: #0f172a;
+    color: #fbbf24;
+    border: 1px solid #fbbf24;
+    padding: 5px 12px;
+    border-radius: 99px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 
-  /* Header */
+  /* Header หลักของเว็บ */
   header { background: #fff; border-bottom: 1px solid var(--border); }
   .header-inner {
     max-width: 1180px;
     margin: auto;
-    padding: 14px 16px;
+    padding: 12px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px;
   }
-  .brand { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
   .logo-circle {
-    width: 48px; height: 48px;
-    border-radius: 14px;
+    width: 42px; height: 42px;
+    border-radius: 12px;
     background: var(--gold-bg);
     border: 1px solid var(--gold-border);
     display: flex; align-items: center; justify-content: center;
   }
-  .brand h1 { font-size: 20px; font-weight: 700; }
-  .brand small { color: var(--muted); font-size: 12px; display: block; }
+  .brand h1 { font-size: 19px; font-weight: 700; }
+  .brand small { color: var(--muted); font-size: 11px; display: block; }
   .menu-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
-  /* ปุ่ม */
+  /* ปุ่มทั่วไป */
   .btn {
-    padding: 8px 13px;
-    border-radius: 10px;
+    padding: 7px 12px;
+    border-radius: 9px;
     border: 1px solid var(--border);
     background: #fff;
     font-family: inherit;
@@ -119,265 +128,213 @@
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     color: var(--text);
     transition: .15s;
   }
   .btn:hover { background: #f1f5f9; }
-  .btn-gold {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff;
-    border: none;
-  }
-  .btn-gold:hover { opacity: .92; background: linear-gradient(135deg, #f59e0b, #d97706); }
+  .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; }
+  .btn-gold:hover { opacity: .92; }
   .btn-green { background: var(--green); color: #fff; border: none; }
-  .btn-green:hover { opacity: .92; background: var(--green); }
   .btn-red { background: var(--red-bg); color: var(--red); border-color: #fecaca; }
-  .btn-red:hover { background: #fee2e2; }
   .btn-blue { background: var(--blue-bg); color: var(--blue); border-color: #bfdbfe; }
 
-  .wallet-box {
-    background: var(--gold-bg);
-    border: 1px solid var(--gold-border);
-    padding: 6px 14px;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .wallet-box small { display: block; font-size: 11px; color: var(--muted); line-height: 1.1; }
-  .wallet-box b { color: var(--gold); font-size: 15px; }
+  main { max-width: 1180px; margin: 16px auto 50px; padding: 0 16px; }
 
-  main { max-width: 1180px; margin: 20px auto 60px; padding: 0 16px; }
-
-  /* แถบแสดงชื่อและยอดเงินผู้ซื้อ */
-  .buyer-profile-banner {
-    background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
-    border: 2px solid #a7f3d0;
-    border-radius: 16px;
-    padding: 16px 22px;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  .buyer-profile-info { display: flex; align-items: center; gap: 14px; }
-  .buyer-avatar {
-    width: 50px; height: 50px;
-    border-radius: 50%;
-    background: var(--green);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; font-weight: 700;
-  }
-  .buyer-balance-card {
-    background: #fff;
-    border: 1px solid #a7f3d0;
-    border-radius: 12px;
-    padding: 10px 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  /* Hero */
-  .hero {
-    background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
-    border: 1px solid var(--gold-border);
-    border-radius: 18px;
-    padding: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .hero-left { max-width: 680px; }
-  .hero-left h2 { font-size: 24px; margin-bottom: 6px; }
-  .hero-left h2 span { color: var(--gold); }
-  .hero-left p { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
-  .step-pills { display: flex; gap: 8px; flex-wrap: wrap; }
-  .step-pill {
-    background: #fff;
-    border: 1px solid var(--border);
-    padding: 5px 12px;
-    border-radius: 99px;
-    font-size: 12px;
-    font-weight: 500;
-  }
-  .hero-logo {
-    text-align: center;
-    padding: 14px 24px;
-    background: #fff;
-    border: 1px dashed var(--gold-border);
-    border-radius: 16px;
-  }
-  .hero-logo b { display: block; letter-spacing: 2px; color: #92400e; font-size: 13px; margin-top: 4px; }
-
-  /* การ์ดสินค้า */
-  .grid-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 16px;
-  }
-  .p-card {
+  /* แถบสรุปผู้ซื้อ + โปรโมชั่น (สั้นกระชับในแถบเดียว) */
+  .buyer-compact-bar {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 14px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: .15s;
-  }
-  .p-card:hover { border-color: #fcd34d; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
-  .p-img {
-    height: 125px;
-    background: linear-gradient(135deg, #fffbeb, #f1f5f9);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 46px;
-    position: relative;
-  }
-  .p-cat {
-    position: absolute; top: 8px; left: 8px;
-    background: #fff; border: 1px solid var(--border);
-    font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 600;
-  }
-  .p-type-badge {
-    position: absolute; bottom: 8px; right: 8px;
-    background: #0f172a; color: #fbbf24;
-    font-size: 11px; padding: 2px 9px; border-radius: 99px; font-weight: 600;
-  }
-  .p-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
-  .p-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
-  .p-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; flex: 1; }
-  .seller-tag {
-    background: #fffbeb;
-    border: 1px solid var(--gold-border);
-    border-radius: 10px;
-    padding: 8px 10px;
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-  .shop-link {
-    color: var(--blue);
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 700;
-  }
-  .star-guarantee {
-    display: inline-block;
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fde68a;
-    padding: 2px 8px;
-    border-radius: 99px;
-    font-size: 11px;
-    font-weight: 700;
-    margin-top: 3px;
-  }
-  .p-price { font-size: 20px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-  .p-actions { display: flex; gap: 6px; margin-top: 8px; }
-  .p-actions .btn { flex: 1; justify-content: center; }
-
-  /* กล่องเนื้อหา */
-  .box {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 18px;
-  }
-  .box-title {
-    font-size: 17px;
-    font-weight: 700;
+    padding: 12px 16px;
     margin-bottom: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
   }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  @media(max-width: 820px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  .buyer-info-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .promo-mini {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .mini-progress {
+    width: 90px;
+    height: 8px;
+    background: #fff;
+    border: 1px solid #fcd34d;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .mini-progress-fill {
+    height: 100%;
+    background: var(--green);
+  }
 
-  .stat-box {
+  /* แถบค้นหาและหมวดหมู่แบบกระชับ */
+  .filter-bar {
+    background: #fff;
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 16px;
-    background: #fff;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  .stat-box.highlight { background: var(--green-bg); border-color: #a7f3d0; }
-  .stat-box.clickable { cursor: pointer; transition: .15s; }
-  .stat-box.clickable:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .stat-box small { color: var(--muted); font-size: 12px; display: block; }
-  .stat-box .num { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .search-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .search-input-wrap { flex: 1; min-width: 220px; position: relative; }
+  .search-input-wrap input {
+    width: 100%;
+    padding: 8px 12px 8px 34px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    font-family: inherit;
+    font-size: 13px;
+    background: #f8fafc;
+  }
+  .search-input-wrap span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; }
+  .cat-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .cat-pill {
+    padding: 5px 12px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: #f8fafc;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .cat-pill.active { background: var(--gold); color: #fff; border-color: var(--gold); }
 
-  .field { margin-bottom: 12px; }
-  .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  /* การ์ดสินค้าแบบสั้นกระชับ เข้าใจง่าย */
+  .grid-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
+  }
+  .p-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: .15s;
+  }
+  .p-card:hover { border-color: #fcd34d; box-shadow: 0 4px 14px rgba(0,0,0,0.05); }
+  .p-img {
+    height: 96px;
+    background: linear-gradient(135deg, #fffbeb, #f1f5f9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 38px;
+    position: relative;
+  }
+  .p-cat {
+    position: absolute; top: 6px; left: 6px;
+    background: #fff; border: 1px solid var(--border);
+    font-size: 10px; padding: 2px 7px; border-radius: 99px; font-weight: 600;
+  }
+  .p-type-badge {
+    position: absolute; bottom: 6px; right: 6px;
+    background: #0f172a; color: #fbbf24;
+    font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 600;
+  }
+  .p-body { padding: 12px; flex: 1; display: flex; flex-direction: column; }
+  .p-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; line-height: 1.35; }
+  .p-shop-row {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .shop-link { color: var(--blue); text-decoration: underline; cursor: pointer; font-weight: 600; }
+  .p-price-row {
+    margin-top: auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .p-price { font-size: 18px; font-weight: 700; color: var(--gold); }
+  .p-actions { display: flex; gap: 6px; }
+  .p-actions .btn { flex: 1; justify-content: center; padding: 7px 8px; font-size: 12px; }
+
+  /* กล่องเนื้อหา */
+  .box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .box-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media(max-width: 820px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .stat-box { border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: #fff; }
+  .stat-box.highlight { background: var(--green-bg); border-color: #a7f3d0; }
+  .stat-box.clickable { cursor: pointer; }
+  .stat-box small { color: var(--muted); font-size: 12px; display: block; }
+  .stat-box .num { font-size: 22px; font-weight: 700; margin-top: 2px; }
+
+  .field { margin-bottom: 10px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
   .field input, .field select, .field textarea {
-    width: 100%; padding: 9px 12px; border: 1px solid var(--border);
-    border-radius: 9px; font-family: inherit; font-size: 14px; background: #fff;
+    width: 100%; padding: 8px 11px; border: 1px solid var(--border);
+    border-radius: 8px; font-family: inherit; font-size: 13px; background: #fff;
   }
 
   .secret-code-box {
-    background: #0f172a;
-    color: #fbbf24;
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-family: monospace;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 4px;
+    background: #0f172a; color: #fbbf24; border-radius: 8px; padding: 8px 12px;
+    font-family: monospace; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px;
   }
 
-  /* กล่องแนบเอกสารพร้อมแสดงดาว */
   .doc-upload-card {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 10px;
-    background: #f8fafc;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+    margin-bottom: 8px; background: #f8fafc;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
   }
-  .doc-upload-card.has-file {
-    background: #fffbeb;
-    border-color: #fcd34d;
-  }
-  .doc-preview-thumb {
-    width: 56px; height: 42px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    background: #fff;
-  }
+  .doc-upload-card.has-file { background: #fffbeb; border-color: #fcd34d; }
+  .doc-preview-thumb { width: 50px; height: 38px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
 
-  .alert { padding: 12px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 12px; font-weight: 500; }
+  .alert { padding: 10px 12px; border-radius: 9px; font-size: 12px; margin-bottom: 10px; font-weight: 500; }
   .alert-ok { background: var(--green-bg); color: var(--green); border: 1px solid #a7f3d0; }
-  .alert-err { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
   .alert-warn { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-border); }
 
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th, td { padding: 9px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
   th { background: #f8fafc; color: var(--muted); font-weight: 600; }
 
-  .badge { display: inline-block; padding: 3px 9px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; }
   .b-gold { background: var(--gold-bg); color: var(--gold); }
   .b-green { background: var(--green-bg); color: var(--green); }
   .b-blue { background: var(--blue-bg); color: var(--blue); }
@@ -386,86 +343,26 @@
   /* แชท */
   .chat-box { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   .chat-top {
-    background: #fffbeb;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--gold-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    background: #fffbeb; padding: 10px 14px; border-bottom: 1px solid var(--gold-border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
   }
   .chat-messages {
-    height: 250px;
-    overflow-y: auto;
-    padding: 14px;
-    background: #f8fafc;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    height: 230px; overflow-y: auto; padding: 12px; background: #f8fafc;
+    display: flex; flex-direction: column; gap: 8px;
   }
-  .msg {
-    max-width: 75%;
-    padding: 8px 12px;
-    border-radius: 10px;
-    background: #fff;
-    border: 1px solid var(--border);
-    font-size: 13px;
-    align-self: flex-start;
-  }
+  .msg { max-width: 75%; padding: 7px 11px; border-radius: 9px; background: #fff; border: 1px solid var(--border); font-size: 13px; align-self: flex-start; }
   .msg.me { align-self: flex-end; background: var(--gold-bg); border-color: var(--gold-border); }
   .msg.sys { align-self: center; background: var(--green-bg); color: var(--green); border-color: #a7f3d0; font-weight: 600; }
-  .chat-bar {
-    padding: 10px;
-    background: #fff;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+  .chat-bar { padding: 8px; background: #fff; border-top: 1px solid var(--border); display: flex; gap: 6px; flex-wrap: wrap; }
 
-  /* ตัวเลือกชำระเงิน (Wallet / บัตรเครดิต) */
-  .pay-method-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .pay-option {
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 12px;
-    cursor: pointer;
-    text-align: center;
-    transition: .15s;
-  }
-  .pay-option.active {
-    border-color: var(--gold);
-    background: var(--gold-bg);
-  }
-  .credit-card-form {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    color: #fff;
-    padding: 16px;
-    border-radius: 14px;
-    margin-bottom: 14px;
-  }
-  .credit-card-form label { color: #cbd5e1; font-size: 12px; }
-  .credit-card-form input {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #fff;
-  }
-  .credit-card-form input::placeholder { color: #94a3b8; }
+  .pay-method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .pay-option { border: 2px solid var(--border); border-radius: 10px; padding: 10px; cursor: pointer; text-align: center; }
+  .pay-option.active { border-color: var(--gold); background: var(--gold-bg); }
+  .credit-card-form { background: #0f172a; color: #fff; padding: 14px; border-radius: 12px; margin-bottom: 12px; }
+  .credit-card-form label { color: #cbd5e1; font-size: 11px; }
+  .credit-card-form input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); color: #fff; }
 
-  /* การ์ดรีวิว */
-  .review-item {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-    background: #f8fafc;
-  }
+  .review-item { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; background: #f8fafc; font-size: 13px; }
 
   /* Modal */
   .modal-bg {
@@ -473,70 +370,54 @@
     display: none; align-items: center; justify-content: center; z-index: 100; padding: 16px;
   }
   .modal-card {
-    background: #fff; border-radius: 16px; max-width: 500px; width: 100%;
-    padding: 22px; position: relative; max-height: 92vh; overflow-y: auto;
+    background: #fff; border-radius: 14px; max-width: 460px; width: 100%;
+    padding: 20px; position: relative; max-height: 92vh; overflow-y: auto;
   }
-  .modal-card.wide { max-width: 800px; }
-  .close-x {
-    position: absolute; top: 12px; right: 14px; border: none; background: none;
-    font-size: 20px; cursor: pointer; color: var(--muted);
-  }
-  .doc-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 12px;
-  }
+  .modal-card.wide { max-width: 760px; }
+  .close-x { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 18px; cursor: pointer; color: var(--muted); }
+  .doc-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
   @media(max-width: 680px) { .doc-gallery { grid-template-columns: 1fr; } }
-  .doc-item {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 10px;
-    background: #f8fafc;
-    text-align: center;
-  }
-  .doc-item img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    margin: 6px 0;
-  }
+  .doc-item { border: 1px solid var(--border); border-radius: 10px; padding: 8px; background: #f8fafc; text-align: center; }
+  .doc-item img { width: 100%; height: 140px; object-fit: contain; background: #fff; border-radius: 6px; border: 1px solid var(--border); margin: 4px 0; }
   #toast {
     position: fixed; bottom: 20px; right: 20px; background: #0f172a; color: #fff;
-    padding: 12px 18px; border-radius: 10px; font-size: 14px; display: none; z-index: 200;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    padding: 10px 16px; border-radius: 9px; font-size: 13px; display: none; z-index: 200;
   }
 </style>
 </head>
 <body>
 
-<!-- แถบสลับบทบาทด้านบนสุด -->
-<div class="role-bar">
+<!-- ปุ่มเปิดแถบสลับบทบาทเมื่อถูกซ่อน -->
+<button id="showRoleBarBtn" class="floating-role-toggle" style="display:none;" onclick="toggleRoleBar(false)">
+  👁️ แสดงแถบสลับบทบาท
+</button>
+
+<!-- แถบควบคุมการทดสอบ (รวมทุกปุ่มทดสอบไว้ข้างบนสุดที่เดียว ไม่มีปะปนในหน้าเว็บด้านใน) -->
+<div class="role-bar" id="topRoleBar">
   <div class="role-bar-inner">
-    <div style="font-size:13px;">
-      🟢 <b>สลับบทบาทเพื่อทดสอบระบบ:</b>
+    <div style="font-size:12px; color:#cbd5e1;">
+      🛠️ <b>เมนูสลับบทบาท (สำหรับทดสอบ):</b>
     </div>
     <div class="role-tabs">
-      <button class="role-tab" id="tab-guest" onclick="setRole('guest')">👀 หน้ายังไม่ล็อกอิน (Guest)</button>
-      <button class="role-tab" id="tab-buyer" onclick="setRole('buyer')">🛒 ฝั่งผู้ซื้อ (Buyer)</button>
-      <button class="role-tab" id="tab-seller" onclick="setRole('seller')">🏪 ฝั่งผู้ขาย (ต้องลงทะเบียนก่อนขาย)</button>
+      <button class="role-tab" id="tab-guest" onclick="setRole('guest')">👀 ยังไม่ล็อกอิน</button>
+      <button class="role-tab" id="tab-buyer" onclick="setRole('buyer')">🛒 ผู้ซื้อ</button>
+      <button class="role-tab" id="tab-seller" onclick="setRole('seller')">🏪 ผู้ขาย</button>
       <button class="role-tab" id="tab-admin" onclick="setRole('admin')">
-        👑 ฝั่งแอดมิน (รายได้ 5%) <span id="adminBadge" class="notify-dot" style="display:none;">0</span>
+        👑 แอดมิน (5%) <span id="adminBadge" class="notify-dot" style="display:none;">0</span>
       </button>
-      <button class="btn btn-red" style="padding:5px 10px; font-size:11px;" onclick="resetAllData()">🔄 รีเซ็ตระบบใหม่</button>
+      <button class="role-tab" onclick="simulatePromoStep()">⚡ +1 แต้มโปร</button>
+      <button class="role-tab" onclick="resetAllData()">🔄 รีเซ็ต</button>
+      <button class="role-tab" onclick="toggleRoleBar(true)">🙈 ซ่อนแถบบน</button>
     </div>
   </div>
 </div>
 
-<!-- Header -->
+<!-- Header เว็บไซต์จริง -->
 <header>
   <div class="header-inner">
     <div class="brand" onclick="goPage('market')">
       <div class="logo-circle">
-        <svg viewBox="0 0 100 60" width="34" height="22">
+        <svg viewBox="0 0 100 60" width="30" height="20">
           <defs>
             <linearGradient id="gMob" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#f59e0b"/>
@@ -549,7 +430,7 @@
       </div>
       <div>
         <h1>Mobius Club</h1>
-        <small>ตลาดกลาง Escrow · ชำระด้วย QR หรือบัตรเครดิต · รีวิวและโปรไฟล์ร้านค้าครบวงจร</small>
+        <small>ตลาดกลางซื้อขายปลอดภัยด้วยระบบ Escrow</small>
       </div>
     </div>
 
@@ -559,103 +440,88 @@
 
 <main id="appMain"></main>
 
-<!-- Modal 1: ล็อกอินด้วยอีเมลและรหัสผ่าน (สำหรับหน้ายังไม่ล็อกอิน) -->
+<!-- Modal 1: ล็อกอินด้วยอีเมลและรหัสผ่าน -->
 <div class="modal-bg" id="modalGmail">
   <div class="modal-card">
     <button class="close-x" onclick="hideModal('modalGmail')">✕</button>
-    <div style="text-align:center; margin-bottom:14px;">
-      <div style="font-size:36px;">🔐</div>
-      <h3>เข้าสู่ระบบ / สมัครสมาชิกด้วยอีเมลและรหัสผ่าน</h3>
-      <p style="font-size:12px; color:var(--muted);">กรอกอีเมลและรหัสผ่านของคุณเพื่อเข้าซื้อสินค้า ต่อรองราคา และรีวิวร้านค้า</p>
+    <div style="text-align:center; margin-bottom:12px;">
+      <div style="font-size:32px;">🔐</div>
+      <h3>เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน</h3>
     </div>
     <div class="field">
-      <label>ชื่อผู้ใช้งาน (Display Name)</label>
-      <input type="text" id="inputBuyerName" value="Non_Gamer_TH" placeholder="เช่น Non_Gamer_TH">
+      <label>ชื่อผู้ใช้งาน</label>
+      <input type="text" id="inputBuyerName" value="Non_Gamer_TH">
     </div>
     <div class="field">
-      <label>อีเมล (Gmail) *</label>
-      <input type="email" id="inputGmail" value="non.gamer@gmail.com" placeholder="example@gmail.com">
+      <label>อีเมล *</label>
+      <input type="email" id="inputGmail" value="non.gamer@gmail.com">
     </div>
     <div class="field">
-      <label>รหัสผ่านอีเมล / รหัสผ่านเข้าใช้งาน (Password) *</label>
-      <input type="password" id="inputPassword" value="12345678" placeholder="กรอกรหัสผ่านอย่างน้อย 6 ตัวอักษร">
+      <label>รหัสผ่าน *</label>
+      <input type="password" id="inputPassword" value="12345678">
     </div>
-    <button class="btn btn-gold" style="width:100%; justify-content:center; padding:11px;" onclick="loginWithEmailPassword()">
-      ✅ เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน
+    <button class="btn btn-gold" style="width:100%; justify-content:center; padding:10px;" onclick="loginWithEmailPassword()">
+      ✅ เข้าสู่ระบบ
     </button>
   </div>
 </div>
 
-<!-- Modal 2: เติมเงินเข้ากระเป๋า (เลือกได้ทั้ง QR Code และ บัตรเครดิต) -->
+<!-- Modal 2: เติมเงิน (QR / บัตรเครดิต) -->
 <div class="modal-bg" id="modalQR">
   <div class="modal-card">
     <button class="close-x" onclick="hideModal('modalQR')">✕</button>
-    <h3 style="margin-bottom:4px;">💳 เติมเงินเข้ากระเป๋า Mobius Wallet</h3>
-    <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">เลือกเติมเงินด้วยการสแกน QR PromptPay หรือตัดบัตรเครดิต/เดบิต</p>
+    <h3 style="margin-bottom:10px;">💳 เติมเงินเข้ากระเป๋า</h3>
 
     <div class="pay-method-grid">
       <div class="pay-option active" id="topupTabQR" onclick="switchTopupMethod('qr')">
         <b>📲 สแกน QR Code</b>
-        <div style="font-size:11px; color:var(--muted);">พร้อมเพย์ทุกธนาคาร</div>
       </div>
       <div class="pay-option" id="topupTabCard" onclick="switchTopupMethod('card')">
         <b>💳 บัตรเครดิต / เดบิต</b>
-        <div style="font-size:11px; color:var(--muted);">Visa / MasterCard / JCB</div>
       </div>
     </div>
 
-    <div style="display:flex; gap:6px; margin-bottom:10px;">
-      <button class="btn" style="flex:1;justify-content:center;" onclick="setQRValue(500)">฿500</button>
+    <div style="display:flex; gap:6px; margin-bottom:8px;">
       <button class="btn" style="flex:1;justify-content:center;" onclick="setQRValue(1000)">฿1,000</button>
+      <button class="btn" style="flex:1;justify-content:center;" onclick="setQRValue(3000)">฿3,000</button>
       <button class="btn" style="flex:1;justify-content:center;" onclick="setQRValue(5000)">฿5,000</button>
     </div>
     <div class="field">
-      <label>จำนวนเงินที่ต้องการเติม (บาท)</label>
       <input type="number" id="qrAmount" value="1000" oninput="renderQRBox()">
     </div>
 
-    <!-- กล่อง QR -->
-    <div id="topupSectionQR" style="text-align:center; background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:12px;">
-      <b style="color:#1e3a8a; font-size:13px;">THAI QR PROMPTPAY</b>
-      <div id="qrSvgWrap" style="margin:8px auto; display:flex; justify-content:center;"></div>
-      <div>ยอดเติม: <b style="color:var(--gold); font-size:18px;" id="qrTextAmt">฿1,000</b></div>
+    <div id="topupSectionQR" style="text-align:center; background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:12px;">
+      <b style="color:#1e3a8a; font-size:12px;">THAI QR PROMPTPAY</b>
+      <div id="qrSvgWrap" style="margin:6px auto; display:flex; justify-content:center;"></div>
+      <div>ยอดเติม: <b style="color:var(--gold); font-size:16px;" id="qrTextAmt">฿1,000</b></div>
     </div>
 
-    <!-- กล่องบัตรเครดิต -->
     <div id="topupSectionCard" style="display:none;">
       <div class="credit-card-form">
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-          <b>💳 CREDIT / DEBIT CARD</b>
-          <span>VISA · MASTERCARD</span>
-        </div>
         <div class="field">
           <label>หมายเลขบัตรเครดิต 16 หลัก</label>
-          <input type="text" id="topupCardNo" value="4532 •••• •••• 8899" maxlength="19">
-        </div>
-        <div class="field">
-          <label>ชื่อบนบัตร (Cardholder Name)</label>
-          <input type="text" id="topupCardName" value="NON GAMER TH">
+          <input type="text" id="topupCardNo" value="4532 •••• •••• 8899">
         </div>
         <div class="grid-2">
           <div class="field">
             <label>วันหมดอายุ (MM/YY)</label>
-            <input type="text" id="topupCardExp" value="08/29" maxlength="5">
+            <input type="text" id="topupCardExp" value="08/29">
           </div>
           <div class="field">
-            <label>รหัส CVV (3 หลัก)</label>
-            <input type="password" id="topupCardCvv" value="888" maxlength="4">
+            <label>CVV</label>
+            <input type="password" id="topupCardCvv" value="888">
           </div>
         </div>
       </div>
     </div>
 
-    <button class="btn btn-gold" style="width:100%; justify-content:center; padding:11px;" onclick="confirmQRTopup()">
-      ✅ ยืนยันการชำระเงินเข้ากระเป๋าทันที
+    <button class="btn btn-gold" style="width:100%; justify-content:center; padding:10px;" onclick="confirmQRTopup()">
+      ✅ ยืนยันการเติมเงิน
     </button>
   </div>
 </div>
 
-<!-- Modal 3: หน้าต่างยืนยันก่อนสั่งซื้อ + เลือกจ่ายด้วยกระเป๋าหรือบัตรเครดิต -->
+<!-- Modal 3: ยืนยันก่อนสั่งซื้อ -->
 <div class="modal-bg" id="modalCheckoutConfirm">
   <div class="modal-card">
     <button class="close-x" onclick="hideModal('modalCheckoutConfirm')">✕</button>
@@ -663,7 +529,7 @@
   </div>
 </div>
 
-<!-- Modal 4: แสดงข้อมูลสินค้า / Code ทันทีเมื่อผู้ซื้อกดซื้อเสร็จ -->
+<!-- Modal 4: แสดง Code เมื่อซื้อเสร็จ -->
 <div class="modal-bg" id="modalDeliveredSecret">
   <div class="modal-card">
     <button class="close-x" onclick="hideModal('modalDeliveredSecret')">✕</button>
@@ -671,7 +537,7 @@
   </div>
 </div>
 
-<!-- Modal 5: เขียนรีวิวให้ร้านค้าหลังซื้อขายสำเร็จ -->
+<!-- Modal 5: เขียนรีวิว -->
 <div class="modal-bg" id="modalWriteReview">
   <div class="modal-card">
     <button class="close-x" onclick="hideModal('modalWriteReview')">✕</button>
@@ -679,7 +545,7 @@
   </div>
 </div>
 
-<!-- Modal 6: แอดมินดูรูปเอกสารที่แนบมา & รายละเอียดรายได้ของผู้ขาย -->
+<!-- Modal 6: ดูรูปเอกสารผู้ขาย -->
 <div class="modal-bg" id="modalSellerDocs">
   <div class="modal-card wide">
     <button class="close-x" onclick="hideModal('modalSellerDocs')">✕</button>
@@ -687,7 +553,7 @@
   </div>
 </div>
 
-<!-- Modal 7: แอดมินดูรายละเอียดรายได้ 5% ทั้งหมด -->
+<!-- Modal 7: ดูรายได้แอดมิน 5% -->
 <div class="modal-bg" id="modalAdminRevenue">
   <div class="modal-card wide">
     <button class="close-x" onclick="hideModal('modalAdminRevenue')">✕</button>
@@ -698,29 +564,30 @@
 <div id="toast"></div>
 
 <script>
-const FEE_RATE = 0.05; // ค่าธรรมเนียมแอดมิน 5%
-const STORAGE_KEY = 'mobius_github_full_v5';
+const FEE_RATE = 0.05;
+const STORAGE_KEY = 'mobius_clean_v7';
+const CATEGORIES = ['ทั้งหมด', 'Valorant', 'RoV', 'Blox Fruits', 'Genshin Impact', 'CS2', 'บัตรเติมเกม'];
 
 const DELIVERY_TYPES = {
   account: {
-    label: '🎮 ไอดีเกม (ID / Password)',
+    label: '🎮 ไอดีเกม',
     shortBadge: '🎮 ไอดีเกม',
-    inputLabel: 'กรอกข้อมูลไอดีเกม (Username / Password ที่จะแสดงให้ผู้ซื้อเมื่อซื้อเสร็จ) *',
+    inputLabel: 'ข้อมูลไอดีเกม (ID / Password) *',
     placeholder: 'เช่น ID: valorant_pro99 | PASS: MySecret#2026',
     icon: '🎮'
   },
   item_code: {
-    label: '🎁 ไอเท็มในเกม (Code ให้นำไปกรอก)',
-    shortBadge: '🎁 Code ไอเท็มในเกม',
-    inputLabel: 'กรอก Code ไอเท็มในเกม (สำหรับให้ผู้ซื้อนำไปกรอก Redeem ในเกม) *',
-    placeholder: 'เช่น ITEM-BLOX-KITSUNE-8899-XXXX',
+    label: '🎁 Code ไอเท็ม',
+    shortBadge: '🎁 Code ไอเท็ม',
+    inputLabel: 'Code ไอเท็มในเกม *',
+    placeholder: 'เช่น ITEM-BLOX-KITSUNE-8899',
     icon: '🎁'
   },
   card_code: {
-    label: '💳 บัตรเติมเกม (Code ให้นำไปกรอก)',
+    label: '💳 Code บัตรเติมเกม',
     shortBadge: '💳 Code บัตรเติมเกม',
-    inputLabel: 'กรอกรหัสบัตรเติมเกม / PIN Code (สำหรับให้ผู้ซื้อนำไปกรอกเติมเกม) *',
-    placeholder: 'เช่น CARD-GARENA-9948-2210-7765-1102',
+    inputLabel: 'รหัสบัตรเติมเกม (Code) *',
+    placeholder: 'เช่น PIN-8849-2201-7746',
     icon: '💳'
   }
 };
@@ -731,53 +598,24 @@ function makeSampleDocSvg(title, ownerName, docNumber, bgColor, accentColor) {
     <rect x="20" y="20" width="480" height="54" rx="10" fill="${accentColor}"/>
     <text x="40" y="54" fill="#ffffff" font-family="sans-serif" font-size="20" font-weight="bold">${title}</text>
     <rect x="30" y="95" width="110" height="135" rx="10" fill="#ffffff" stroke="${accentColor}" stroke-width="2"/>
-    <circle cx="85" cy="145" r="24" fill="${accentColor}" opacity="0.3"/>
-    <rect x="55" y="180" width="60" height="30" rx="8" fill="${accentColor}" opacity="0.3"/>
-    <text x="165" y="125" fill="#0f172a" font-family="sans-serif" font-size="16" font-weight="bold">ชื่อ-นามสกุล: ${ownerName}</text>
-    <text x="165" y="160" fill="#334155" font-family="sans-serif" font-size="14">เลขที่เอกสาร: ${docNumber}</text>
-    <text x="165" y="192" fill="#059669" font-family="sans-serif" font-size="14" font-weight="bold">✓ ชื่อตรงกับเอกสารอื่นทุกประการ</text>
-    <text x="165" y="222" fill="#b45309" font-family="sans-serif" font-size="13">★ เอกสารยืนยันความปลอดภัย Mobius Club</text>
-    <rect x="30" y="255" width="460" height="38" rx="8" fill="#ffffff"/>
-    <text x="45" y="280" fill="#64748b" font-family="sans-serif" font-size="13">เอกสารฉบับนี้ถูกแนบเข้าสู่ระบบตรวจสอบของแอดมิน Mobius Escrow</text>
+    <text x="165" y="135" fill="#0f172a" font-family="sans-serif" font-size="16" font-weight="bold">ชื่อ: ${ownerName}</text>
+    <text x="165" y="170" fill="#334155" font-family="sans-serif" font-size="14">เลขที่: ${docNumber}</text>
+    <text x="165" y="205" fill="#059669" font-family="sans-serif" font-size="14" font-weight="bold">✓ ยืนยันตัวตน Mobius Club</text>
   </svg>`;
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 }
 
 function createDefaultDocs(ownerName) {
   return {
-    idCard: {
-      attached: true,
-      fileName: `บัตรประชาชน_${ownerName}.jpg`,
-      dataUrl: makeSampleDocSvg('บัตรประจำตัวประชาชน (ID CARD)', ownerName, '1-1004-00982-45-1', '#eff6ff', '#1d4ed8')
-    },
-    bankBook: {
-      attached: true,
-      fileName: `สมุดบัญชีธนาคาร_${ownerName}.jpg`,
-      dataUrl: makeSampleDocSvg('สมุดบัญชีเงินฝากธนาคาร (BOOK BANK)', ownerName, 'กสิกรไทย 094-2-88412-9', '#ecfdf5', '#047857')
-    },
-    commerce: {
-      attached: true,
-      fileName: `เอกสารประกอบการค้า_${ownerName}.jpg`,
-      dataUrl: makeSampleDocSvg('ใบทะเบียนพาณิชย์ / เอกสารการค้า', ownerName, 'REG-2026-99812', '#fffbeb', '#b45309')
-    }
+    idCard: { attached: true, fileName: `บัตรประชาชน_${ownerName}.jpg`, dataUrl: makeSampleDocSvg('บัตรประชาชน', ownerName, '1-1004-00982-45-1', '#eff6ff', '#1d4ed8') },
+    bankBook: { attached: true, fileName: `สมุดบัญชี_${ownerName}.jpg`, dataUrl: makeSampleDocSvg('สมุดบัญชีธนาคาร', ownerName, 'กสิกรไทย 094-2-88412-9', '#ecfdf5', '#047857') },
+    commerce: { attached: true, fileName: `เอกสารการค้า_${ownerName}.jpg`, dataUrl: makeSampleDocSvg('เอกสารประกอบการค้า', ownerName, 'REG-2026-99812', '#fffbeb', '#b45309') }
   };
 }
 
 function countSellerStars(docs) {
   if (!docs) return 0;
-  let stars = 0;
-  if (docs.idCard && docs.idCard.attached) stars++;
-  if (docs.bankBook && docs.bankBook.attached) stars++;
-  if (docs.commerce && docs.commerce.attached) stars++;
-  return stars;
-}
-
-function renderStarBadge(stars) {
-  const starIcons = '⭐'.repeat(stars);
-  if (stars === 3) {
-    return `<span class="star-guarantee">${starIcons} (3 ดาว) การันตีความปลอดภัยสูงสุดจากเว็บไซต์</span>`;
-  }
-  return `<span class="star-guarantee">${starIcons || 'ไม่มีดาว'} (${stars}/3 ดาว)</span>`;
+  return (docs.idCard?.attached ? 1 : 0) + (docs.bankBook?.attached ? 1 : 0) + (docs.commerce?.attached ? 1 : 0);
 }
 
 function getInitialData() {
@@ -785,26 +623,28 @@ function getInitialData() {
   const existingApprovedSellerDocs = createDefaultDocs('วรเมธ พิทักษ์กุล');
 
   return {
-    role: 'guest', // เริ่มที่หน้ายังไม่ล็อกอิน เพื่อให้ทดสอบการล็อกอินด้วยอีเมล+รหัสผ่านได้ทันที
-    page: 'market', // 'market' | 'chat' | 'orders' | 'seller' | 'admin' | 'shop_profile'
+    role: 'buyer',
+    page: 'market',
+    hideRoleBar: false,
+    searchQuery: '',
+    selectedCategory: 'ทั้งหมด',
+    selectedTypeFilter: 'all',
     selectedProductId: 'p1',
     viewingShopName: 'Zeed Store Official',
 
     buyer: {
       name: 'Non_Gamer_TH',
       email: 'non.gamer@gmail.com',
-      password: '••••••••',
-      wallet: 6500
+      wallet: 15000,
+      promoCount1000: 9,
+      discountCoupons10: 1
     },
 
-    // หน้าผู้ขาย: ตั้งเริ่มต้นเป็น 'unregistered' เพื่อบังคับให้ผู้ขายต้องลงทะเบียนผู้ขายก่อนจึงจะลงขายสินค้าได้!
     currentSeller: {
       id: 'seller_main',
-      status: 'unregistered', // 'unregistered' (ต้องลงทะเบียนก่อน) -> 'pending' (รอแอดมินอนุมัติ) -> 'approved' (ลงขายได้)
+      status: 'unregistered',
       shopName: 'Zeed Store Official',
-      idCardName: 'กิตติพงศ์ รัตนโชติ',
-      bankAccName: 'กิตติพงศ์ รัตนโชติ',
-      commerceDocName: 'กิตติพงศ์ รัตนโชติ',
+      fullName: 'กิตติพงศ์ รัตนโชติ',
       bankName: 'ธนาคารกสิกรไทย',
       bankNo: '094-2-88412-9',
       docs: defaultSellerDocs,
@@ -817,30 +657,24 @@ function getInitialData() {
       {
         id: 'seller_main',
         shopName: 'Zeed Store Official',
-        idCardName: 'กิตติพงศ์ รัตนโชติ',
-        bankAccName: 'กิตติพงศ์ รัตนโชติ',
-        commerceDocName: 'กิตติพงศ์ รัตนโชติ',
+        fullName: 'กิตติพงศ์ รัตนโชติ',
         bankName: 'ธนาคารกสิกรไทย',
         bankNo: '094-2-88412-9',
         docs: defaultSellerDocs,
         stars: 3,
         wallet: 3800,
-        completedSalesCount: 2,
-        approvedAt: 'อนุมัติแล้ว'
+        completedSalesCount: 2
       },
       {
         id: 'seller_vip_01',
         shopName: 'ProValorant Thailand',
-        idCardName: 'วรเมธ พิทักษ์กุล',
-        bankAccName: 'วรเมธ พิทักษ์กุล',
-        commerceDocName: 'วรเมธ พิทักษ์กุล',
+        fullName: 'วรเมธ พิทักษ์กุล',
         bankName: 'ธนาคารไทยพาณิชย์',
         bankNo: '408-9-11520-3',
         docs: existingApprovedSellerDocs,
         stars: 3,
         wallet: 4275,
-        completedSalesCount: 1,
-        approvedAt: 'อนุมัติแล้ว'
+        completedSalesCount: 1
       }
     ],
 
@@ -850,53 +684,23 @@ function getInitialData() {
     },
 
     products: [
-      {
-        id: 'p1',
-        sellerId: 'seller_main',
-        title: 'ไอดี Valorant Radiant สกิน Champions ครบชุด',
-        cat: 'Valorant',
-        deliveryType: 'account',
-        secretPayload: 'ID: valorant_radiant99 | PASS: Champ#2026TH',
-        price: 4500,
-        icon: '🎮',
-        desc: 'เปลี่ยนเมลได้ทันที ซื้อเสร็จรับ Username & Password ทันที',
-        sellerShop: 'Zeed Store Official',
-        sellerOwner: 'กิตติพงศ์ รัตนโชติ',
-        sellerStars: 3
-      },
-      {
-        id: 'p2',
-        sellerId: 'seller_main',
-        title: 'ผลปีศาจถาวร Kitsune (Code กรอกในเกม Blox Fruits)',
-        cat: 'Blox Fruits',
-        deliveryType: 'item_code',
-        secretPayload: 'ITEM-KITSUNE-PERM-9948-AB77',
-        price: 1290,
-        icon: '🎁',
-        desc: 'เมื่อกดซื้อเสร็จ ระบบจะแสดง Code ให้นำไปกรอกรับไอเท็มในเกมทันที',
-        sellerShop: 'Zeed Store Official',
-        sellerOwner: 'กิตติพงศ์ รัตนโชติ',
-        sellerStars: 3
-      },
-      {
-        id: 'p3',
-        sellerId: 'seller_vip_01',
-        title: 'บัตรเติมเกม Riot Points / Garena Shell มูลค่า 1,000 บาท',
-        cat: 'บัตรเติมเกม',
-        deliveryType: 'card_code',
-        secretPayload: 'PIN-8849-2201-7746-9902',
-        price: 950,
-        icon: '💳',
-        desc: 'ซื้อเสร็จรับรหัสบัตรเติมเกม (Code) ไปกรอกเติมเข้าเกมได้ทันทีตลอด 24 ชม.',
-        sellerShop: 'ProValorant Thailand',
-        sellerOwner: 'วรเมธ พิทักษ์กุล',
-        sellerStars: 3
-      }
+      { id: 'p1', sellerId: 'seller_main', title: 'ไอดี Valorant Radiant สกิน Champions ครบ', cat: 'Valorant', deliveryType: 'account', secretPayload: 'ID: valorant_radiant99 | PASS: Champ#2026', price: 4500, icon: '🔫', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
+      { id: 'p2', sellerId: 'seller_main', title: 'ผลปีศาจถาวร Kitsune (Blox Fruits Code)', cat: 'Blox Fruits', deliveryType: 'item_code', secretPayload: 'ITEM-KITSUNE-PERM-9948', price: 1290, icon: '🦊', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
+      { id: 'p3', sellerId: 'seller_vip_01', title: 'บัตรเติมเกม Riot Points 1,500 พอยต์', cat: 'บัตรเติมเกม', deliveryType: 'card_code', secretPayload: 'RIOT-PIN-8849-2201', price: 1450, icon: '💳', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
+      { id: 'p4', sellerId: 'seller_vip_01', title: 'ไอดี RoV Glorious Ruler สกินแรร์ 420 สกิน', cat: 'RoV', deliveryType: 'account', secretPayload: 'ID: rov_conqueror88 | PASS: Garena#99', price: 3200, icon: '⚔️', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
+      { id: 'p5', sellerId: 'seller_main', title: 'ไอดี Valorant Ascendant มีด Kuronami', cat: 'Valorant', deliveryType: 'account', secretPayload: 'ID: valo_kuronami | PASS: Knife#1800', price: 1800, icon: '🗡️', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
+      { id: 'p6', sellerId: 'seller_main', title: 'โค้ดสกิน RoV Nakroth Dimension Breaker', cat: 'RoV', deliveryType: 'item_code', secretPayload: 'ROV-NAKROTH-DIM-7741', price: 1590, icon: '🎁', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
+      { id: 'p7', sellerId: 'seller_vip_01', title: 'ผลปีศาจถาวร Dragon (Blox Fruits Code)', cat: 'Blox Fruits', deliveryType: 'item_code', secretPayload: 'BLOX-DRAGON-PERM-5510', price: 1950, icon: '🐉', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
+      { id: 'p8', sellerId: 'seller_main', title: 'ไอดี Genshin Impact AR60 5 ดาว C6', cat: 'Genshin Impact', deliveryType: 'account', secretPayload: 'ID: genshin_ar60 | PASS: Hoyo#2026', price: 5500, icon: '✨', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
+      { id: 'p9', sellerId: 'seller_vip_01', title: 'ไอดี Genshin Impact AR55 Furina + Neuvillette', cat: 'Genshin Impact', deliveryType: 'account', secretPayload: 'ID: genshin_furina | PASS: Hydro#1200', price: 1200, icon: '💧', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
+      { id: 'p10', sellerId: 'seller_main', title: 'มีด Karambit Doppler Phase 2 (CS2 Code)', cat: 'CS2', deliveryType: 'item_code', secretPayload: 'CS2-KARAMBIT-8821', price: 14500, icon: '🔪', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
+      { id: 'p11', sellerId: 'seller_vip_01', title: 'สกินปืน AK-47 Asiimov StatTrak (CS2 Code)', cat: 'CS2', deliveryType: 'item_code', secretPayload: 'CS2-AK47-ASIIMOV-3349', price: 1650, icon: '🎯', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
+      { id: 'p12', sellerId: 'seller_main', title: 'บัตรเติมเกม Steam Wallet มูลค่า 1,000 บาท', cat: 'บัตรเติมเกม', deliveryType: 'card_code', secretPayload: 'STEAM-1000THB-9941', price: 1000, icon: '💳', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 }
     ],
 
     messages: [
-      { sender: 'buyer', author: 'Non_Gamer_TH', text: 'สวัสดีครับ สินค้าชิ้นนี้ลดราคาอีกหน่อยได้ไหมครับ?' },
-      { sender: 'seller', author: 'Zeed Store Official', text: 'ได้ครับ เดี๋ยวผมกดปรับราคาให้ในหน้าแชทนี้เลยครับ พอกดซื้อปุ๊บระบบจะขึ้น Code ให้ทันทีครับ' }
+      { sender: 'buyer', author: 'Non_Gamer_TH', text: 'สวัสดีครับ สินค้าชิ้นนี้ลดราคาได้ไหมครับ?' },
+      { sender: 'seller', author: 'Zeed Store Official', text: 'ได้ครับ เดี๋ยวผมปรับราคาให้ในแชทนี้เลยครับ' }
     ],
 
     orders: [
@@ -904,15 +708,15 @@ function getInitialData() {
         id: 'ORD-103',
         productId: 'p2',
         sellerId: 'seller_main',
-        title: 'ผลปีศาจถาวร Kitsune (Code กรอกในเกม Blox Fruits)',
+        title: 'ผลปีศาจถาวร Kitsune (Blox Fruits Code)',
         deliveryType: 'item_code',
-        secretPayload: 'ITEM-KITSUNE-PERM-9948-AB77',
+        secretPayload: 'ITEM-KITSUNE-PERM-9948',
         buyerName: 'Non_Gamer_TH',
         sellerShop: 'Zeed Store Official',
         sellerOwner: 'กิตติพงศ์ รัตนโชติ',
         price: 1290,
-        fee5: Math.round(1290 * FEE_RATE),
-        sellerNet95: 1290 - Math.round(1290 * FEE_RATE),
+        fee5: 65,
+        sellerNet95: 1225,
         payMethod: 'Mobius Wallet (QR)',
         status: 'held',
         reviewed: false
@@ -932,7 +736,7 @@ function getInitialData() {
         price: 4000,
         fee5: 200,
         sellerNet95: 3800,
-        payMethod: 'บัตรเครดิต (VISA ••8899)',
+        payMethod: 'บัตรเครดิต (••8899)',
         completedAt: 'วันนี้ 11:20',
         reviewed: true
       },
@@ -941,7 +745,7 @@ function getInitialData() {
         sellerId: 'seller_vip_01',
         title: 'สกินแรร์ Limited Edition (Code)',
         deliveryType: 'item_code',
-        secretPayload: 'SKIN-LIMITED-7721-9980',
+        secretPayload: 'SKIN-LIMITED-7721',
         buyerName: 'Non_Gamer_TH',
         sellerShop: 'ProValorant Thailand',
         sellerOwner: 'วรเมธ พิทักษ์กุล',
@@ -954,52 +758,20 @@ function getInitialData() {
       }
     ],
 
-    // ระบบรีวิวร้านค้าจากลูกค้าหลังซื้อขายสำเร็จ
     reviews: [
-      {
-        id: 'rev1',
-        orderId: 'ORD-101',
-        sellerShop: 'Zeed Store Official',
-        buyerName: 'Non_Gamer_TH',
-        productTitle: 'ไอดีเกม Valorant Immortal สกินครบ',
-        rating: 5,
-        comment: 'ได้รับไอดีและรหัสผ่านทันทีหลังกดซื้อ ร้านค้าปลอดภัย 3 ดาว เปลี่ยนเมลได้จริง แนะนำเลยครับ!',
-        createdAt: 'วันนี้ 11:25'
-      },
-      {
-        id: 'rev2',
-        orderId: 'ORD-100',
-        sellerShop: 'Zeed Store Official',
-        buyerName: 'Korn_Esports',
-        productTitle: 'ผลปีศาจถาวร Dragon Code',
-        rating: 5,
-        comment: 'ได้ Code ไปกรอกในเกมปุ๊บเข้าทันที ระบบคนกลางดีมากครับ',
-        createdAt: 'เมื่อวาน 19:40'
-      },
-      {
-        id: 'rev3',
-        orderId: 'ORD-102',
-        sellerShop: 'ProValorant Thailand',
-        buyerName: 'Non_Gamer_TH',
-        productTitle: 'สกินแรร์ Limited Edition (Code)',
-        rating: 5,
-        comment: 'โค้ดใช้งานได้จริง 100% ส่งไวมากครับ',
-        createdAt: 'วันนี้ 12:10'
-      }
+      { id: 'rev1', orderId: 'ORD-101', sellerShop: 'Zeed Store Official', buyerName: 'Non_Gamer_TH', productTitle: 'ไอดีเกม Valorant Immortal สกินครบ', rating: 5, comment: 'ได้รับไอดีทันทีหลังซื้อ ปลอดภัย 3 ดาว แนะนำครับ', createdAt: 'วันนี้ 11:25' },
+      { id: 'rev2', orderId: 'ORD-102', sellerShop: 'ProValorant Thailand', buyerName: 'Non_Gamer_TH', productTitle: 'สกินแรร์ Limited Edition (Code)', rating: 5, comment: 'โค้ดใช้งานได้จริง ส่งไวมากครับ', createdAt: 'วันนี้ 12:10' }
     ]
   };
 }
 
 let db = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || getInitialData();
 
-function saveDB() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-}
-
+function saveDB() { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); }
 function resetAllData() {
   localStorage.removeItem(STORAGE_KEY);
   db = getInitialData();
-  toast('รีเซ็ตข้อมูลกลับเป็นค่าเริ่มต้นเรียบร้อย!');
+  toast('รีเซ็ตข้อมูลเริ่มต้นเรียบร้อย');
   render();
 }
 
@@ -1010,15 +782,21 @@ function toast(msg) {
   t.textContent = msg;
   t.style.display = 'block';
   clearTimeout(t._tm);
-  t._tm = setTimeout(() => t.style.display = 'none', 3200);
+  t._tm = setTimeout(() => t.style.display = 'none', 3000);
 }
 
 function copyText(text) {
   navigator.clipboard.writeText(text);
-  toast(`คัดลอก "${text}" เรียบร้อยแล้ว!`);
+  toast(`คัดลอก "${text}" แล้ว`);
 }
 
-/* ==================== การเปลี่ยนโหมดและหน้า ==================== */
+function toggleRoleBar(hide) {
+  db.hideRoleBar = hide;
+  saveDB();
+  document.getElementById('topRoleBar').style.display = hide ? 'none' : 'block';
+  document.getElementById('showRoleBarBtn').style.display = hide ? 'block' : 'none';
+}
+
 function setRole(role) {
   db.role = role;
   if (role === 'guest' || role === 'buyer') db.page = 'market';
@@ -1041,9 +819,11 @@ function openShopProfile(shopName) {
 }
 
 function render() {
+  toggleRoleBar(!!db.hideRoleBar);
+
   ['guest','buyer','seller','admin'].forEach(r => {
     const el = document.getElementById('tab-' + r);
-    if (el) el.className = 'role-tab' + (r === db.role ? (r === 'admin' ? ' admin-active' : ' active') : '');
+    if (el) el.className = 'role-tab' + (r === db.role ? ' active' : '');
   });
 
   const pendingCount = (db.currentSeller.status === 'pending' ? 1 : 0) + db.orders.length;
@@ -1063,27 +843,25 @@ function render() {
   else if (db.page === 'shop_profile') main.innerHTML = renderShopProfile();
 }
 
-/* ==================== Header ตามบทบาท ==================== */
+/* ==================== Header สะอาดตา (ไม่มีปุ่มทดสอบปะปน) ==================== */
 function renderHeader() {
   const h = document.getElementById('headerMenu');
 
   if (db.role === 'guest') {
     h.innerHTML = `
-      <button class="btn" onclick="goPage('market')">🏠 ดูสินค้าในตลาด (${db.products.length})</button>
-      <button class="btn btn-gold" onclick="showModal('modalGmail')">🔐 ล็อกอินด้วยอีเมล & รหัสผ่าน</button>
+      <button class="btn" onclick="goPage('market')">🏠 ตลาดสินค้า</button>
+      <button class="btn btn-gold" onclick="showModal('modalGmail')">🔐 เข้าสู่ระบบ</button>
     `;
     return;
   }
 
   if (db.role === 'buyer') {
     h.innerHTML = `
-      <button class="btn" onclick="goPage('market')">🏠 ตลาดสินค้า (${db.products.length})</button>
-      <button class="btn" onclick="goPage('chat')">💬 แชทต่อรองราคา</button>
-      <button class="btn" onclick="goPage('orders')">📦 คำสั่งซื้อ & รีวิว (${db.orders.length + db.completedOrders.length})</button>
-      <div class="wallet-box" onclick="openQRModal()">
-        <span>💳</span>
-        <div><small>ผู้ซื้อ: ${db.buyer.name}</small><b>เงินทั้งหมด: ${fmt(db.buyer.wallet)}</b></div>
-      </div>
+      <button class="btn" onclick="goPage('market')">🏠 ตลาดสินค้า</button>
+      <button class="btn" onclick="goPage('chat')">💬 แชทต่อรอง</button>
+      <button class="btn" onclick="goPage('orders')">📦 คำสั่งซื้อ (${db.orders.length + db.completedOrders.length})</button>
+      <button class="btn btn-gold" onclick="openQRModal()">💳 เติมเงิน</button>
+      <button class="btn" onclick="setRole('guest')">ออกจากระบบ</button>
     `;
     return;
   }
@@ -1091,13 +869,10 @@ function renderHeader() {
   if (db.role === 'seller') {
     const s = db.currentSeller;
     h.innerHTML = `
-      <button class="btn" onclick="goPage('seller')">🏪 หน้าผู้ขาย (${s.status === 'approved' ? 'ลงขายได้' : 'ต้องลงทะเบียนก่อน'})</button>
-      <button class="btn" onclick="openShopProfile('${s.shopName}')">⭐ ดูโปรไฟล์ร้าน & รีวิวของฉัน</button>
-      <button class="btn" onclick="goPage('chat')">💬 แชทต่อรอง & แก้ไขราคา</button>
-      <div class="wallet-box">
-        <span>💰</span>
-        <div><small>รายได้ผู้ขาย (${'⭐'.repeat(s.stars)})</small><b>${fmt(s.wallet)}</b></div>
-      </div>
+      <button class="btn" onclick="goPage('seller')">🏪 จัดการร้านค้า</button>
+      <button class="btn" onclick="openShopProfile('${s.shopName}')">⭐ โปรไฟล์ร้าน</button>
+      <button class="btn" onclick="goPage('chat')">💬 แชทต่อรอง</button>
+      <span class="badge b-gold" style="padding:7px 12px; font-size:13px;">รายได้: ${fmt(s.wallet)}</span>
     `;
     return;
   }
@@ -1105,37 +880,55 @@ function renderHeader() {
   if (db.role === 'admin') {
     h.innerHTML = `
       <button class="btn btn-gold" onclick="goPage('admin')">👑 แผงควบคุมแอดมิน</button>
-      <button class="btn" onclick="openAdminRevenueModal()">📈 ดูรายละเอียดรายได้ 5% (${fmt(db.admin.totalRevenue5Percent)})</button>
-      <button class="btn" onclick="goPage('market')">🏠 ดูหน้าตลาด (${db.products.length})</button>
+      <button class="btn" onclick="openAdminRevenueModal()">📈 รายได้ 5% (${fmt(db.admin.totalRevenue5Percent)})</button>
+      <button class="btn" onclick="goPage('market')">🏠 ดูตลาด</button>
     `;
   }
 }
 
-/* ==================== แถบแสดงชื่อและจำนวนเงินทั้งหมดของผู้ซื้อ ==================== */
-function renderBuyerBanner() {
+/* ==================== แถบสรุปผู้ซื้อสั้นกระชับ (ชื่อ + เงินทั้งหมด + โปรโมชั่น) ==================== */
+function renderBuyerCompactBar() {
   if (db.role !== 'buyer') return '';
+  const count = db.buyer.promoCount1000 || 0;
+  const coupons = db.buyer.discountCoupons10 || 0;
+  const pct = Math.min(100, Math.round((count / 10) * 100));
+
   return `
-    <div class="buyer-profile-banner">
-      <div class="buyer-profile-info">
-        <div class="buyer-avatar">${db.buyer.name.charAt(0).toUpperCase()}</div>
+    <div class="buyer-compact-bar">
+      <div class="buyer-info-left">
         <div>
-          <div style="font-size:12px; color:var(--green); font-weight:700;">✅ ล็อกอินด้วยอีเมลและรหัสผ่านเรียบร้อย</div>
-          <div style="font-size:18px; font-weight:700;">ชื่อผู้ซื้อ: ${db.buyer.name} <span style="font-size:13px; font-weight:400; color:var(--muted);">(${db.buyer.email})</span></div>
+          <span style="font-size:12px; color:var(--muted);">ผู้ซื้อ:</span>
+          <b>${db.buyer.name}</b>
+        </div>
+        <div>
+          <span style="font-size:12px; color:var(--muted);">เงินคงเหลือ:</span>
+          <b style="color:var(--gold); font-size:17px;">${fmt(db.buyer.wallet)}</b>
         </div>
       </div>
-      <div class="buyer-balance-card">
-        <div>
-          <small style="color:var(--muted); display:block; font-size:12px;">💰 จำนวนเงินทั้งหมดที่มีในกระเป๋า</small>
-          <span style="font-size:24px; font-weight:700; color:var(--gold);">${fmt(db.buyer.wallet)}</span>
-        </div>
-        <button class="btn btn-gold" onclick="openQRModal()">📲 เติมเงิน (QR / บัตรเครดิต)</button>
-        <button class="btn" onclick="setRole('guest')">ออกจากระบบ</button>
+
+      <div class="promo-mini">
+        <span>🎁 ซื้อ 1,000฿+ ครบ 10 ชิ้น ลด 10% (สินค้าไม่เกิน 2,000฿): <b>${count}/10</b></span>
+        <div class="mini-progress"><div class="mini-progress-fill" style="width:${pct}%;"></div></div>
+        <span class="badge b-green">🎟️ คูปองลด 10%: ${coupons} ใบ</span>
       </div>
     </div>
   `;
 }
 
-/* ==================== 1. หน้าตลาดสินค้า ==================== */
+function simulatePromoStep() {
+  db.buyer.promoCount1000 = (db.buyer.promoCount1000 || 0) + 1;
+  if (db.buyer.promoCount1000 >= 10) {
+    db.buyer.promoCount1000 -= 10;
+    db.buyer.discountCoupons10 = (db.buyer.discountCoupons10 || 0) + 1;
+    toast('🎉 ครบ 10 ชิ้น! ได้รับคูปองส่วนลด 10% เพิ่ม 1 ใบ');
+  } else {
+    toast(`สะสมแต้มโปรโมชั่นเป็น ${db.buyer.promoCount1000}/10 ชิ้น`);
+  }
+  saveDB();
+  render();
+}
+
+/* ==================== 1. หน้าตลาดสินค้า (สั้น กระชับ เข้าใจง่าย) ==================== */
 function getShopReviewSummary(shopName) {
   const list = db.reviews.filter(r => r.sellerShop === shopName);
   if (list.length === 0) return { avg: '5.0', count: 0 };
@@ -1143,96 +936,122 @@ function getShopReviewSummary(shopName) {
   return { avg, count: list.length };
 }
 
-function renderMarket() {
+function onSearchInput(val) {
+  db.searchQuery = val;
+  saveDB();
+  const wrap = document.getElementById('marketProductsWrapper');
+  if (wrap) wrap.innerHTML = renderFilteredProductsHTML();
+}
+
+function selectCategory(cat) {
+  db.selectedCategory = cat;
+  saveDB();
+  render();
+}
+
+function selectTypeFilter(typeVal) {
+  db.selectedTypeFilter = typeVal;
+  saveDB();
+  render();
+}
+
+function getFilteredProducts() {
+  const q = (db.searchQuery || '').trim().toLowerCase();
+  const cat = db.selectedCategory || 'ทั้งหมด';
+  const tFilter = db.selectedTypeFilter || 'all';
+
+  return db.products.filter(p => {
+    const matchCat = cat === 'ทั้งหมด' || p.cat === cat;
+    const matchType = tFilter === 'all' || p.deliveryType === tFilter;
+    const matchQuery = !q || (p.title + ' ' + p.cat + ' ' + p.sellerShop).toLowerCase().includes(q);
+    return matchCat && matchType && matchQuery;
+  });
+}
+
+function renderFilteredProductsHTML() {
+  const list = getFilteredProducts();
+
+  if (list.length === 0) {
+    return `<div class="box" style="text-align:center; color:var(--muted);">ไม่พบสินค้าที่ค้นหา</div>`;
+  }
+
   return `
-    ${renderBuyerBanner()}
-
-    <div class="hero">
-      <div class="hero-left">
-        <h2>ตลาดคนกลางซื้อขาย <span>Mobius Escrow</span></h2>
-        <p>รองรับทั้ง <b>🎮 ไอดีเกม</b>, <b>🎁 ไอเท็มในเกม (Code)</b> และ <b>💳 บัตรเติมเกม (Code)</b> เลือกชำระเงินได้ทั้ง <b>สแกน QR PromptPay</b> และ <b>บัตรเครดิต</b> พร้อมกดดูโปรไฟล์ร้านค้า รีวิวจากลูกค้าจริง และประวัติการขายได้ทุกชิ้น</p>
-        <div class="step-pills">
-          <span class="step-pill">🔐 ล็อกอินด้วยอีเมล & รหัสผ่าน</span>
-          <span class="step-pill">💳 จ่ายได้ทั้ง QR & บัตรเครดิต</span>
-          <span class="step-pill">✅ กดยืนยันก่อนสั่งซื้อ</span>
-          <span class="step-pill">⭐ ดูโปรไฟล์ร้าน & รีวิวลูกค้าได้</span>
-        </div>
-      </div>
-      <div class="hero-logo">
-        <svg viewBox="0 0 100 60" width="80" height="48">
-          <path d="M50 30 C38 8 10 8 10 30 C10 52 38 52 50 30 C62 8 90 8 90 30 C90 52 62 52 50 30 Z"
-                fill="none" stroke="url(#gMob)" stroke-width="11" stroke-linecap="round"/>
-        </svg>
-        <b>MOBIUS CLUB</b>
-      </div>
-    </div>
-
-    <div class="box-title">
-      <span>🔥 สินค้าที่ลงขายในตลาด (${db.products.length} รายการ)</span>
-      ${db.role === 'guest'
-        ? `<button class="btn btn-gold" onclick="showModal('modalGmail')">🔐 ล็อกอินด้วยอีเมลและรหัสผ่านเพื่อสั่งซื้อ</button>`
-        : ''}
-    </div>
-
-    ${db.products.length === 0 ? `
-      <div class="box" style="text-align:center; padding:40px; color:var(--muted);">
-        ยังไม่มีสินค้าในตลาดตอนนี้
-      </div>
-    ` : `
-      <div class="grid-products">
-        ${db.products.map(p => {
-          const tInfo = DELIVERY_TYPES[p.deliveryType || 'account'] || DELIVERY_TYPES.account;
-          const rev = getShopReviewSummary(p.sellerShop);
-          return `
-          <div class="p-card">
-            <div class="p-img">
-              <span class="p-cat">${p.cat}</span>
-              <span>${p.icon || tInfo.icon}</span>
-              <span class="p-type-badge">${tInfo.shortBadge}</span>
-            </div>
-            <div class="p-body">
-              <div class="p-title">${p.title}</div>
-              <div class="p-desc">${p.desc}</div>
-
-              <div class="seller-tag">
-                <div>📦 ประเภท: <b>${tInfo.label}</b></div>
-                <div>
-                  🏪 ร้าน: <span class="shop-link" onclick="openShopProfile('${p.sellerShop}')">${p.sellerShop} (ดูโปรไฟล์/รีวิว)</span>
-                </div>
-                <div>👤 ชื่อผู้ขาย: <b>${p.sellerOwner}</b></div>
-                <div style="margin-top:3px; font-size:11px; color:var(--green); font-weight:600;">
-                  💬 คะแนนรีวิวลูกค้า: ⭐ ${rev.avg}/5.0 (${rev.count} รีวิว)
-                </div>
-                ${renderStarBadge(p.sellerStars || 3)}
-              </div>
-
-              <div class="p-price">${fmt(p.price)}</div>
-              <small style="color:var(--muted);">
-              
-              </small>
-
-              <div class="p-actions">
-                <button class="btn" onclick="startNegotiate('${p.id}')">💬 ต่อรอง</button>
-                <button class="btn btn-gold" onclick="openCheckoutConfirm('${p.id}')">🛒 กดซื้อ</button>
-              </div>
-              <button class="btn btn-blue" style="width:100%; justify-content:center; margin-top:6px;" onclick="openShopProfile('${p.sellerShop}')">
-                🏪 ดูโปรไฟล์ร้าน · รีวิว (${rev.count}) · ประวัติการขาย
-              </button>
-              ${db.role === 'admin' ? `
-                <button class="btn btn-red" style="width:100%; justify-content:center; margin-top:6px;" onclick="adminCancelProduct('${p.id}')">
-                  🗑️ แอดมินยกเลิก/ลบสินค้านี้
-                </button>
-              ` : ''}
-            </div>
+    <div class="grid-products">
+      ${list.map(p => {
+        const tInfo = DELIVERY_TYPES[p.deliveryType || 'account'] || DELIVERY_TYPES.account;
+        const rev = getShopReviewSummary(p.sellerShop);
+        const canUseCoupon = p.price <= 2000;
+        return `
+        <div class="p-card">
+          <div class="p-img">
+            <span class="p-cat">${p.cat}</span>
+            <span>${p.icon || tInfo.icon}</span>
+            <span class="p-type-badge">${tInfo.shortBadge}</span>
           </div>
-          `;
-        }).join('')}
-      </div>
-    `}
+          <div class="p-body">
+            <div class="p-title">${p.title}</div>
+
+            <div class="p-shop-row">
+              <span class="shop-link" onclick="openShopProfile('${p.sellerShop}')">🏪 ${p.sellerShop}</span>
+              <span title="การันตีความปลอดภัย">${'⭐'.repeat(p.sellerStars || 3)} (${rev.avg})</span>
+            </div>
+
+            <div class="p-price-row">
+              <div class="p-price">${fmt(p.price)}</div>
+              ${canUseCoupon ? `<span class="badge b-green">ใช้คูปองลด 10% ได้</span>` : `<span class="badge b-gold">แต้มโปร 1,000฿+</span>`}
+            </div>
+
+            <div class="p-actions">
+              <button class="btn" onclick="startNegotiate('${p.id}')">💬 ต่อรอง</button>
+              <button class="btn btn-gold" onclick="openCheckoutConfirm('${p.id}')">🛒 ซื้อเลย</button>
+            </div>
+            ${db.role === 'admin' ? `
+              <button class="btn btn-red" style="width:100%; justify-content:center; margin-top:6px; font-size:11px;" onclick="adminCancelProduct('${p.id}')">
+                🗑️ ยกเลิกสินค้า
+              </button>
+            ` : ''}
+          </div>
+        </div>
+        `;
+      }).join('')}
+    </div>
   `;
 }
 
-/* ==================== หน้าโปรไฟล์ร้านค้า (ดูรีวิวลูกค้า & ประวัติการขายได้) ==================== */
+function renderMarket() {
+  return `
+    ${renderBuyerCompactBar()}
+
+    <div class="filter-bar">
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <span>🔍</span>
+          <input type="text" value="${db.searchQuery || ''}" placeholder="ค้นหาสินค้า, ชื่อเกม, ชื่อร้าน..." oninput="onSearchInput(this.value)">
+        </div>
+        <select onchange="selectTypeFilter(this.value)" style="max-width:200px; padding:8px 10px; border-radius:9px; border:1px solid var(--border); font-family:inherit; font-size:12.5px; font-weight:600;">
+          <option value="all" ${db.selectedTypeFilter==='all'?'selected':''}>📦 ทุกประเภท</option>
+          <option value="account" ${db.selectedTypeFilter==='account'?'selected':''}>🎮 ไอดีเกม</option>
+          <option value="item_code" ${db.selectedTypeFilter==='item_code'?'selected':''}>🎁 Code ไอเท็ม</option>
+          <option value="card_code" ${db.selectedTypeFilter==='card_code'?'selected':''}>💳 Code บัตรเติมเกม</option>
+        </select>
+      </div>
+
+      <div class="cat-pills">
+        ${CATEGORIES.map(c => `
+          <button class="cat-pill ${db.selectedCategory === c ? 'active' : ''}" onclick="selectCategory('${c}')">
+            ${c}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div id="marketProductsWrapper">
+      ${renderFilteredProductsHTML()}
+    </div>
+  `;
+}
+
+/* ==================== หน้าโปรไฟล์ร้านค้า ==================== */
 function renderShopProfile() {
   const shopName = db.viewingShopName || 'Zeed Store Official';
   const sellerObj = db.approvedSellers.find(s => s.shopName === shopName) || db.currentSeller;
@@ -1245,130 +1064,83 @@ function renderShopProfile() {
   const revSum = getShopReviewSummary(shopName);
 
   return `
-    ${renderBuyerBanner()}
-    <div style="margin-bottom:14px;">
-      <button class="btn" onclick="goPage('market')">← กลับไปหน้าตลาดสินค้า</button>
+    ${renderBuyerCompactBar()}
+    <div style="margin-bottom:12px;">
+      <button class="btn" onclick="goPage('market')">← กลับหน้าตลาด</button>
     </div>
 
-    <div class="box" style="background:linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); border-color:var(--gold-border);">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+    <div class="box" style="background:var(--gold-bg); border-color:var(--gold-border);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
         <div>
-          <span class="badge b-green">🏪 โปรไฟล์ร้านค้าที่ยืนยันตัวตนแล้ว</span>
-          <h2 style="margin-top:6px;">${shopName}</h2>
-          <div style="font-size:14px; color:var(--muted);">
-            👤 ชื่อจริงผู้ขาย (ตรงกันทั้ง 3 เอกสาร): <b>${sellerObj.idCardName}</b>
+          <h2>🏪 ${shopName}</h2>
+          <div style="font-size:13px; color:var(--muted);">
+            ผู้ขาย: <b>${sellerObj.fullName}</b> · การันตีความปลอดภัย ${'⭐'.repeat(sellerObj.stars || 3)} (${sellerObj.stars || 3} ดาว)
           </div>
-          <div style="margin-top:6px;">${renderStarBadge(sellerObj.stars || 3)}</div>
         </div>
-
-        <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <div class="stat-box" style="min-width:150px; text-align:center;">
-            <small>⭐ คะแนนรีวิวจากลูกค้า</small>
-            <div class="num" style="color:var(--gold);">${revSum.avg} / 5.0</div>
-            <small>จาก ${revSum.count} รีวิวลูกค้าจริง</small>
+        <div style="display:flex; gap:10px;">
+          <div class="stat-box" style="padding:10px 14px; text-align:center;">
+            <small>คะแนนรีวิว</small>
+            <b style="color:var(--gold); font-size:18px;">⭐ ${revSum.avg}/5</b>
           </div>
-          <div class="stat-box" style="min-width:150px; text-align:center;">
-            <small>📦 ประวัติการขายทั้งหมด</small>
-            <div class="num" style="color:var(--green);">${shopSalesHistory.length} รายการ</div>
-            <small>ส่งมอบผ่าน Mobius Escrow</small>
+          <div class="stat-box" style="padding:10px 14px; text-align:center;">
+            <small>ขายแล้ว</small>
+            <b style="color:var(--green); font-size:18px;">${shopSalesHistory.length} ชิ้น</b>
           </div>
         </div>
       </div>
     </div>
 
     <div class="grid-2">
-      <!-- คอลัมน์ซ้าย: รีวิวจากลูกค้าจริง -->
       <div class="box">
-        <div class="box-title">
-          <span>⭐ รีวิวจากลูกค้าที่ซื้อสินค้า (${shopReviews.length} รีวิว)</span>
-        </div>
-        ${shopReviews.length === 0 ? `
-          <p style="color:var(--muted); font-size:13px;">ยังไม่มีรีวิวสำหรับร้านนี้</p>
-        ` : shopReviews.map(r => `
+        <div class="box-title"><span>⭐ รีวิวจากลูกค้า (${shopReviews.length})</span></div>
+        ${shopReviews.length === 0 ? `<small style="color:var(--muted);">ยังไม่มีรีวิว</small>` : shopReviews.map(r => `
           <div class="review-item">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <div style="display:flex; justify-content:space-between;">
               <b>🧑 ${r.buyerName}</b>
-              <span style="color:#f59e0b; font-weight:700;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)} (${r.rating}/5)</span>
+              <span style="color:#f59e0b; font-weight:700;">${'★'.repeat(r.rating)}</span>
             </div>
-            <div style="font-size:12px; color:var(--blue); margin-bottom:4px;">สินค้าที่ซื้อ: ${r.productTitle}</div>
-            <div style="font-size:13px;">"${r.comment}"</div>
-            <small style="color:var(--muted); display:block; margin-top:4px;">🕒 ${r.createdAt}</small>
+            <div style="font-size:11px; color:var(--muted); margin:2px 0;">สินค้า: ${r.productTitle}</div>
+            <div>"${r.comment}"</div>
           </div>
         `).join('')}
       </div>
 
-      <!-- คอลัมน์ขวา: ประวัติการขายของร้าน & สินค้าที่กำลังวางขาย -->
-      <div>
-        <div class="box">
-          <div class="box-title">
-            <span>📜 ประวัติการขายของร้าน (${shopSalesHistory.length} รายการ)</span>
-          </div>
-          ${shopSalesHistory.length === 0 ? `
-            <p style="color:var(--muted); font-size:13px;">ยังไม่มีประวัติการขาย</p>
-          ` : `
-            <table>
-              <thead>
-                <tr>
-                  <th>รหัสออเดอร์</th>
-                  <th>สินค้าที่ขาย</th>
-                  <th>ผู้ซื้อ</th>
-                  <th>ราคา</th>
-                  <th>สถานะ</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${shopSalesHistory.map(o => `
-                  <tr>
-                    <td><b>${o.id}</b></td>
-                    <td>${o.title}</td>
-                    <td>${o.buyerName}</td>
-                    <td><b style="color:var(--gold)">${fmt(o.price)}</b></td>
-                    <td>
-                      <span class="badge ${o.status === 'held' ? 'b-gold' : 'b-green'}">
-                        ${o.status === 'held' ? 'กำลังดำเนินการ' : '✅ ส่งมอบสำเร็จ'}
-                      </span>
-                    </td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          `}
-        </div>
-
-        <div class="box">
-          <div class="box-title">
-            <span>🛒 สินค้าของร้านที่กำลังเปิดขาย (${shopProducts.length})</span>
-          </div>
-          ${shopProducts.map(p => `
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
-              <div>
-                <b>${p.icon} ${p.title}</b>
-                <div style="font-size:12px; color:var(--gold); font-weight:700;">${fmt(p.price)}</div>
-              </div>
-              <button class="btn btn-gold" onclick="openCheckoutConfirm('${p.id}')">🛒 กดซื้อ</button>
-            </div>
-          `).join('')}
-        </div>
+      <div class="box">
+        <div class="box-title"><span>📜 ประวัติการขาย (${shopSalesHistory.length})</span></div>
+        <table>
+          <thead>
+            <tr><th>รหัส</th><th>สินค้า</th><th>ผู้ซื้อ</th><th>ราคา</th></tr>
+          </thead>
+          <tbody>
+            ${shopSalesHistory.map(o => `
+              <tr>
+                <td><b>${o.id}</b></td>
+                <td>${o.title}</td>
+                <td>${o.buyerName}</td>
+                <td><b style="color:var(--gold)">${fmt(o.price)}</b></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
       </div>
     </div>
   `;
 }
 
-/* ==================== ระบบกดยืนยันก่อนสั่งซื้อ + ชำระด้วยกระเป๋าหรือบัตรเครดิต ==================== */
-let checkoutPayMethod = 'wallet'; // 'wallet' | 'credit_card'
+/* ==================== ยืนยันก่อนสั่งซื้อ + ใช้คูปองลด 10% ==================== */
+let checkoutPayMethod = 'wallet';
+let usePromoCoupon10 = false;
 
 function openCheckoutConfirm(productId) {
   if (db.role === 'guest') {
-    toast('กรุณาเข้าสู่ระบบด้วยอีเมลและรหัสผ่านก่อนสั่งซื้อสินค้า');
+    toast('กรุณาเข้าสู่ระบบก่อนสั่งซื้อ');
     showModal('modalGmail');
     return;
   }
   const p = db.products.find(x => x.id === productId);
-  if (!p) {
-    toast('ไม่พบสินค้านี้');
-    return;
-  }
+  if (!p) return;
   checkoutPayMethod = 'wallet';
+  usePromoCoupon10 = (db.buyer.discountCoupons10 > 0 && p.price <= 2000);
   renderCheckoutConfirmModal(p);
   showModal('modalCheckoutConfirm');
 }
@@ -1379,112 +1151,122 @@ function selectCheckoutPayMethod(method, productId) {
   if (p) renderCheckoutConfirmModal(p);
 }
 
+function togglePromoCoupon(checked, productId) {
+  usePromoCoupon10 = checked;
+  const p = db.products.find(x => x.id === productId);
+  if (p) renderCheckoutConfirmModal(p);
+}
+
 function renderCheckoutConfirmModal(p) {
   const tInfo = DELIVERY_TYPES[p.deliveryType || 'account'] || DELIVERY_TYPES.account;
-  document.getElementById('modalCheckoutConfirmContent').innerHTML = `
-    <h3 style="margin-bottom:4px;">🛡️ ยืนยันรายละเอียดก่อนสั่งซื้อสินค้า</h3>
-    <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">
-      กรุณาตรวจสอบข้อมูลสินค้า เลือกช่องทางชำระเงิน และกดยืนยันก่อนสั่งซื้อ
-    </p>
+  const couponsAvailable = db.buyer.discountCoupons10 || 0;
+  const canApplyCoupon = couponsAvailable > 0 && p.price <= 2000;
+  const discountAmt = (canApplyCoupon && usePromoCoupon10) ? Math.round(p.price * 0.10) : 0;
+  const finalPayPrice = p.price - discountAmt;
 
-    <div class="box" style="background:#f8fafc; padding:14px; margin-bottom:14px;">
-      <div style="font-size:15px; font-weight:700;">${p.icon || tInfo.icon} ${p.title}</div>
-      <div style="font-size:12px; color:var(--muted); margin-top:4px;">
-        ประเภทสินค้า: <b>${tInfo.label}</b><br>
-        ร้านผู้ขาย: <b>${p.sellerShop} (${p.sellerOwner})</b> ${'⭐'.repeat(p.sellerStars || 3)}
+  document.getElementById('modalCheckoutConfirmContent').innerHTML = `
+    <h3 style="margin-bottom:8px;">🛡️ ยืนยันการสั่งซื้อ</h3>
+
+    <div class="box" style="background:#f8fafc; padding:12px; margin-bottom:12px;">
+      <b>${p.icon || tInfo.icon} ${p.title}</b>
+      <div style="font-size:12px; color:var(--muted); margin-top:2px;">
+        ร้าน: ${p.sellerShop} · ${tInfo.label}
       </div>
-      <div style="font-size:20px; font-weight:700; color:var(--gold); margin-top:8px;">
-        ยอดชำระสุทธิ: ${fmt(p.price)}
+      <div style="font-size:18px; font-weight:700; color:var(--gold); margin-top:6px;">
+        ยอดชำระ: ${fmt(finalPayPrice)}
+        ${discountAmt > 0 ? `<small style="color:var(--green); font-size:12px;">(ลด 10% = -${fmt(discountAmt)})</small>` : ''}
       </div>
     </div>
 
-    <label style="font-size:13px; font-weight:600; display:block; margin-bottom:6px;">เลือกช่องทางชำระเงิน:</label>
+    ${canApplyCoupon ? `
+      <label style="display:flex; align-items:center; justify-content:space-between; background:#ecfdf5; border:1px solid #10b981; padding:8px 12px; border-radius:9px; cursor:pointer; font-size:12.5px; margin-bottom:10px;">
+        <span>🎟️ ใช้คูปองลด 10% (สำหรับสินค้าไม่เกิน 2,000฿)</span>
+        <input type="checkbox" ${usePromoCoupon10 ? 'checked' : ''} onchange="togglePromoCoupon(this.checked, '${p.id}')" style="width:16px; height:16px;">
+      </label>
+    ` : ''}
+
     <div class="pay-method-grid">
       <div class="pay-option ${checkoutPayMethod === 'wallet' ? 'active' : ''}" onclick="selectCheckoutPayMethod('wallet', '${p.id}')">
-        <b>📲 กระเป๋า Mobius Wallet</b>
-        <div style="font-size:12px; color:var(--green); font-weight:600;">คงเหลือ: ${fmt(db.buyer.wallet)}</div>
+        <b>📲 กระเป๋า Wallet</b>
+        <div style="font-size:11px; color:var(--green);">มีอยู่ ${fmt(db.buyer.wallet)}</div>
       </div>
       <div class="pay-option ${checkoutPayMethod === 'credit_card' ? 'active' : ''}" onclick="selectCheckoutPayMethod('credit_card', '${p.id}')">
-        <b>💳 บัตรเครดิต / เดบิต</b>
-        <div style="font-size:11px; color:var(--muted);">ตัดบัตรทันที ปลอดภัย</div>
+        <b>💳 บัตรเครดิต</b>
+        <div style="font-size:11px; color:var(--muted);">Visa / MasterCard</div>
       </div>
     </div>
 
     ${checkoutPayMethod === 'credit_card' ? `
       <div class="credit-card-form">
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:12px;">
-          <b>💳 ชำระด้วยบัตรเครดิต / เดบิต</b>
-          <span>VISA / MASTERCARD</span>
-        </div>
         <div class="field">
-          <label>หมายเลขบัตรเครดิต 16 หลัก *</label>
-          <input type="text" id="chkCardNo" value="4532 8891 2204 8899" placeholder="XXXX XXXX XXXX XXXX">
-        </div>
-        <div class="field">
-          <label>ชื่อผู้ถือบัตร *</label>
-          <input type="text" id="chkCardHolder" value="${db.buyer.name.toUpperCase()}">
+          <label>หมายเลขบัตรเครดิต 16 หลัก</label>
+          <input type="text" id="chkCardNo" value="4532 8891 2204 8899">
         </div>
         <div class="grid-2">
-          <div class="field">
-            <label>วันหมดอายุ (MM/YY) *</label>
-            <input type="text" id="chkCardExp" value="09/29">
-          </div>
-          <div class="field">
-            <label>รหัส CVV *</label>
-            <input type="password" id="chkCardCvv" value="789">
-          </div>
+          <div class="field"><label>วันหมดอายุ</label><input type="text" id="chkCardExp" value="09/29"></div>
+          <div class="field"><label>CVV</label><input type="password" id="chkCardCvv" value="789"></div>
         </div>
       </div>
     ` : ''}
 
-    <label style="display:flex; align-items:center; gap:8px; font-size:13px; background:#fffbeb; border:1px solid var(--gold-border); padding:10px 12px; border-radius:10px; margin-bottom:14px; cursor:pointer;">
-      <input type="checkbox" id="confirmOrderCheckbox" checked style="width:18px; height:18px;">
-      <span>ฉันตรวจสอบข้อมูลสินค้าและ<b>ยืนยันการสั่งซื้อ</b>ผ่านระบบคนกลาง Mobius Escrow</span>
+    <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; margin-bottom:12px; cursor:pointer;">
+      <input type="checkbox" id="confirmOrderCheckbox" checked style="width:16px; height:16px;">
+      <span>ยืนยันการสั่งซื้อสินค้านี้</span>
     </label>
 
     <div style="display:flex; gap:8px;">
       <button class="btn" style="flex:1; justify-content:center;" onclick="hideModal('modalCheckoutConfirm')">ยกเลิก</button>
-      <button class="btn btn-gold" style="flex:2; justify-content:center; padding:11px;" onclick="executeConfirmedPurchase('${p.id}')">
-        ✅ ยืนยันสั่งซื้อและชำระเงิน ${fmt(p.price)}
+      <button class="btn btn-gold" style="flex:2; justify-content:center;" onclick="executeConfirmedPurchase('${p.id}')">
+        ✅ ชำระเงิน ${fmt(finalPayPrice)}
       </button>
     </div>
   `;
 }
 
 function executeConfirmedPurchase(productId) {
-  const chk = document.getElementById('confirmOrderCheckbox');
-  if (!chk || !chk.checked) {
-    toast('กรุณาติ๊กถูกช่อง "ยืนยันการสั่งซื้อ" ก่อนดำเนินการชำระเงิน');
+  if (!document.getElementById('confirmOrderCheckbox')?.checked) {
+    toast('กรุณาติ๊กยืนยันก่อนสั่งซื้อ');
     return;
   }
-
   const p = db.products.find(x => x.id === productId);
   if (!p) return;
 
-  let payLabel = 'Mobius Wallet (QR)';
+  const canApplyCoupon = (db.buyer.discountCoupons10 > 0) && (p.price <= 2000) && usePromoCoupon10;
+  const discountAmt = canApplyCoupon ? Math.round(p.price * 0.10) : 0;
+  const finalPayPrice = p.price - discountAmt;
 
+  let payLabel = 'Mobius Wallet';
   if (checkoutPayMethod === 'wallet') {
-    if (db.buyer.wallet < p.price) {
+    if (db.buyer.wallet < finalPayPrice) {
       hideModal('modalCheckoutConfirm');
-      toast(`ยอดเงินในกระเป๋ามี ${fmt(db.buyer.wallet)} ไม่พอชำระ กรุณาเติมเงินหรือเลือกชำระด้วยบัตรเครดิต`);
-      setQRValue(p.price - db.buyer.wallet);
+      toast('ยอดเงินในกระเป๋าไม่พอ กรุณาเติมเงิน');
+      setQRValue(finalPayPrice - db.buyer.wallet);
       openQRModal();
       return;
     }
-    db.buyer.wallet -= p.price;
+    db.buyer.wallet -= finalPayPrice;
   } else {
     const cardNo = (document.getElementById('chkCardNo')?.value || '').trim();
-    const cvv = (document.getElementById('chkCardCvv')?.value || '').trim();
-    if (cardNo.length < 12 || cvv.length < 3) {
-      toast('กรุณากรอกข้อมูลบัตรเครดิตและรหัส CVV ให้ครบถ้วน');
-      return;
-    }
     payLabel = 'บัตรเครดิต (••' + cardNo.slice(-4) + ')';
   }
 
-  const fee5 = Math.round(p.price * FEE_RATE);
-  const net95 = p.price - fee5;
-  db.admin.escrowHolding += p.price;
+  if (canApplyCoupon) {
+    db.buyer.discountCoupons10 = Math.max(0, db.buyer.discountCoupons10 - 1);
+  }
+
+  let earnedNewCoupon = false;
+  if (p.price >= 1000) {
+    db.buyer.promoCount1000 = (db.buyer.promoCount1000 || 0) + 1;
+    if (db.buyer.promoCount1000 >= 10) {
+      db.buyer.promoCount1000 -= 10;
+      db.buyer.discountCoupons10 = (db.buyer.discountCoupons10 || 0) + 1;
+      earnedNewCoupon = true;
+    }
+  }
+
+  const fee5 = Math.round(finalPayPrice * FEE_RATE);
+  const net95 = finalPayPrice - fee5;
+  db.admin.escrowHolding += finalPayPrice;
 
   const newOrder = {
     id: 'ORD-' + Math.floor(100 + Math.random() * 900),
@@ -1496,7 +1278,7 @@ function executeConfirmedPurchase(productId) {
     buyerName: db.buyer.name,
     sellerShop: p.sellerShop,
     sellerOwner: p.sellerOwner,
-    price: p.price,
+    price: finalPayPrice,
     fee5: fee5,
     sellerNet95: net95,
     payMethod: payLabel,
@@ -1507,43 +1289,32 @@ function executeConfirmedPurchase(productId) {
   db.orders.unshift(newOrder);
   saveDB();
   hideModal('modalCheckoutConfirm');
-  showDeliveredSecretModal(newOrder);
+  showDeliveredSecretModal(newOrder, earnedNewCoupon);
   render();
 }
 
-function showDeliveredSecretModal(order) {
+function showDeliveredSecretModal(order, earnedNewCoupon = false) {
   const tInfo = DELIVERY_TYPES[order.deliveryType || 'account'] || DELIVERY_TYPES.account;
   document.getElementById('modalDeliveredSecretContent').innerHTML = `
-    <div style="text-align:center; margin-bottom:14px;">
-      <div style="font-size:48px;">🎉</div>
-      <h3 style="color:var(--green);">ชำระเงินสำเร็จ (${order.payMethod})!</h3>
-      <p style="font-size:13px; color:var(--muted);">
-        คำสั่งซื้อ <b>${order.id}</b> · ${order.title}
-      </p>
+    <div style="text-align:center; margin-bottom:12px;">
+      <div style="font-size:42px;">🎉</div>
+      <h3 style="color:var(--green);">สั่งซื้อสำเร็จ!</h3>
+      <small style="color:var(--muted);">${order.title}</small>
     </div>
 
-    <div class="box" style="background:#fffbeb; border-color:#fcd34d; margin-bottom:14px;">
-      <div style="font-size:12px; color:#92400e; font-weight:700; margin-bottom:4px;">
-        📦 ข้อมูลที่ได้รับทันที: ${tInfo.label}
-      </div>
+    ${earnedNewCoupon ? `<div class="alert alert-ok">🎁 สะสมครบ 10 ชิ้น! ได้รับคูปองลด 10% เพิ่ม 1 ใบ</div>` : ''}
+
+    <div class="box" style="background:#fffbeb; border-color:#fcd34d; padding:12px; margin-bottom:12px;">
+      <small style="color:#92400e; font-weight:700;">📦 ${tInfo.label} ของคุณ:</small>
       <div class="secret-code-box">
         <span>${order.secretPayload}</span>
-        <button class="btn btn-gold" style="padding:5px 10px; font-size:12px;" onclick="copyText('${order.secretPayload.replace(/'/g, "\\'")}')">
-          📋 คัดลอก
-        </button>
+        <button class="btn btn-gold" style="padding:4px 8px; font-size:11px;" onclick="copyText('${order.secretPayload.replace(/'/g, "\\'")}')">คัดลอก</button>
       </div>
-      <small style="display:block; margin-top:8px; color:var(--muted);">
-        * เมื่อนำ Code ไปใช้งานเรียบร้อยแล้ว กดปุ่มยืนยันรับของด้านล่างเพื่อปล่อยเงินให้ผู้ขายและเขียนรีวิวให้ร้านค้าได้เลยครับ
-      </small>
     </div>
 
     <div style="display:flex; gap:8px;">
-      <button class="btn" style="flex:1; justify-content:center;" onclick="hideModal('modalDeliveredSecret'); goPage('orders');">
-        📦 ไปหน้าคำสั่งซื้อ
-      </button>
-      <button class="btn btn-green" style="flex:1; justify-content:center;" onclick="hideModal('modalDeliveredSecret'); completeOrder('${order.id}', true);">
-        ✅ ยืนยันรับของ & เขียนรีวิว
-      </button>
+      <button class="btn" style="flex:1; justify-content:center;" onclick="hideModal('modalDeliveredSecret'); goPage('orders');">ดูคำสั่งซื้อ</button>
+      <button class="btn btn-green" style="flex:1; justify-content:center;" onclick="hideModal('modalDeliveredSecret'); completeOrder('${order.id}', true);">✅ ยืนยันรับของ & รีวิว</button>
     </div>
   `;
   showModal('modalDeliveredSecret');
@@ -1551,7 +1322,6 @@ function showDeliveredSecretModal(order) {
 
 function startNegotiate(id) {
   if (db.role === 'guest') {
-    toast('กรุณาเข้าสู่ระบบด้วยอีเมลและรหัสผ่านก่อนต่อรองราคา');
     showModal('modalGmail');
     return;
   }
@@ -1559,64 +1329,47 @@ function startNegotiate(id) {
   goPage('chat');
 }
 
-/* ==================== 2. หน้าแชทต่อรอง & ผู้ขายแก้ไขราคาได้ ==================== */
+/* ==================== 2. หน้าแชทต่อรอง & แก้ราคา ==================== */
 function renderChat() {
-  if (db.products.length === 0) {
-    return `${renderBuyerBanner()}<div class="box">ไม่มีสินค้าในตลาดให้ต่อรองราคาในขณะนี้</div>`;
-  }
   const p = db.products.find(x => x.id === db.selectedProductId) || db.products[0];
-  const fee5 = Math.round(p.price * FEE_RATE);
-  const tInfo = DELIVERY_TYPES[p.deliveryType || 'account'] || DELIVERY_TYPES.account;
+  if (!p) return `<div class="box">ไม่มีสินค้า</div>`;
 
   return `
-    ${renderBuyerBanner()}
+    ${renderBuyerCompactBar()}
     <div class="box">
       <div class="box-title">
-        <span>💬 ห้องแชทต่อรองราคา (เชื่อมตรงระหว่างผู้ซื้อ & ผู้ขาย)</span>
-        <div style="display:flex; gap:6px; align-items:center;">
-          <span style="font-size:13px; color:var(--muted);">เลือกสินค้า:</span>
-          <select onchange="db.selectedProductId=this.value; saveDB(); render();" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border);">
-            ${db.products.map(item => `<option value="${item.id}" ${item.id===p.id?'selected':''}>${item.title} (${fmt(item.price)})</option>`).join('')}
-          </select>
-        </div>
+        <span>💬 แชทต่อรองราคา</span>
+        <select onchange="db.selectedProductId=this.value; saveDB(); render();" style="padding:5px 8px; border-radius:8px; border:1px solid var(--border);">
+          ${db.products.map(item => `<option value="${item.id}" ${item.id===p.id?'selected':''}>${item.title} (${fmt(item.price)})</option>`).join('')}
+        </select>
       </div>
 
       <div class="chat-box">
         <div class="chat-top">
           <div>
-            <b>${p.icon || tInfo.icon} ${p.title}</b> <span class="badge b-blue">${tInfo.shortBadge}</span>
-            <div style="font-size:12px; color:var(--muted);">
-              🏪 ร้านผู้ขาย: <span class="shop-link" onclick="openShopProfile('${p.sellerShop}')">${p.sellerShop}</span> |
-              ราคาปัจจุบัน: <b style="color:var(--gold); font-size:16px;">${fmt(p.price)}</b>
-              (แอดมินได้ 5% = <b>${fmt(fee5)}</b> | ผู้ขายรับ 95% = <b>${fmt(p.price - fee5)}</b>)
-            </div>
+            <b>${p.title}</b> · <span style="color:var(--gold); font-weight:700;">${fmt(p.price)}</span>
           </div>
-
-          <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
-            <input type="number" id="newPriceBox" value="${p.price}" style="width:120px; padding:7px 10px; border:1px solid var(--border); border-radius:8px; background:#fff;">
-            <button class="btn btn-gold" onclick="sellerChangePrice('${p.id}')">✏️ ผู้ขายแก้ไขราคา</button>
-            <button class="btn btn-green" onclick="openCheckoutConfirm('${p.id}')">🛒 กดซื้อราคานี้</button>
+          <div style="display:flex; gap:6px; align-items:center;">
+            ${db.role === 'seller' ? `
+              <input type="number" id="newPriceBox" value="${p.price}" style="width:100px; padding:5px 8px; border:1px solid var(--border); border-radius:8px;">
+              <button class="btn btn-gold" onclick="sellerChangePrice('${p.id}')">✏️ แก้ราคา</button>
+            ` : `
+              <button class="btn btn-green" onclick="openCheckoutConfirm('${p.id}')">🛒 ซื้อราคานี้</button>
+            `}
           </div>
         </div>
 
         <div class="chat-messages">
           ${db.messages.map(m => {
             if (m.sender === 'sys') return `<div class="msg sys">${m.text}</div>`;
-            return `
-              <div class="msg ${m.sender === 'buyer' ? 'me' : ''}">
-                <small style="color:var(--muted); display:block; font-size:11px;">
-                  ${m.sender === 'buyer' ? '🧑 ผู้ซื้อ (' + (m.author || db.buyer.name) + ')' : '🏪 ผู้ขาย (' + (m.author || p.sellerShop) + ')'}
-                </small>
-                ${m.text}
-              </div>
-            `;
+            return `<div class="msg ${m.sender === 'buyer' ? 'me' : ''}"><small style="color:var(--muted);display:block;font-size:10px;">${m.author}</small>${m.text}</div>`;
           }).join('')}
         </div>
 
         <div class="chat-bar">
-          <input type="number" id="offerPriceInput" placeholder="เสนอราคาต่อรอง (บาท)" style="max-width:180px; padding:9px; border:1px solid var(--border); border-radius:8px;">
-          <input type="text" id="chatMsgInput" placeholder="พิมพ์ข้อความพูดคุยหรือต่อรองราคา..." style="flex:1; padding:9px; border:1px solid var(--border); border-radius:8px;">
-          <button class="btn btn-gold" onclick="sendChat()">ส่งข้อความ</button>
+          <input type="number" id="offerPriceInput" placeholder="เสนอราคา (บาท)" style="max-width:150px; padding:7px; border:1px solid var(--border); border-radius:8px;">
+          <input type="text" id="chatMsgInput" placeholder="พิมพ์ข้อความ..." style="flex:1; padding:7px; border:1px solid var(--border); border-radius:8px;">
+          <button class="btn btn-gold" onclick="sendChat()">ส่ง</button>
         </div>
       </div>
     </div>
@@ -1627,86 +1380,46 @@ function sendChat() {
   const offer = Number(document.getElementById('offerPriceInput').value || 0);
   const txt = document.getElementById('chatMsgInput').value.trim();
   if (!offer && !txt) return;
-
   const isSeller = db.role === 'seller';
-  const sender = isSeller ? 'seller' : 'buyer';
-  const author = isSeller ? db.currentSeller.shopName : db.buyer.name;
-  const msg = offer > 0 ? `💰 ขอต่อรองราคาเป็น ${fmt(offer)} ${txt}` : txt;
-
-  db.messages.push({ sender, author, text: msg });
+  db.messages.push({
+    sender: isSeller ? 'seller' : 'buyer',
+    author: isSeller ? db.currentSeller.shopName : db.buyer.name,
+    text: offer > 0 ? `💰 เสนอราคา ${fmt(offer)} ${txt}` : txt
+  });
   saveDB();
   render();
 }
 
 function sellerChangePrice(productId) {
   const val = Number(document.getElementById('newPriceBox').value || 0);
-  if (val <= 0) {
-    toast('กรุณาระบุราคาที่ถูกต้อง');
-    return;
-  }
+  if (val <= 0) return;
   const p = db.products.find(x => x.id === productId);
   if (!p) return;
   p.price = val;
-  db.messages.push({
-    sender: 'sys',
-    text: `✅ ผู้ขาย (${p.sellerShop}) แก้ไขราคา "${p.title}" เป็น ${fmt(val)} แล้ว!`
-  });
+  db.messages.push({ sender: 'sys', text: `✅ ผู้ขายปรับราคาเป็น ${fmt(val)} แล้ว` });
   saveDB();
-  toast(`ปรับราคาเป็น ${fmt(val)} เรียบร้อย!`);
   render();
 }
 
-/* ==================== 3. หน้าคำสั่งซื้อ & ระบบรีวิวหลังซื้อขาย ==================== */
+/* ==================== 3. หน้าคำสั่งซื้อ ==================== */
 function renderOrders() {
-  const renderSecretCell = (o) => {
-    const tInfo = DELIVERY_TYPES[o.deliveryType || 'account'] || DELIVERY_TYPES.account;
-    return `
-      <div><span class="badge b-blue">${tInfo.shortBadge}</span></div>
-      <div class="secret-code-box" style="margin-top:4px; padding:6px 10px; font-size:12px;">
-        <span>${o.secretPayload || '-'}</span>
-        <button class="btn btn-gold" style="padding:3px 8px; font-size:11px;" onclick="copyText('${(o.secretPayload || '').replace(/'/g, "\\'")}')">คัดลอก</button>
-      </div>
-    `;
-  };
-
   return `
-    ${renderBuyerBanner()}
+    ${renderBuyerCompactBar()}
     <div class="box">
-      <div class="box-title">
-        <span>📦 คำสั่งซื้อที่กำลังดำเนินการ (${db.orders.length} รายการรอตรวจรับ)</span>
-        <span style="font-size:12px; color:var(--muted);">* เมื่อกดยืนยันรับของแล้ว จะสามารถเขียนรีวิวให้คะแนนร้านค้าได้ทันที</span>
-      </div>
-      ${db.orders.length === 0 ? `
-        <div style="text-align:center; padding:26px; color:var(--muted);">
-          ไม่มีคำสั่งซื้อที่ค้างอยู่ (ทุกรายการได้รับการยืนยันเรียบร้อยแล้ว)
-        </div>
-      ` : `
+      <div class="box-title"><span>📦 คำสั่งซื้อที่รอตรวจรับ (${db.orders.length})</span></div>
+      ${db.orders.length === 0 ? `<small style="color:var(--muted);">ไม่มีรายการค้าง</small>` : `
         <table>
           <thead>
-            <tr>
-              <th>รหัสคำสั่งซื้อ</th>
-              <th>สินค้า / ร้านค้า</th>
-              <th>ไอดีเกม / Code ที่ได้รับ</th>
-              <th>ยอดชำระ / ช่องทาง</th>
-              <th>จัดการ</th>
-            </tr>
+            <tr><th>รหัส</th><th>สินค้า</th><th>Code / ไอดีที่ได้รับ</th><th>ราคา</th><th>จัดการ</th></tr>
           </thead>
           <tbody>
             ${db.orders.map(o => `
               <tr>
                 <td><b>${o.id}</b></td>
-                <td>
-                  <b>${o.title}</b><br>
-                  <small>ร้าน: <span class="shop-link" onclick="openShopProfile('${o.sellerShop}')">${o.sellerShop}</span></small>
-                </td>
-                <td>${renderSecretCell(o)}</td>
-                <td>
-                  <b>${fmt(o.price)}</b><br>
-                  <small style="color:var(--muted)">${o.payMethod || 'Wallet'}</small>
-                </td>
-                <td>
-                  <button class="btn btn-green" onclick="completeOrder('${o.id}', true)">✅ ยืนยันรับของ & รีวิวร้านค้า</button>
-                </td>
+                <td><b>${o.title}</b><br><small style="color:var(--muted)">ร้าน: ${o.sellerShop}</small></td>
+                <td><code>${o.secretPayload}</code></td>
+                <td><b>${fmt(o.price)}</b></td>
+                <td><button class="btn btn-green" onclick="completeOrder('${o.id}', true)">✅ ยืนยันรับของ & รีวิว</button></td>
               </tr>
             `).join('')}
           </tbody>
@@ -1715,36 +1428,22 @@ function renderOrders() {
     </div>
 
     <div class="box">
-      <div class="box-title">
-        <span>✅ ประวัติคำสั่งซื้อที่สำเร็จแล้ว & รีวิวสินค้า (${db.completedOrders.length} รายการ)</span>
-      </div>
+      <div class="box-title"><span>✅ ประวัติคำสั่งซื้อที่สำเร็จแล้ว (${db.completedOrders.length})</span></div>
       <table>
         <thead>
-          <tr>
-            <th>รหัส</th>
-            <th>สินค้า / ร้านค้า</th>
-            <th>ไอดีเกม / Code ที่ได้รับ</th>
-            <th>ยอดชำระ</th>
-            <th>รีวิวหลังซื้อขาย</th>
-          </tr>
+          <tr><th>รหัส</th><th>สินค้า</th><th>Code / ไอดี</th><th>ราคา</th><th>รีวิว</th></tr>
         </thead>
         <tbody>
           ${db.completedOrders.map(c => `
             <tr>
               <td><b>${c.id}</b></td>
+              <td>${c.title}</td>
+              <td><code>${c.secretPayload}</code></td>
+              <td>${fmt(c.price)}</td>
               <td>
-                <b>${c.title}</b><br>
-                <small>ร้าน: <span class="shop-link" onclick="openShopProfile('${c.sellerShop}')">${c.sellerShop}</span></small>
-              </td>
-              <td>${renderSecretCell(c)}</td>
-              <td><b>${fmt(c.price)}</b><br><small style="color:var(--muted)">${c.payMethod || 'Wallet'}</small></td>
-              <td>
-                ${c.reviewed ? `
-                  <span class="badge b-green">⭐ รีวิวแล้ว</span>
-                  <button class="btn" style="padding:4px 8px; font-size:11px; margin-left:4px;" onclick="openShopProfile('${c.sellerShop}')">ดูรีวิวในร้าน</button>
-                ` : `
-                  <button class="btn btn-gold" onclick="openWriteReviewModal('${c.id}')">⭐ เขียนรีวิวให้ร้านค้า</button>
-                `}
+                ${c.reviewed
+                  ? `<span class="badge b-green">⭐ รีวิวแล้ว</span>`
+                  : `<button class="btn btn-gold" onclick="openWriteReviewModal('${c.id}')">⭐ เขียนรีวิว</button>`}
               </td>
             </tr>
           `).join('')}
@@ -1758,7 +1457,6 @@ function completeOrder(orderId, promptReview = false) {
   const idx = db.orders.findIndex(x => x.id === orderId);
   if (idx === -1) return;
   const o = db.orders[idx];
-
   db.orders.splice(idx, 1);
 
   db.admin.escrowHolding = Math.max(0, db.admin.escrowHolding - o.price);
@@ -1766,59 +1464,35 @@ function completeOrder(orderId, promptReview = false) {
 
   if (o.sellerId === db.currentSeller.id || o.sellerShop === db.currentSeller.shopName) {
     db.currentSeller.wallet += o.sellerNet95;
-    db.currentSeller.completedSalesCount = (db.currentSeller.completedSalesCount || 0) + 1;
   }
   const apSeller = db.approvedSellers.find(s => s.id === o.sellerId || s.shopName === o.sellerShop);
-  if (apSeller) {
-    apSeller.wallet += o.sellerNet95;
-    apSeller.completedSalesCount = (apSeller.completedSalesCount || 0) + 1;
-  }
+  if (apSeller) apSeller.wallet += o.sellerNet95;
 
-  const completedItem = {
-    ...o,
-    completedAt: 'เมื่อสักครู่',
-    reviewed: false
-  };
-  db.completedOrders.unshift(completedItem);
-
+  const done = { ...o, completedAt: 'เมื่อสักครู่', reviewed: false };
+  db.completedOrders.unshift(done);
   saveDB();
-  toast(`ยืนยันรับของ ${o.id} สำเร็จ! โอนเงินให้ผู้ขาย 95% และแอดมินรับ 5% เรียบร้อย`);
   render();
-
-  if (promptReview) {
-    openWriteReviewModal(completedItem.id);
-  }
+  if (promptReview) openWriteReviewModal(done.id);
 }
 
 function openWriteReviewModal(orderId) {
   const order = db.completedOrders.find(x => x.id === orderId);
   if (!order) return;
-
   document.getElementById('modalWriteReviewContent').innerHTML = `
-    <h3 style="margin-bottom:4px;">⭐ เขียนรีวิวหลังซื้อขายสำเร็จ</h3>
-    <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">
-      ให้คะแนนและความคิดเห็นแก่ร้าน <b>${order.sellerShop}</b> สำหรับสินค้า "${order.title}"
-    </p>
-
+    <h3 style="margin-bottom:8px;">⭐ รีวิวร้าน ${order.sellerShop}</h3>
     <div class="field">
-      <label>คะแนนความพึงพอใจ (1 - 5 ดาว)</label>
-      <select id="reviewRatingInput" style="font-weight:700; color:var(--gold);">
-        <option value="5">⭐⭐⭐⭐⭐ (5 ดาว - ดีเยี่ยม ปลอดภัย 100%)</option>
-        <option value="4">⭐⭐⭐⭐ (4 ดาว - ดีมาก)</option>
-        <option value="3">⭐⭐⭐ (3 ดาว - ปานกลาง)</option>
-        <option value="2">⭐⭐ (2 ดาว - พอใช้)</option>
-        <option value="1">⭐ (1 ดาว - ควรปรับปรุง)</option>
+      <label>คะแนน (1-5 ดาว)</label>
+      <select id="reviewRatingInput">
+        <option value="5">⭐⭐⭐⭐⭐ (5 ดาว)</option>
+        <option value="4">⭐⭐⭐⭐ (4 ดาว)</option>
+        <option value="3">⭐⭐⭐ (3 ดาว)</option>
       </select>
     </div>
-
     <div class="field">
-      <label>ความคิดเห็นรีวิวของคุณ *</label>
-      <textarea id="reviewCommentInput" rows="3" placeholder="เช่น ได้รับรหัสทันทีหลังซื้อ สินค้าตรงปก ปลอดภัยมากครับ">ได้รับ Code ทันทีหลังกดซื้อ ใช้งานได้จริง ร้านค้าปลอดภัยมากครับ!</textarea>
+      <label>ความคิดเห็น</label>
+      <textarea id="reviewCommentInput" rows="3">ได้รับรหัสทันทีหลังซื้อ ใช้งานได้จริงครับ</textarea>
     </div>
-
-    <button class="btn btn-gold" style="width:100%; justify-content:center; padding:11px;" onclick="submitOrderReview('${order.id}')">
-      ✅ ส่งรีวิวขึ้นหน้าโปรไฟล์ร้านค้า
-    </button>
+    <button class="btn btn-gold" style="width:100%; justify-content:center;" onclick="submitOrderReview('${order.id}')">ส่งรีวิว</button>
   `;
   showModal('modalWriteReview');
 }
@@ -1827,27 +1501,24 @@ function submitOrderReview(orderId) {
   const order = db.completedOrders.find(x => x.id === orderId);
   if (!order) return;
   const rating = Number(document.getElementById('reviewRatingInput').value || 5);
-  const comment = document.getElementById('reviewCommentInput').value.trim() || 'สินค้าดีมาก ส่งไว ปลอดภัยครับ';
-
+  const comment = document.getElementById('reviewCommentInput').value.trim();
   order.reviewed = true;
   db.reviews.unshift({
     id: 'rev_' + Date.now(),
     orderId: order.id,
     sellerShop: order.sellerShop,
-    buyerName: order.buyerName || db.buyer.name,
+    buyerName: db.buyer.name,
     productTitle: order.title,
     rating,
     comment,
     createdAt: 'เมื่อสักครู่'
   });
-
   saveDB();
   hideModal('modalWriteReview');
-  toast(`ขอบคุณสำหรับรีวิว ${rating} ดาว! แสดงในหน้าโปรไฟล์ร้าน "${order.sellerShop}" แล้ว`);
   openShopProfile(order.sellerShop);
 }
 
-/* ==================== 4. ฝั่งผู้ขาย: ต้องลงทะเบียนผู้ขายก่อนจึงจะลงขายสินค้าได้ ==================== */
+/* ==================== 4. ฝั่งผู้ขาย (กรอกชื่อรอบเดียว + รอแอดมินอนุมัติ) ==================== */
 let selectedDeliveryType = 'account';
 
 function onChangeDeliveryType(val) {
@@ -1864,223 +1535,146 @@ function renderSeller() {
   const stars = countSellerStars(s.docs);
   s.stars = stars;
 
-  // บังคับ: ถ้ายังไม่ลงทะเบียน (unregistered) จะยังไม่เห็นหน้าลงขายสินค้า ต้องลงทะเบียนผู้ขายก่อน!
   if (s.status === 'unregistered') {
     return `
-      <div class="box" style="max-width:740px; margin:auto;">
+      <div class="box" style="max-width:680px; margin:auto;">
         <div class="box-title">
-          <span>🪪 ลงทะเบียนผู้ขายก่อนเริ่มลงขายสินค้า (บังคับสำหรับผู้ขายทุกคน)</span>
-          <span class="badge b-gold">ดาวปัจจุบันที่จะได้รับ: ${'⭐'.repeat(stars)} (${stars}/3 ดวง)</span>
+          <span>🪪 ลงทะเบียนผู้ขาย (กรอกชื่อรอบเดียว)</span>
+          <span class="badge b-gold">รับดาวการันตี: ${'⭐'.repeat(stars)} (${stars}/3 ดวง)</span>
         </div>
 
         <div class="alert alert-warn">
-          🔒 <b>กฎการเปิดร้านขายสินค้า:</b> ก่อนจะสามารถลงขายสินค้าได้ ผู้ขายต้องกรอกข้อมูลร้านค้าและแนบเอกสารยืนยันตัวตนให้ชื่อตรงกันทั้ง 3 ฉบับ (แนบครบ 3 ฉบับรับ <b>⭐⭐⭐ 3 ดาวการันตีความปลอดภัยจากเว็บไซต์</b>) แล้วส่งให้แอดมินกดยืนยันก่อน
-        </div>
-
-        <div class="field">
-          <label>ชื่อร้านค้า (แสดงในสินค้าและหน้าโปรไฟล์ร้าน) *</label>
-          <input type="text" id="sShop" value="${s.shopName}">
-        </div>
-
-        <div class="grid-3">
-          <div class="field">
-            <label>1) ชื่อตามบัตรประชาชน *</label>
-            <input type="text" id="sName1" value="${s.idCardName}" oninput="validateSellerNames()">
-          </div>
-          <div class="field">
-            <label>2) ชื่อตามสมุดธนาคาร *</label>
-            <input type="text" id="sName2" value="${s.bankAccName}" oninput="validateSellerNames()">
-          </div>
-          <div class="field">
-            <label>3) ชื่อตามเอกสารการค้า *</label>
-            <input type="text" id="sName3" value="${s.commerceDocName}" oninput="validateSellerNames()">
-          </div>
-        </div>
-
-        <div id="sellerNameCheck" class="alert alert-ok">
-          ✅ ชื่อทั้ง 3 เอกสารตรงกันถูกต้อง ("${s.idCardName}")
+          แนบเอกสารครบ 3 ฉบับ (ฉบับละ 1 ดาว ⭐) รับ <b>⭐⭐⭐ 3 ดาวการันตีความปลอดภัยจากเว็บไซต์</b>
         </div>
 
         <div class="grid-2">
           <div class="field">
-            <label>ธนาคาร</label>
-            <input type="text" id="sBankName" value="${s.bankName}">
+            <label>ชื่อร้านค้า *</label>
+            <input type="text" id="sShop" value="${s.shopName}">
           </div>
           <div class="field">
-            <label>เลขที่บัญชีธนาคาร</label>
-            <input type="text" id="sBankNo" value="${s.bankNo}">
+            <label>ชื่อ-นามสกุลจริง (กรอกรอบเดียว) *</label>
+            <input type="text" id="sFullName" value="${s.fullName}">
           </div>
         </div>
 
-        <h4 style="margin:14px 0 8px;">📎 แนบเอกสารเพื่อรับดาวการันตี (แนบ 1 อย่าง = ได้ 1 ดาว ⭐)</h4>
+        <div class="grid-2">
+          <div class="field"><label>ธนาคาร</label><input type="text" id="sBankName" value="${s.bankName}"></div>
+          <div class="field"><label>เลขบัญชี</label><input type="text" id="sBankNo" value="${s.bankNo}"></div>
+        </div>
 
         <div class="doc-upload-card ${s.docs.idCard.attached ? 'has-file' : ''}">
-          <div style="display:flex; align-items:center; gap:12px;">
+          <div style="display:flex; align-items:center; gap:10px;">
             <img src="${s.docs.idCard.dataUrl}" class="doc-preview-thumb" onclick="openSellerDocsModal('current')">
-            <div>
-              <b>1. รูปบัตรประชาชน ${s.docs.idCard.attached ? '<span class="badge b-gold">⭐ ได้รับ +1 ดาว</span>' : '<span class="badge b-red">ยังไม่แนบ</span>'}</b>
-              <div style="font-size:12px; color:var(--muted);">ไฟล์: ${s.docs.idCard.fileName}</div>
-            </div>
+            <div><b>1. บัตรประชาชน ${s.docs.idCard.attached ? '⭐' : ''}</b></div>
           </div>
-          <div style="display:flex; gap:6px; align-items:center;">
-            <input type="file" accept="image/*" style="width:190px; font-size:12px;" onchange="handleDocUpload(event, 'idCard')">
-            <button class="btn" onclick="toggleDocAttached('idCard')">${s.docs.idCard.attached ? 'เอาออก' : 'แนบไฟล์ตัวอย่าง'}</button>
-          </div>
+          <input type="file" accept="image/*" style="width:180px; font-size:12px;" onchange="handleDocUpload(event, 'idCard')">
         </div>
 
         <div class="doc-upload-card ${s.docs.bankBook.attached ? 'has-file' : ''}">
-          <div style="display:flex; align-items:center; gap:12px;">
+          <div style="display:flex; align-items:center; gap:10px;">
             <img src="${s.docs.bankBook.dataUrl}" class="doc-preview-thumb" onclick="openSellerDocsModal('current')">
-            <div>
-              <b>2. รูปสมุดบัญชีธนาคาร ${s.docs.bankBook.attached ? '<span class="badge b-gold">⭐ ได้รับ +1 ดาว</span>' : '<span class="badge b-red">ยังไม่แนบ</span>'}</b>
-              <div style="font-size:12px; color:var(--muted);">ไฟล์: ${s.docs.bankBook.fileName}</div>
-            </div>
+            <div><b>2. สมุดบัญชีธนาคาร ${s.docs.bankBook.attached ? '⭐' : ''}</b></div>
           </div>
-          <div style="display:flex; gap:6px; align-items:center;">
-            <input type="file" accept="image/*" style="width:190px; font-size:12px;" onchange="handleDocUpload(event, 'bankBook')">
-            <button class="btn" onclick="toggleDocAttached('bankBook')">${s.docs.bankBook.attached ? 'เอาออก' : 'แนบไฟล์ตัวอย่าง'}</button>
-          </div>
+          <input type="file" accept="image/*" style="width:180px; font-size:12px;" onchange="handleDocUpload(event, 'bankBook')">
         </div>
 
         <div class="doc-upload-card ${s.docs.commerce.attached ? 'has-file' : ''}">
-          <div style="display:flex; align-items:center; gap:12px;">
+          <div style="display:flex; align-items:center; gap:10px;">
             <img src="${s.docs.commerce.dataUrl}" class="doc-preview-thumb" onclick="openSellerDocsModal('current')">
-            <div>
-              <b>3. รูปเอกสารประกอบการขายค้า ${s.docs.commerce.attached ? '<span class="badge b-gold">⭐ ได้รับ +1 ดาว</span>' : '<span class="badge b-red">ยังไม่แนบ</span>'}</b>
-              <div style="font-size:12px; color:var(--muted);">ไฟล์: ${s.docs.commerce.fileName}</div>
-            </div>
+            <div><b>3. เอกสารประกอบการค้า ${s.docs.commerce.attached ? '⭐' : ''}</b></div>
           </div>
-          <div style="display:flex; gap:6px; align-items:center;">
-            <input type="file" accept="image/*" style="width:190px; font-size:12px;" onchange="handleDocUpload(event, 'commerce')">
-            <button class="btn" onclick="toggleDocAttached('commerce')">${s.docs.commerce.attached ? 'เอาออก' : 'แนบไฟล์ตัวอย่าง'}</button>
-          </div>
+          <input type="file" accept="image/*" style="width:180px; font-size:12px;" onchange="handleDocUpload(event, 'commerce')">
         </div>
 
-        <button class="btn btn-gold" style="width:100%; justify-content:center; padding:12px; font-size:15px;" onclick="submitSellerRegistration()">
-          📤 ส่งข้อมูลลงทะเบียนผู้ขายให้แอดมินอนุมัติ (รับ ${stars} ดาว ${'⭐'.repeat(stars)})
+        <button class="btn btn-gold" style="width:100%; justify-content:center; padding:11px; margin-top:6px;" onclick="submitSellerRegistration()">
+          📤 ส่งข้อมูลให้แอดมินอนุมัติ
         </button>
       </div>
     `;
   }
 
-  // กรณีที่ 2: ส่งข้อมูลแล้ว รอแอดมินกดยืนยันก่อนจึงจะลงขายได้
   if (s.status === 'pending') {
     return `
-      <div class="box" style="max-width:650px; margin:20px auto; text-align:center; padding:34px 24px;">
-        <div style="font-size:52px; margin-bottom:8px;">⏳</div>
-        <h2 style="margin-bottom:6px;">ส่งใบลงทะเบียนผู้ขายแล้ว! รอแอดมินกดอนุมัติก่อนลงขาย</h2>
-        <div style="margin-bottom:14px;">${renderStarBadge(s.stars)}</div>
-        <p style="color:var(--muted); font-size:14px; margin-bottom:18px;">
-          หน้ากรอกข้อมูลถูกซ่อนแล้ว กรุณาสลับไปที่หน้าแอดมินแล้วกดปุ่ม <b>"✅ อนุมัติผู้ขาย"</b> เพื่อปลดล็อกหน้าลงขายสินค้า
+      <div class="box" style="max-width:580px; margin:20px auto; text-align:center; padding:30px;">
+        <div style="font-size:44px;">⏳</div>
+        <h3 style="margin:6px 0;">รอแอดมินอนุมัติร้านค้า (${'⭐'.repeat(s.stars)})</h3>
+        <p style="color:var(--muted); font-size:13px; margin-bottom:16px;">
+          ส่งข้อมูลร้าน "${s.shopName}" (${s.fullName}) เรียบร้อยแล้ว
         </p>
-
-        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-          <button class="btn btn-blue" onclick="openSellerDocsModal('current')">🔍 ดูรูปเอกสารที่แนบไป (${s.stars} ฉบับ)</button>
-          <button class="btn btn-gold" onclick="setRole('admin')">👑 ไปหน้าแอดมินเพื่อกดอนุมัติเดี๋ยวนี้</button>
-          <button class="btn" onclick="db.currentSeller.status='unregistered'; saveDB(); render();">✏️ แก้ไขข้อมูล</button>
+        <div style="display:flex; gap:8px; justify-content:center;">
+          <button class="btn btn-gold" onclick="setRole('admin')">👑 ไปหน้าแอดมินเพื่ออนุมัติ</button>
+          <button class="btn" onclick="openSellerDocsModal('current')">🔍 ดูรูปเอกสารที่แนบ</button>
         </div>
       </div>
     `;
   }
 
-  // กรณีที่ 3: แอดมินอนุมัติแล้ว -> ลงขายสินค้าได้ทันที
   const curTypeInfo = DELIVERY_TYPES[selectedDeliveryType] || DELIVERY_TYPES.account;
 
   return `
-    <div class="alert alert-ok" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-      <div>
-        🎉 <b>ลงทะเบียนผู้ขายผ่านแล้ว!</b> ร้าน: <b>${s.shopName}</b> (${s.idCardName}) · ${renderStarBadge(s.stars)}
-      </div>
-      <div style="display:flex; gap:6px;">
-        <button class="btn btn-blue" style="padding:5px 10px; font-size:12px;" onclick="openShopProfile('${s.shopName}')">⭐ ดูโปรไฟล์ร้าน & รีวิวของฉัน</button>
-        <button class="btn" style="padding:5px 10px; font-size:12px;" onclick="db.currentSeller.status='unregistered'; saveDB(); render();">📝 ลงทะเบียนผู้ขายใหม่</button>
-      </div>
-    </div>
-
     <div class="grid-2">
       <div class="box">
         <div class="box-title">
-          <span>➕ ลงขายสินค้า & กรอกข้อมูล/Code ส่งมอบอัตโนมัติ</span>
-          <span>${'⭐'.repeat(s.stars)} (${s.stars} ดาว)</span>
+          <span>➕ ลงขายสินค้าใหม่ (${s.shopName})</span>
+          <span class="badge b-gold">${'⭐'.repeat(s.stars)}</span>
         </div>
 
         <div class="field">
-          <label>1. เลือกประเภทสินค้าที่จะขาย *</label>
-          <select id="newPDeliveryType" onchange="onChangeDeliveryType(this.value)" style="border:2px solid var(--gold); background:#fffbeb; font-weight:600;">
-            <option value="account" ${selectedDeliveryType==='account'?'selected':''}>🎮 ไอดีเกม (กรอก Username / Password)</option>
-            <option value="item_code" ${selectedDeliveryType==='item_code'?'selected':''}>🎁 ไอเท็มในเกม (เป็น Code ให้นำไปกรอก)</option>
-            <option value="card_code" ${selectedDeliveryType==='card_code'?'selected':''}>💳 บัตรเติมเกม (เป็น Code ให้นำไปกรอก)</option>
+          <label>ประเภทสินค้า *</label>
+          <select id="newPDeliveryType" onchange="onChangeDeliveryType(this.value)">
+            <option value="account">🎮 ไอดีเกม (ID / Password)</option>
+            <option value="item_code">🎁 ไอเท็มในเกม (Code นำไปกรอก)</option>
+            <option value="card_code">💳 บัตรเติมเกม (Code นำไปกรอก)</option>
           </select>
         </div>
 
-        <div class="field" style="background:#f8fafc; border:1px dashed var(--gold); padding:12px; border-radius:10px;">
-          <label id="secretPayloadLabel" style="color:var(--gold);">${curTypeInfo.inputLabel}</label>
-          <input type="text" id="newPSecret" placeholder="${curTypeInfo.placeholder}" style="border-color:var(--gold);">
-          <small style="color:var(--muted); display:block; margin-top:4px;">
-            🔒 ข้อมูล/Code ช่องนี้จะถูกซ่อนไว้ และจะ<b>แสดงให้ผู้ซื้อเห็นอัตโนมัติทันทีเมื่อผู้ซื้อกดซื้อเสร็จ</b>
-          </small>
+        <div class="field">
+          <label id="secretPayloadLabel">${curTypeInfo.inputLabel}</label>
+          <input type="text" id="newPSecret" placeholder="${curTypeInfo.placeholder}">
         </div>
 
         <div class="field">
-          <label>2. ชื่อสินค้า *</label>
-          <input type="text" id="newPTitle" placeholder="เช่น โค้ดผลปีศาจถาวร Kitsune / บัตรเติมเกม 1,000 บาท">
+          <label>ชื่อสินค้า *</label>
+          <input type="text" id="newPTitle" placeholder="เช่น ไอดี Valorant Radiant">
         </div>
 
         <div class="grid-2">
           <div class="field">
-            <label>หมวดหมู่เกม</label>
+            <label>หมวดหมู่</label>
             <select id="newPCat">
               <option value="Valorant">Valorant</option>
               <option value="RoV">RoV</option>
               <option value="Blox Fruits">Blox Fruits</option>
-              <option value="บัตรเติมเกม">บัตรเติมเกม</option>
+              <option value="Genshin Impact">Genshin Impact</option>
               <option value="CS2">CS2</option>
+              <option value="บัตรเติมเกม">บัตรเติมเกม</option>
             </select>
           </div>
           <div class="field">
-            <label>ราคาขาย (บาท) *</label>
-            <input type="number" id="newPPrice" placeholder="1000" oninput="previewSellerNet(this.value)">
+            <label>ราคา (บาท) *</label>
+            <input type="number" id="newPPrice" placeholder="1200">
           </div>
         </div>
 
-        <div class="field">
-          <label>รายละเอียดเพิ่มเติม</label>
-          <textarea id="newPDesc" rows="2" placeholder="ระบุวิธีนำ Code ไปกรอก หรือรายละเอียดไอดี..."></textarea>
-        </div>
-
-        <div id="netPreview" class="alert alert-warn" style="margin-bottom:12px;">
-          💡 ระบบหักค่าธรรมเนียมแอดมิน 5% เมื่อขายสำเร็จ (ผู้ขายรับ 95%)
-        </div>
-
-        <button class="btn btn-gold" style="width:100%; justify-content:center; padding:11px;" onclick="sellerAddProduct()">
-          🚀 ลงขายสินค้าพร้อม Code ทันที
+        <button class="btn btn-gold" style="width:100%; justify-content:center; padding:10px;" onclick="sellerAddProduct()">
+          🚀 ลงขายสินค้า
         </button>
       </div>
 
       <div class="box">
-        <div class="box-title">
-          <span>📋 สินค้าในตลาด & Code ที่ผูกไว้ (${db.products.length})</span>
-          <button class="btn btn-gold" onclick="goPage('chat')">💬 ไปหน้าแชทต่อรอง & แก้ราคา</button>
-        </div>
-        ${db.products.map(p => {
-          const tInfo = DELIVERY_TYPES[p.deliveryType || 'account'] || DELIVERY_TYPES.account;
-          return `
-          <div style="padding:10px 0; border-bottom:1px solid var(--border);">
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <div class="box-title"><span>📋 สินค้าที่เปิดขายอยู่ (${db.products.length})</span></div>
+        <div style="max-height:380px; overflow-y:auto;">
+          ${db.products.map(p => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
               <div>
-                <b>${p.icon || tInfo.icon} ${p.title}</b> <span class="badge b-blue">${tInfo.shortBadge}</span>
-                <div style="font-size:12px; color:var(--muted);">
-                  ผู้ขาย: <b>${p.sellerShop}</b> ${'⭐'.repeat(p.sellerStars || 3)} · ราคา <b style="color:var(--gold)">${fmt(p.price)}</b>
-                </div>
-                <div style="font-size:11px; color:var(--green); margin-top:2px;">
-                  🔑 ข้อมูลที่จะส่งเมื่อซื้อเสร็จ: <code>${p.secretPayload}</code>
-                </div>
+                <b>${p.title}</b>
+                <div style="font-size:12px; color:var(--gold); font-weight:700;">${fmt(p.price)}</div>
               </div>
               <button class="btn" onclick="db.selectedProductId='${p.id}'; goPage('chat');">แก้ราคา</button>
             </div>
-          </div>
-          `;
-        }).join('')}
+          `).join('')}
+        </div>
       </div>
     </div>
   `;
@@ -2091,9 +1685,7 @@ function saveTempSellerInputs() {
   const shopEl = document.getElementById('sShop');
   if (!shopEl) return;
   s.shopName = shopEl.value.trim() || s.shopName;
-  s.idCardName = document.getElementById('sName1').value.trim();
-  s.bankAccName = document.getElementById('sName2').value.trim();
-  s.commerceDocName = document.getElementById('sName3').value.trim();
+  s.fullName = document.getElementById('sFullName').value.trim() || s.fullName;
   s.bankName = document.getElementById('sBankName').value.trim();
   s.bankNo = document.getElementById('sBankNo').value.trim();
 }
@@ -2104,92 +1696,37 @@ function handleDocUpload(event, docKey) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = function(e) {
-    db.currentSeller.docs[docKey] = {
-      attached: true,
-      fileName: file.name,
-      dataUrl: e.target.result
-    };
+    db.currentSeller.docs[docKey] = { attached: true, fileName: file.name, dataUrl: e.target.result };
     db.currentSeller.stars = countSellerStars(db.currentSeller.docs);
     saveDB();
-    toast(`แนบไฟล์ "${file.name}" สำเร็จ! ได้รับดาวรวม ${db.currentSeller.stars} ดวง`);
     render();
   };
   reader.readAsDataURL(file);
 }
 
-function toggleDocAttached(docKey) {
-  saveTempSellerInputs();
-  const doc = db.currentSeller.docs[docKey];
-  doc.attached = !doc.attached;
-  db.currentSeller.stars = countSellerStars(db.currentSeller.docs);
-  saveDB();
-  render();
-}
-
-function validateSellerNames() {
-  const n1 = document.getElementById('sName1').value.trim().replace(/\s+/g, ' ');
-  const n2 = document.getElementById('sName2').value.trim().replace(/\s+/g, ' ');
-  const n3 = document.getElementById('sName3').value.trim().replace(/\s+/g, ' ');
-  const box = document.getElementById('sellerNameCheck');
-
-  if (n1 && n1 === n2 && n2 === n3) {
-    box.className = 'alert alert-ok';
-    box.textContent = `✅ ชื่อทั้ง 3 เอกสารตรงกันถูกต้อง ("${n1}")`;
-    return true;
-  } else {
-    box.className = 'alert alert-err';
-    box.textContent = '❌ ชื่อไม่ตรงกัน! บัตรประชาชน สมุดธนาคาร และเอกสารการค้า ต้องชื่อตรงกันทั้งหมด';
-    return false;
-  }
-}
-
 function submitSellerRegistration() {
-  if (!validateSellerNames()) {
-    toast('ไม่สามารถส่งได้: ชื่อทั้ง 3 เอกสารต้องตรงกันทุกตัวอักษร!');
-    return;
-  }
   saveTempSellerInputs();
-  const stars = countSellerStars(db.currentSeller.docs);
-  if (stars === 0) {
-    toast('กรุณาแนบเอกสารอย่างน้อย 1 ฉบับ (แนบครบ 3 ฉบับรับ 3 ดาวการันตี)');
+  if (!db.currentSeller.shopName || !db.currentSeller.fullName) {
+    toast('กรุณากรอกชื่อร้านและชื่อ-นามสกุลจริง');
     return;
   }
-  db.currentSeller.stars = stars;
+  db.currentSeller.stars = countSellerStars(db.currentSeller.docs);
   db.currentSeller.status = 'pending';
   saveDB();
-  toast(`ส่งใบลงทะเบียนผู้ขายแล้ว! กรุณาไปที่หน้าแอดมินเพื่อกดอนุมัติร้านค้าก่อนลงขาย`);
   render();
-}
-
-function previewSellerNet(val) {
-  const price = Number(val || 0);
-  const fee = Math.round(price * FEE_RATE);
-  const el = document.getElementById('netPreview');
-  if (el) {
-    el.textContent = `ตั้งราคา ${fmt(price)} → หักแอดมิน 5% (${fmt(fee)}) → ผู้ขายรับสุทธิ 95% = ${fmt(price - fee)}`;
-  }
 }
 
 function sellerAddProduct() {
   const s = db.currentSeller;
-  if (s.status !== 'approved') {
-    toast('ต้องลงทะเบียนผู้ขายและรอแอดมินอนุมัติก่อนลงขายสินค้า');
-    return;
-  }
   const deliveryType = document.getElementById('newPDeliveryType').value;
   const secretPayload = document.getElementById('newPSecret').value.trim();
   const title = document.getElementById('newPTitle').value.trim();
   const cat = document.getElementById('newPCat').value;
   const price = Number(document.getElementById('newPPrice').value || 0);
   const tInfo = DELIVERY_TYPES[deliveryType] || DELIVERY_TYPES.account;
-  const desc = document.getElementById('newPDesc').value.trim() || `เมื่อกดซื้อเสร็จ ระบบจะแสดง ${tInfo.shortBadge} ให้นำไปใช้งานได้ทันที`;
 
-  if (!secretPayload) {
-    toast('กรุณากรอกข้อมูลไอดีเกม หรือ Code สำหรับส่งมอบให้ผู้ซื้อ');
-    return;
-  }
-  if (!title || price <= 0) {
-    toast('กรุณากรอกชื่อสินค้าและราคาให้ถูกต้อง');
+  if (!secretPayload || !title || price <= 0) {
+    toast('กรุณากรอกข้อมูลให้ครบถ้วน');
     return;
   }
 
@@ -2202,14 +1739,13 @@ function sellerAddProduct() {
     secretPayload,
     price,
     icon: tInfo.icon,
-    desc,
     sellerShop: s.shopName,
-    sellerOwner: s.idCardName,
+    sellerOwner: s.fullName,
     sellerStars: s.stars || 3
   });
 
   saveDB();
-  toast(`ลงขาย "${title}" พร้อมผูก Code เรียบร้อย!`);
+  toast('ลงขายสินค้าเรียบร้อย');
   goPage('market');
 }
 
@@ -2220,69 +1756,42 @@ function renderAdmin() {
   const expectedPendingFee = db.orders.reduce((sum, o) => sum + o.fee5, 0);
 
   return `
-    <div class="grid-4" style="margin-bottom:18px;">
+    <div class="grid-4" style="margin-bottom:16px;">
       <div class="stat-box highlight clickable" onclick="openAdminRevenueModal()">
         <small>💰 รายได้แอดมินสะสม (5%)</small>
         <div class="num" style="color:var(--green);">${fmt(db.admin.totalRevenue5Percent)}</div>
-        <small style="margin-top:4px; color:var(--green); font-weight:600;">🔍 คลิกดูรายละเอียดรายได้ทั้งหมด</small>
+        <small style="color:var(--green); font-weight:600;">🔍 คลิกดูรายละเอียด</small>
       </div>
       <div class="stat-box">
-        <small>⏳ รายได้ 5% ที่รออนุมัติออเดอร์</small>
+        <small>⏳ รายได้ 5% รออนุมัติ</small>
         <div class="num" style="color:var(--gold);">${fmt(expectedPendingFee)}</div>
-        <small style="margin-top:4px;">จากออเดอร์รอปล่อยเงิน ${db.orders.length} รายการ</small>
       </div>
       <div class="stat-box">
-        <small>🏪 จำนวนผู้ขายที่อนุมัติแล้วทั้งหมด</small>
+        <small>🏪 ผู้ขายทั้งหมด</small>
         <div class="num" style="color:var(--blue);">${db.approvedSellers.length} ร้าน</div>
-        <small style="margin-top:4px;">ดูรายได้และรูปเอกสารด้านล่าง</small>
       </div>
       <div class="stat-box">
-        <small>🔒 เงินผู้ซื้อที่พักในระบบ Escrow</small>
+        <small>🔒 เงินพักใน Escrow</small>
         <div class="num">${fmt(db.admin.escrowHolding)}</div>
-        <small style="margin-top:4px;">คุ้มครองโดยแอดมินคนกลาง</small>
       </div>
     </div>
 
     <div class="box">
-      <div class="box-title">
-        <span>⏳ 1. รายการผู้ขายที่รออนุมัติ (${hasPendingSeller ? 1 : 0} รายการ)</span>
-        <span style="font-size:12px; color:var(--muted);">* กดดูรูปเอกสารก่อนอนุมัติได้ เมื่อกดอนุมัติปุ๊บ รายการจะหายไปจากตารางนี้ทันที</span>
-      </div>
-
-      ${!hasPendingSeller ? `
-        <div style="text-align:center; padding:24px; color:var(--muted); background:#f8fafc; border-radius:12px;">
-          ✅ ไม่มีรายการผู้ขายค้างรออนุมัติ
-        </div>
-      ` : `
+      <div class="box-title"><span>⏳ 1. ผู้ขายรออนุมัติ (${hasPendingSeller ? 1 : 0})</span></div>
+      ${!hasPendingSeller ? `<small style="color:var(--muted);">ไม่มีรายการค้าง</small>` : `
         <table>
           <thead>
-            <tr>
-              <th>ชื่อร้านค้า</th>
-              <th>ชื่อในเอกสารทั้ง 3 ฉบับ</th>
-              <th>จำนวนดาวที่ได้</th>
-              <th>ดูรูปเอกสารก่อนอนุมัติ</th>
-              <th>คำสั่งแอดมิน</th>
-            </tr>
+            <tr><th>ร้านค้า</th><th>ชื่อผู้ขาย</th><th>ดาว</th><th>รูปเอกสาร</th><th>จัดการ</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>${s.shopName}</b><br><small style="color:var(--muted)">${s.bankName} ${s.bankNo}</small></td>
+              <td><b>${s.shopName}</b></td>
+              <td>${s.fullName}</td>
+              <td>${'⭐'.repeat(s.stars)}</td>
+              <td><button class="btn btn-blue" onclick="openSellerDocsModal('current')">🔍 ดูรูปเอกสาร</button></td>
               <td>
-                1. บัตร ปชช.: <b>${s.idCardName}</b><br>
-                2. สมุดธนาคาร: <b>${s.bankAccName}</b><br>
-                3. เอกสารการค้า: <b>${s.commerceDocName}</b>
-              </td>
-              <td>${renderStarBadge(s.stars)}</td>
-              <td>
-                <button class="btn btn-blue" onclick="openSellerDocsModal('current')">
-                  🔍 เปิดดูรูปเอกสารที่แนบมา (${s.stars} รูป)
-                </button>
-              </td>
-              <td>
-                <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                  <button class="btn btn-green" onclick="adminApproveSeller()">✅ อนุมัติผู้ขาย</button>
-                  <button class="btn btn-red" onclick="adminRejectSeller()">❌ ตีกลับ</button>
-                </div>
+                <button class="btn btn-green" onclick="adminApproveSeller()">✅ อนุมัติ</button>
+                <button class="btn btn-red" onclick="adminRejectSeller()">❌ ตีกลับ</button>
               </td>
             </tr>
           </tbody>
@@ -2291,40 +1800,19 @@ function renderAdmin() {
     </div>
 
     <div class="box">
-      <div class="box-title">
-        <span>🏪 2. รายชื่อผู้ขายทั้งหมดในระบบ (อนุมัติแล้ว ${db.approvedSellers.length} ราย)</span>
-        <span class="badge b-blue">ผู้ขายทั้งหมด ${db.approvedSellers.length} ร้าน</span>
-      </div>
+      <div class="box-title"><span>🏪 2. ผู้ขายทั้งหมดในระบบ (${db.approvedSellers.length} ร้าน)</span></div>
       <table>
         <thead>
-          <tr>
-            <th>ลำดับ</th>
-            <th>ชื่อร้านค้า / ชื่อจริงผู้ขาย</th>
-            <th>บัญชีธนาคาร</th>
-            <th>ดาวการันตีความปลอดภัย</th>
-            <th>รายได้ผู้ขายสะสม (95%)</th>
-            <th>จัดการ / ดูรูปเอกสาร</th>
-          </tr>
+          <tr><th>ร้านค้า</th><th>ชื่อผู้ขาย</th><th>ดาวการันตี</th><th>รายได้สะสม (95%)</th><th>ดูข้อมูล</th></tr>
         </thead>
         <tbody>
-          ${db.approvedSellers.map((seller, i) => `
+          ${db.approvedSellers.map(seller => `
             <tr>
-              <td><b>#${i + 1}</b></td>
-              <td>
-                <span class="shop-link" onclick="openShopProfile('${seller.shopName}')">${seller.shopName}</span><br>
-                <small style="color:var(--muted)">👤 ชื่อจริง: ${seller.idCardName}</small>
-              </td>
-              <td>${seller.bankName}<br><small style="color:var(--muted)">${seller.bankNo}</small></td>
-              <td>${renderStarBadge(seller.stars || 3)}</td>
-              <td>
-                <b style="color:var(--green); font-size:15px;">${fmt(seller.wallet)}</b><br>
-                <small style="color:var(--muted)">ขายสำเร็จ ${seller.completedSalesCount || 0} รายการ</small>
-              </td>
-              <td>
-                <button class="btn btn-blue" onclick="openSellerDocsModal('${seller.id}')">
-                  👁️ ดูรายได้ & รูปเอกสาร
-                </button>
-              </td>
+              <td><b>${seller.shopName}</b></td>
+              <td>${seller.fullName}</td>
+              <td>${'⭐'.repeat(seller.stars || 3)}</td>
+              <td><b style="color:var(--green)">${fmt(seller.wallet)}</b></td>
+              <td><button class="btn btn-blue" onclick="openSellerDocsModal('${seller.id}')">👁️ ดูรายได้ & รูปเอกสาร</button></td>
             </tr>
           `).join('')}
         </tbody>
@@ -2332,94 +1820,48 @@ function renderAdmin() {
     </div>
 
     <div class="box">
-      <div class="box-title">
-        <span>📦 3. คำสั่งซื้อที่รออนุมัติปล่อยเงิน (${db.orders.length} รายการ)</span>
-        <button class="btn" onclick="openAdminRevenueModal()">📊 ดูประวัติออเดอร์ที่อนุมัติแล้ว (${db.completedOrders.length})</button>
-      </div>
-      ${db.orders.length === 0 ? `
-        <div style="text-align:center; padding:22px; color:var(--muted); background:#f8fafc; border-radius:12px;">
-          ✅ ไม่มีคำสั่งซื้อค้างรออนุมัติ
-        </div>
-      ` : `
+      <div class="box-title"><span>📦 3. คำสั่งซื้อรออนุมัติปล่อยเงิน (${db.orders.length})</span></div>
+      ${db.orders.length === 0 ? `<small style="color:var(--muted);">ไม่มีคำสั่งซื้อค้าง</small>` : `
         <table>
           <thead>
-            <tr>
-              <th>รหัสออเดอร์</th>
-              <th>สินค้า / ประเภท</th>
-              <th>Code ที่ส่งให้ผู้ซื้อ</th>
-              <th>ราคา (100%)</th>
-              <th>แอดมิน (5%)</th>
-              <th>ผู้ขาย (95%)</th>
-              <th>คำสั่งแอดมิน</th>
-            </tr>
+            <tr><th>รหัส</th><th>สินค้า</th><th>ราคา</th><th>แอดมิน (5%)</th><th>ผู้ขาย (95%)</th><th>จัดการ</th></tr>
           </thead>
           <tbody>
-            ${db.orders.map(o => {
-              const tInfo = DELIVERY_TYPES[o.deliveryType || 'account'] || DELIVERY_TYPES.account;
-              return `
+            ${db.orders.map(o => `
               <tr>
                 <td><b>${o.id}</b></td>
+                <td>${o.title}</td>
+                <td>${fmt(o.price)}</td>
+                <td><span class="badge b-green">+${fmt(o.fee5)}</span></td>
+                <td>${fmt(o.sellerNet95)}</td>
                 <td>
-                  <b>${o.title}</b> <span class="badge b-blue">${tInfo.shortBadge}</span><br>
-                  <small style="color:var(--muted)">ผู้ขาย: ${o.sellerShop} · ผู้ซื้อ: ${o.buyerName} (${o.payMethod})</small>
-                </td>
-                <td><code>${o.secretPayload}</code></td>
-                <td><b>${fmt(o.price)}</b></td>
-                <td><span class="badge b-green">+${fmt(o.fee5)} (5%)</span></td>
-                <td><b style="color:var(--gold);">${fmt(o.sellerNet95)}</b></td>
-                <td>
-                  <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                    <button class="btn btn-green" onclick="completeOrder('${o.id}', false)">✅ อนุมัติปล่อยเงิน (รับ 5%)</button>
-                    <button class="btn btn-red" onclick="refundOrder('${o.id}')">↩️ ยกเลิก / คืนเงิน</button>
-                  </div>
+                  <button class="btn btn-green" onclick="completeOrder('${o.id}', false)">✅ อนุมัติปล่อยเงิน</button>
+                  <button class="btn btn-red" onclick="refundOrder('${o.id}')">↩️ คืนเงิน</button>
                 </td>
               </tr>
-              `;
-            }).join('')}
+            `).join('')}
           </tbody>
         </table>
       `}
     </div>
 
     <div class="box">
-      <div class="box-title">
-        <span>🛒 4. จัดการสินค้าในตลาด (แอดมินกดยกเลิกสินค้าได้)</span>
-        <span style="font-size:13px; color:var(--muted);">สินค้าทั้งหมด ${db.products.length} รายการ</span>
-      </div>
-      ${db.products.length === 0 ? `<small style="color:var(--muted);">ไม่มีสินค้าในตลาด</small>` : `
-        <table>
-          <thead>
+      <div class="box-title"><span>🛒 4. จัดการสินค้าในตลาด (${db.products.length})</span></div>
+      <table>
+        <thead>
+          <tr><th>สินค้า</th><th>ร้านค้า</th><th>ราคา</th><th>จัดการ</th></tr>
+        </thead>
+        <tbody>
+          ${db.products.map(p => `
             <tr>
-              <th>สินค้า / ประเภท</th>
-              <th>ชื่อร้าน / ชื่อผู้ขาย</th>
-              <th>ดาวการันตี</th>
-              <th>ราคาขาย</th>
-              <th>ค่าธรรมเนียมแอดมิน (5%)</th>
-              <th>จัดการ</th>
+              <td><b>${p.title}</b></td>
+              <td>${p.sellerShop} (${p.sellerOwner})</td>
+              <td>${fmt(p.price)}</td>
+              <td><button class="btn btn-red" onclick="adminCancelProduct('${p.id}')">🗑️ ยกเลิกสินค้า</button></td>
             </tr>
-          </thead>
-          <tbody>
-            ${db.products.map(p => {
-              const tInfo = DELIVERY_TYPES[p.deliveryType || 'account'] || DELIVERY_TYPES.account;
-              return `
-              <tr>
-                <td>
-                  <b>${p.icon || tInfo.icon} ${p.title}</b><br>
-                  <span class="badge b-blue">${tInfo.shortBadge}</span> <small style="color:var(--muted)">Code: ${p.secretPayload}</small>
-                </td>
-                <td>🏪 <b>${p.sellerShop}</b><br><small style="color:var(--muted)">👤 ${p.sellerOwner}</small></td>
-                <td>${'⭐'.repeat(p.sellerStars || 3)} (${p.sellerStars || 3} ดวง)</td>
-                <td><b style="color:var(--gold);">${fmt(p.price)}</b></td>
-                <td style="color:var(--green); font-weight:600;">${fmt(Math.round(p.price * FEE_RATE))} (5%)</td>
-                <td>
-                  <button class="btn btn-red" onclick="adminCancelProduct('${p.id}')">🗑️ ยกเลิก / ลบสินค้านี้</button>
-                </td>
-              </tr>
-              `;
-            }).join('')}
-          </tbody>
-        </table>
-      `}
+          `).join('')}
+        </tbody>
+      </table>
     </div>
   `;
 }
@@ -2427,52 +1869,25 @@ function renderAdmin() {
 function adminApproveSeller() {
   const s = db.currentSeller;
   s.status = 'approved';
-
-  const existingIdx = db.approvedSellers.findIndex(x => x.id === s.id || x.shopName === s.shopName);
-  const sellerRecord = JSON.parse(JSON.stringify(s));
-  if (existingIdx >= 0) {
-    db.approvedSellers[existingIdx] = sellerRecord;
-  } else {
-    db.approvedSellers.unshift(sellerRecord);
-  }
-
-  db.products.forEach(p => {
-    if (p.sellerId === s.id) {
-      p.sellerShop = s.shopName;
-      p.sellerOwner = s.idCardName;
-      p.sellerStars = s.stars;
-    }
-  });
-
+  const idx = db.approvedSellers.findIndex(x => x.id === s.id || x.shopName === s.shopName);
+  const copy = JSON.parse(JSON.stringify(s));
+  if (idx >= 0) db.approvedSellers[idx] = copy;
+  else db.approvedSellers.unshift(copy);
   saveDB();
-  toast(`อนุมัติผู้ขาย "${s.shopName}" เรียบร้อย! ตอนนี้ผู้ขายสามารถลงขายสินค้าได้แล้ว`);
+  toast('อนุมัติร้านค้าเรียบร้อย');
   render();
 }
 
 function adminRejectSeller() {
   db.currentSeller.status = 'unregistered';
   saveDB();
-  toast('ตีกลับให้ผู้ขายแก้ไขข้อมูลใหม่แล้ว');
   render();
 }
 
 function adminCancelProduct(productId) {
-  const p = db.products.find(x => x.id === productId);
-  if (!p) return;
-
   db.products = db.products.filter(x => x.id !== productId);
-
-  db.orders = db.orders.filter(o => {
-    if (o.productId === productId) {
-      db.admin.escrowHolding = Math.max(0, db.admin.escrowHolding - o.price);
-      db.buyer.wallet += o.price;
-      return false;
-    }
-    return true;
-  });
-
   saveDB();
-  toast(`ยกเลิกและลบสินค้า "${p.title}" ออกจากตลาดเรียบร้อย!`);
+  toast('ยกเลิกสินค้าเรียบร้อย');
   render();
 }
 
@@ -2481,114 +1896,58 @@ function refundOrder(orderId) {
   if (idx === -1) return;
   const o = db.orders[idx];
   db.orders.splice(idx, 1);
-
   db.admin.escrowHolding = Math.max(0, db.admin.escrowHolding - o.price);
   db.buyer.wallet += o.price;
   saveDB();
-  toast(`ยกเลิกคำสั่งซื้อ ${o.id} และคืนเงิน ${fmt(o.price)} ให้ผู้ซื้อเรียบร้อย`);
   render();
 }
 
-/* ==================== Modal เปิดดูรูปเอกสารที่แนบมา & รายละเอียดรายได้ ==================== */
+/* ==================== Modal ดูรูปเอกสาร & รายได้แอดมิน ==================== */
 function openSellerDocsModal(targetId) {
-  let seller = db.currentSeller;
-  if (targetId !== 'current') {
-    seller = db.approvedSellers.find(s => s.id === targetId) || db.currentSeller;
-  }
-
+  let seller = targetId === 'current' ? db.currentSeller : (db.approvedSellers.find(s => s.id === targetId) || db.currentSeller);
   const d = seller.docs;
-  const stars = countSellerStars(d);
   const sellerSales = db.completedOrders.filter(o => o.sellerId === seller.id || o.sellerShop === seller.shopName);
-  const totalFeeFromSeller = sellerSales.reduce((sum, o) => sum + o.fee5, 0);
+  const feeFromSeller = sellerSales.reduce((sum, o) => sum + o.fee5, 0);
 
-  const docBoxHTML = (title, item, ownerName) => {
-    if (!item || !item.attached) {
-      return `
-        <div class="doc-item">
-          <b>${title}</b>
-          <div style="height:150px; display:flex; align-items:center; justify-content:center; color:var(--red); background:#fff; border-radius:8px; margin:6px 0; border:1px dashed #fca5a5;">
-            ❌ ไม่ได้แนบเอกสารนี้ (0 ดาว)
-          </div>
-        </div>
-      `;
-    }
-    return `
-      <div class="doc-item">
-        <b>${title} <span class="badge b-gold">⭐ +1 ดาว</span></b>
-        <img src="${item.dataUrl}" alt="${title}">
-        <div style="font-size:12px;">ชื่อในเอกสาร: <b>${ownerName}</b></div>
-        <small style="color:var(--muted)">ไฟล์: ${item.fileName}</small>
-      </div>
-    `;
-  };
-
-  document.getElementById('modalSellerDocsContent').innerHTML = `
-    <h3 style="margin-bottom:4px;">🪪 รายละเอียดผู้ขาย & รูปเอกสารที่แนบมา</h3>
-    <div style="margin-bottom:12px;">${renderStarBadge(stars)}</div>
-
-    <div class="grid-3" style="margin-bottom:14px;">
-      <div class="stat-box">
-        <small>ชื่อร้าน / ชื่อจริงผู้ขาย</small>
-        <div style="font-weight:700; font-size:15px; margin-top:4px;">${seller.shopName}</div>
-        <small>ชื่อตรงกันทั้ง 3 เอกสาร: <b>${seller.idCardName}</b></small>
-      </div>
-      <div class="stat-box highlight">
-        <small>💰 รายได้สุทธิของผู้ขายนี้ (95%)</small>
-        <div class="num" style="color:var(--green); font-size:22px;">${fmt(seller.wallet)}</div>
-        <small>ขายสำเร็จ ${sellerSales.length} รายการ</small>
-      </div>
-      <div class="stat-box">
-        <small>👑 รายได้แอดมิน 5% ที่ได้จากร้านนี้</small>
-        <div class="num" style="color:var(--gold); font-size:22px;">${fmt(totalFeeFromSeller)}</div>
-        <small>บัญชี: ${seller.bankName} ${seller.bankNo}</small>
-      </div>
+  const docCard = (title, item) => `
+    <div class="doc-item">
+      <b>${title} ⭐</b>
+      <img src="${item.dataUrl}">
+      <small>${seller.fullName}</small>
     </div>
-
-    <h4>🖼️ รูปเอกสารที่ผู้ขายแนบมา (ตรวจดูได้ทั้งก่อนและหลังอนุมัติ)</h4>
-    <div class="doc-gallery">
-      ${docBoxHTML('1. บัตรประชาชน', d.idCard, seller.idCardName)}
-      ${docBoxHTML('2. สมุดบัญชีธนาคาร', d.bankBook, seller.bankAccName)}
-      ${docBoxHTML('3. เอกสารประกอบการค้า', d.commerce, seller.commerceDocName)}
-    </div>
-
-    ${seller.status === 'pending' && db.role === 'admin' ? `
-      <div style="margin-top:16px; display:flex; gap:10px; justify-content:flex-end;">
-        <button class="btn btn-red" onclick="hideModal('modalSellerDocs'); adminRejectSeller();">❌ ตีกลับ</button>
-        <button class="btn btn-green" onclick="hideModal('modalSellerDocs'); adminApproveSeller();">✅ ยืนยันอนุมัติผู้ขายรายนี้ทันที</button>
-      </div>
-    ` : ''}
   `;
 
+  document.getElementById('modalSellerDocsContent').innerHTML = `
+    <h3>🪪 ข้อมูลผู้ขาย: ${seller.shopName} (${seller.fullName})</h3>
+    <div class="grid-3" style="margin:10px 0;">
+      <div class="stat-box"><small>รายได้ผู้ขาย (95%)</small><div class="num" style="color:var(--green)">${fmt(seller.wallet)}</div></div>
+      <div class="stat-box"><small>รายได้แอดมิน 5% จากร้านนี้</small><div class="num" style="color:var(--gold)">${fmt(feeFromSeller)}</div></div>
+      <div class="stat-box"><small>บัญชีธนาคาร</small><b>${seller.bankName}</b><br><small>${seller.bankNo}</small></div>
+    </div>
+    <div class="doc-gallery">
+      ${docCard('1. บัตรประชาชน', d.idCard)}
+      ${docCard('2. สมุดธนาคาร', d.bankBook)}
+      ${docCard('3. เอกสารการค้า', d.commerce)}
+    </div>
+  `;
   showModal('modalSellerDocs');
 }
 
 function openAdminRevenueModal() {
   document.getElementById('modalAdminRevenueContent').innerHTML = `
-    <h3 style="margin-bottom:6px;">📈 รายละเอียดรายได้แอดมิน (คิดจาก 5% ของราคาสินค้า)</h3>
-    <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">
-      รายได้แอดมินสะสมทั้งหมด: <b style="color:var(--green); font-size:18px;">${fmt(db.admin.totalRevenue5Percent)}</b> จากรายการที่อนุมัติสำเร็จแล้ว ${db.completedOrders.length} รายการ
-    </p>
+    <h3 style="margin-bottom:10px;">📈 รายได้แอดมิน 5% สะสมทั้งหมด: ${fmt(db.admin.totalRevenue5Percent)}</h3>
     <table>
       <thead>
-        <tr>
-          <th>รหัสออเดอร์</th>
-          <th>สินค้า</th>
-          <th>ร้านผู้ขาย</th>
-          <th>ช่องทางชำระ</th>
-          <th>ราคาเต็ม (100%)</th>
-          <th>แอดมินได้รับ (5%)</th>
-          <th>โอนให้ผู้ขาย (95%)</th>
-        </tr>
+        <tr><th>รหัส</th><th>สินค้า</th><th>ร้านค้า</th><th>ราคาเต็ม</th><th>แอดมิน (5%)</th><th>ผู้ขาย (95%)</th></tr>
       </thead>
       <tbody>
         ${db.completedOrders.map(c => `
           <tr>
             <td><b>${c.id}</b></td>
             <td>${c.title}</td>
-            <td>${c.sellerShop} (${c.sellerOwner})</td>
-            <td><small>${c.payMethod || 'Wallet'}</small></td>
+            <td>${c.sellerShop}</td>
             <td>${fmt(c.price)}</td>
-            <td><span class="badge b-green">+${fmt(c.fee5)} (5%)</span></td>
+            <td><span class="badge b-green">+${fmt(c.fee5)}</span></td>
             <td>${fmt(c.sellerNet95)}</td>
           </tr>
         `).join('')}
@@ -2598,7 +1957,7 @@ function openAdminRevenueModal() {
   showModal('modalAdminRevenue');
 }
 
-/* ==================== Modal ล็อกอินด้วยอีเมล+รหัสผ่าน & เติมเงิน ==================== */
+/* ==================== ล็อกอิน & เติมเงิน ==================== */
 function showModal(id) { document.getElementById(id).style.display = 'flex'; }
 function hideModal(id) { document.getElementById(id).style.display = 'none'; }
 
@@ -2606,22 +1965,14 @@ function loginWithEmailPassword() {
   const name = document.getElementById('inputBuyerName').value.trim() || 'Non_Gamer_TH';
   const email = document.getElementById('inputGmail').value.trim();
   const pass = document.getElementById('inputPassword').value.trim();
-
-  if (!email.includes('@')) {
-    toast('กรุณากรอกอีเมลให้ถูกต้อง');
+  if (!email.includes('@') || pass.length < 4) {
+    toast('กรุณากรอกอีเมลและรหัสผ่านให้ถูกต้อง');
     return;
   }
-  if (pass.length < 4) {
-    toast('กรุณากรอกรหัสผ่านอีเมลอย่างน้อย 4 ตัวอักษร');
-    return;
-  }
-
   db.buyer.name = name;
   db.buyer.email = email;
-  db.buyer.password = '••••••••';
   hideModal('modalGmail');
   setRole('buyer');
-  toast(`เข้าสู่ระบบสำเร็จด้วยอีเมล ${email}!`);
 }
 
 function switchTopupMethod(method) {
@@ -2661,11 +2012,10 @@ function confirmQRTopup() {
   db.buyer.wallet += amt;
   saveDB();
   hideModal('modalQR');
-  toast(`เติมเงิน ${fmt(amt)} สำเร็จ! ยอดเงินทั้งหมดของคุณคือ ${fmt(db.buyer.wallet)}`);
+  toast(`เติมเงิน ${fmt(amt)} สำเร็จ`);
   render();
 }
 
-// เริ่มต้นแสดงผล
 render();
 </script>
 </body>
