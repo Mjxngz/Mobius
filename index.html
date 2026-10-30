@@ -811,6 +811,7 @@ function getInitialData() {
 
 
 let db = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || getInitialData();
+if (!db.adminChats) db.adminChats = {};
 
 // One-time migration: convert saved 5% transactions and seller balances to 8%.
 function migrateCommissionTo8Percent() {
@@ -928,6 +929,7 @@ function render() {
   const main = document.getElementById('appMain');
   if (db.page === 'market') main.innerHTML = renderMarket();
   else if (db.page === 'chat') main.innerHTML = renderChat();
+  else if (db.page === 'support') main.innerHTML = renderSupportChat();
   else if (db.page === 'orders') main.innerHTML = renderOrders();
   else if (db.page === 'seller') main.innerHTML = renderSeller();
   else if (db.page === 'admin') main.innerHTML = renderAdmin();
@@ -950,6 +952,7 @@ function renderHeader() {
     h.innerHTML = `
       <button class="btn" onclick="goPage('market')">🏠 ตลาดสินค้า</button>
       <button class="btn" onclick="goPage('chat')">💬 แชทต่อรอง</button>
+      <button class="btn" onclick="goPage('support')">🛟 ติดต่อแอดมิน</button>
       <button class="btn" onclick="goPage('orders')">📦 คำสั่งซื้อ (${db.orders.length + db.completedOrders.length})</button>
       <button class="btn btn-gold" onclick="openQRModal()">💳 เติมเงิน</button>
       <button class="btn" onclick="setRole('guest')">ออกจากระบบ</button>
@@ -963,6 +966,7 @@ function renderHeader() {
       <button class="btn" onclick="goPage('seller')">🏪 จัดการร้านค้า</button>
       <button class="btn" onclick="openShopProfile('${s.shopName}')">⭐ โปรไฟล์ร้าน</button>
       <button class="btn" onclick="goPage('chat')">💬 แชทต่อรอง</button>
+      <button class="btn" onclick="goPage('support')">🛟 ติดต่อแอดมิน</button>
       <span class="badge b-gold" style="padding:7px 12px; font-size:13px;">รายได้: ${fmt(s.wallet)}</span>
     `;
     return;
@@ -1621,6 +1625,85 @@ function onChangeDeliveryType(val) {
   if (inp) inp.placeholder = tInfo.placeholder;
 }
 
+/* ==================== แชทติดต่อแอดมิน (ผู้ซื้อ/ผู้ขาย) ==================== */
+function getSupportIdentity() {
+  if (db.role === 'seller') {
+    const seller = db.currentSeller || {};
+    return { id: 'seller:' + (seller.id || seller.shopName || 'seller'), name: seller.shopName || seller.fullName || 'ผู้ขาย', type: 'ผู้ขาย' };
+  }
+  return { id: 'buyer:' + ((db.buyer && (db.buyer.email || db.buyer.name)) || 'buyer'), name: (db.buyer && db.buyer.name) || 'ผู้ซื้อ', type: 'ผู้ซื้อ' };
+}
+function getSupportThread(id) {
+  if (!db.adminChats) db.adminChats = {};
+  if (!db.adminChats[id]) db.adminChats[id] = [];
+  return db.adminChats[id];
+}
+function renderSupportChat() {
+  const who = getSupportIdentity();
+  const thread = getSupportThread(who.id);
+  return `
+    <div class="box" style="max-width:850px;margin:0 auto;">
+      <div class="box-title"><span>🛟 ติดต่อแอดมิน</span><span class="badge b-green">แชทส่วนตัว · ${who.type}</span></div>
+      <p style="color:var(--muted);font-size:13px;">ส่งคำถามหรือแจ้งปัญหาได้โดยตรง ข้อความจะปรากฏในกล่องข้อความของแอดมิน</p>
+      <div class="chat-messages" style="min-height:280px;max-height:420px;overflow:auto;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:12px;">
+        ${thread.length ? thread.map(m => `<div class="msg ${m.sender === 'user' ? 'me' : ''}"><small style="display:block;color:var(--muted);font-size:10px;">${escapeHtml(m.author)} · ${escapeHtml(m.time || '')}</small>${escapeHtml(m.text)}</div>`).join('') : '<div class="msg sys">เริ่มต้นสนทนากับแอดมินได้ที่นี่</div>'}
+      </div>
+      <div class="chat-bar" style="margin-top:10px;">
+        <input id="supportMessageInput" type="text" placeholder="พิมพ์ข้อความถึงแอดมิน..." style="flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;" onkeydown="if(event.key==='Enter')sendSupportMessage()">
+        <button class="btn btn-gold" onclick="sendSupportMessage()">ส่งข้อความ</button>
+      </div>
+    </div>`;
+}
+function sendSupportMessage() {
+  const input = document.getElementById('supportMessageInput');
+  const message = input ? input.value.trim() : '';
+  if (!message) return;
+  const who = getSupportIdentity();
+  getSupportThread(who.id).push({ sender: 'user', author: who.name, type: who.type, text: message, time: new Date().toLocaleString('th-TH') });
+  saveDB(); render();
+}
+function renderAdminSupportInbox() {
+  const chats = db.adminChats || {};
+  const ids = Object.keys(chats).sort((a,b) => {
+    const ta = chats[a].length ? chats[a][chats[a].length-1].time || '' : '';
+    const tb = chats[b].length ? chats[b][chats[b].length-1].time || '' : '';
+    return tb.localeCompare(ta);
+  });
+  const active = db.adminSelectedChat && chats[db.adminSelectedChat] ? db.adminSelectedChat : ids[0];
+  db.adminSelectedChat = active || '';
+  return `
+    <div class="box">
+      <div class="box-title"><span>🛟 กล่องข้อความติดต่อแอดมิน (${ids.length} ห้อง)</span></div>
+      ${!ids.length ? '<p style="color:var(--muted)">ยังไม่มีข้อความติดต่อจากผู้ซื้อหรือผู้ขาย</p>' : `
+        <div class="grid-2" style="align-items:start;">
+          <div style="display:grid;gap:8px;">
+            ${ids.map(id => { const arr=chats[id]||[]; const last=arr[arr.length-1]||{}; return `<button class="btn" style="justify-content:space-between;text-align:left;${id===active?'border-color:var(--gold);background:var(--soft);':''}" onclick="selectAdminChat('${id.replace(/'/g,"\\'")}')"><span><b>${escapeHtml(last.author || id)}</b><small style="display:block;color:var(--muted)">${escapeHtml(last.type || (id.startsWith('seller:')?'ผู้ขาย':'ผู้ซื้อ'))} · ${escapeHtml(last.text || '')}</small></span><span>›</span></button>`; }).join('')}
+          </div>
+          <div>
+            <div class="chat-messages" style="min-height:240px;max-height:360px;overflow:auto;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:10px;">
+              ${(chats[active]||[]).map(m=>`<div class="msg ${m.sender==='admin'?'me':''}"><small style="display:block;color:var(--muted);font-size:10px;">${escapeHtml(m.author)} · ${escapeHtml(m.time||'')}</small>${escapeHtml(m.text)}</div>`).join('')}
+            </div>
+            <div class="chat-bar" style="margin-top:8px;">
+              <input id="adminSupportReply" placeholder="พิมพ์ตอบกลับ..." style="flex:1;padding:9px;border:1px solid var(--border);border-radius:8px;" onkeydown="if(event.key==='Enter')replySupportChat()">
+              <button class="btn btn-gold" onclick="replySupportChat()">ตอบกลับ</button>
+            </div>
+          </div>
+        </div>`}
+    </div>`;
+}
+function selectAdminChat(id) { db.adminSelectedChat=id; saveDB(); render(); }
+function replySupportChat() {
+  const input=document.getElementById('adminSupportReply');
+  const message=input?input.value.trim():'';
+  const id=db.adminSelectedChat;
+  if (!message || !id) return;
+  getSupportThread(id).push({sender:'admin',author:'แอดมิน',text:message,time:new Date().toLocaleString('th-TH')});
+  saveDB(); render();
+}
+function escapeHtml(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
 function renderSeller() {
   const s = db.currentSeller;
   const stars = countSellerStars(s.docs);
@@ -2025,6 +2108,7 @@ function renderAdmin() {
 
   return `
     ${renderAdminDashboard()}
+    ${renderAdminSupportInbox()}
     <div class="grid-4" style="margin-bottom:16px;">
       <div class="stat-box highlight clickable" onclick="openAdminRevenueModal()">
         <small>💰 รายได้แอดมินสะสม (8%)</small>
