@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobius Club — ตลาดกลางซื้อขายปลอดภัยด้วย Escrow</title>
+<title>Mobius Club — ตลาดกลาง Escrow · ประมูลสินค้า · สตรีมเกมสด (ค่าธรรมเนียม 8%)</title>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <style>
@@ -22,6 +22,8 @@
     --red-bg: #fef2f2;
     --blue: #2563eb;
     --blue-bg: #eff6ff;
+    --purple: #7c3aed;
+    --purple-bg: #f5f3ff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -31,7 +33,7 @@
     line-height: 1.45;
   }
 
-  /* แถบควบคุมการทดสอบด้านบนสุดที่เดียว */
+  /* แถบควบคุมการทดสอบด้านบนสุด */
   .role-bar {
     background: #0f172a;
     color: #fff;
@@ -41,7 +43,7 @@
     z-index: 60;
   }
   .role-bar-inner {
-    max-width: 1180px;
+    max-width: 1200px;
     margin: auto;
     display: flex;
     align-items: center;
@@ -92,10 +94,10 @@
     cursor: pointer;
   }
 
-  /* Header หลักของเว็บ */
+  /* Header หลัก */
   header { background: #fff; border-bottom: 1px solid var(--border); }
   .header-inner {
-    max-width: 1180px;
+    max-width: 1200px;
     margin: auto;
     padding: 12px 16px;
     display: flex;
@@ -114,16 +116,16 @@
   }
   .brand h1 { font-size: 19px; font-weight: 700; }
   .brand small { color: var(--muted); font-size: 11px; display: block; }
-  .menu-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .menu-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 
-  /* ปุ่มทั่วไป */
+  /* ปุ่ม */
   .btn {
     padding: 7px 12px;
     border-radius: 9px;
     border: 1px solid var(--border);
     background: #fff;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
@@ -133,58 +135,45 @@
     transition: .15s;
   }
   .btn:hover { background: #f1f5f9; }
+  .btn.nav-active { border-color: var(--gold); background: var(--gold-bg); color: #92400e; }
   .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; }
   .btn-gold:hover { opacity: .92; }
   .btn-green { background: var(--green); color: #fff; border: none; }
   .btn-red { background: var(--red-bg); color: var(--red); border-color: #fecaca; }
   .btn-blue { background: var(--blue-bg); color: var(--blue); border-color: #bfdbfe; }
+  .btn-purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; }
 
-  main { max-width: 1180px; margin: 16px auto 50px; padding: 0 16px; }
+  main { max-width: 1200px; margin: 16px auto 50px; padding: 0 16px; }
 
-  /* แถบสรุปผู้ซื้อ + โปรโมชั่น (สั้นกระชับในแถบเดียว) */
+  /* แถบสรุปผู้ซื้อสั้นกระชับ */
   .buyer-compact-bar {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 12px 16px;
+    padding: 10px 16px;
     margin-bottom: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
   }
-  .buyer-info-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
+  .buyer-info-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
   .promo-mini {
     background: var(--gold-bg);
     border: 1px solid var(--gold-border);
     border-radius: 10px;
-    padding: 6px 12px;
+    padding: 5px 12px;
     font-size: 12px;
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
   }
-  .mini-progress {
-    width: 90px;
-    height: 8px;
-    background: #fff;
-    border: 1px solid #fcd34d;
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .mini-progress-fill {
-    height: 100%;
-    background: var(--green);
-  }
+  .mini-progress { width: 80px; height: 8px; background: #fff; border: 1px solid #fcd34d; border-radius: 99px; overflow: hidden; }
+  .mini-progress-fill { height: 100%; background: var(--green); }
 
-  /* แถบค้นหาและหมวดหมู่แบบกระชับ */
+  /* แถบค้นหาและหมวดหมู่ */
   .filter-bar {
     background: #fff;
     border: 1px solid var(--border);
@@ -220,10 +209,10 @@
   }
   .cat-pill.active { background: var(--gold); color: #fff; border-color: var(--gold); }
 
-  /* การ์ดสินค้าแบบสั้นกระชับ เข้าใจง่าย */
+  /* การ์ดสินค้า & ประมูล */
   .grid-products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
     gap: 14px;
   }
   .p-card {
@@ -256,21 +245,12 @@
   .p-body { padding: 12px; flex: 1; display: flex; flex-direction: column; }
   .p-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; line-height: 1.35; }
   .p-shop-row {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4px;
+    font-size: 12px; color: var(--muted); margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: space-between; gap: 4px;
   }
   .shop-link { color: var(--blue); text-decoration: underline; cursor: pointer; font-weight: 600; }
   .p-price-row {
-    margin-top: auto;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 8px;
+    margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px;
   }
   .p-price { font-size: 18px; font-weight: 700; color: var(--gold); }
   .p-actions { display: flex; gap: 6px; }
@@ -299,55 +279,115 @@
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media(max-width: 820px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
 
-
-  .admin-dashboard { margin-bottom: 18px; }
-  .admin-dashboard-head {
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
-    gap:12px; padding:20px; border-radius:16px; color:#fff; margin-bottom:14px;
-    background:linear-gradient(120deg,#0f172a,#1e3a5f 65%,#92400e);
-  }
-  .admin-dashboard-head h2 { font-size:22px; margin-bottom:4px; }
-  .admin-dashboard-head p { color:#cbd5e1; font-size:12px; }
-  .admin-kpi-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-bottom:14px; }
-  .admin-kpi { background:#fff; border:1px solid var(--border); border-radius:13px; padding:15px; min-width:0; }
-  .admin-kpi .kpi-label { color:var(--muted); font-size:12px; }
-  .admin-kpi .kpi-value { font-size:22px; font-weight:700; margin:5px 0 2px; overflow-wrap:anywhere; }
-  .admin-kpi .kpi-note { color:var(--muted); font-size:11px; }
-  .admin-dashboard-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:14px; }
-  .admin-mini-row { display:flex; justify-content:space-between; gap:12px; padding:9px 0; border-bottom:1px solid var(--border); font-size:12px; }
-  .admin-mini-row:last-child { border-bottom:0; }
-  .admin-bar-track { height:9px; background:#f1f5f9; border-radius:99px; overflow:hidden; margin-top:5px; }
-  .admin-bar-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,#f59e0b,#d97706); }
-
-  .admin-chart-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:14px; margin-bottom:14px; }
-  .admin-chart-card { background:#fff; border:1px solid var(--border); border-radius:14px; padding:18px; min-width:0; }
-  .admin-chart-title { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; font-weight:700; margin-bottom:14px; }
-  .admin-chart-sub { color:var(--muted); font-size:11px; font-weight:400; }
-  .sales-bar-row { margin:13px 0; }
-  .sales-bar-meta { display:flex; justify-content:space-between; gap:10px; font-size:12px; margin-bottom:6px; }
-  .sales-bar-track { height:12px; background:#f1f5f9; border-radius:99px; overflow:hidden; }
-  .sales-bar-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,#fbbf24,#d97706); min-width:2px; }
-  .sales-bar-fill.seller { background:linear-gradient(90deg,#60a5fa,#2563eb); }
-  .sales-donut-wrap { display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; padding:8px 0 12px; }
-  .sales-donut { width:154px; height:154px; border-radius:50%; position:relative; display:grid; place-items:center; flex:none; }
-  .sales-donut:after { content:""; position:absolute; width:104px; height:104px; border-radius:50%; background:#fff; }
-  .sales-donut-center { position:relative; z-index:1; text-align:center; font-size:11px; color:var(--muted); }
-  .sales-donut-center b { display:block; color:var(--text); font-size:16px; }
-  .sales-legend { display:grid; gap:10px; font-size:12px; min-width:130px; }
-  .sales-legend-item { display:flex; align-items:center; gap:7px; justify-content:space-between; }
-  .sales-legend-label { display:flex; align-items:center; gap:7px; }
-  .sales-dot { width:9px; height:9px; border-radius:50%; display:inline-block; flex:none; }
-  @media(max-width:820px) { .admin-chart-grid { grid-template-columns:1fr; } }
-
-  .admin-status-pill { display:inline-block; padding:4px 8px; border-radius:99px; background:var(--gold-bg); color:var(--gold); font-size:11px; font-weight:600; }
-  @media(max-width:900px) { .admin-kpi-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-  @media(max-width:600px) { .admin-dashboard-grid { grid-template-columns:1fr; } .admin-dashboard-head h2 { font-size:19px; } }
-
   .stat-box { border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: #fff; }
   .stat-box.highlight { background: var(--green-bg); border-color: #a7f3d0; }
   .stat-box.clickable { cursor: pointer; }
   .stat-box small { color: var(--muted); font-size: 12px; display: block; }
   .stat-box .num { font-size: 22px; font-weight: 700; margin-top: 2px; }
+
+  /* กราฟแท่งในหน้า Admin Dashboard */
+  .dash-bar-row { margin-bottom: 10px; }
+  .dash-bar-head { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 4px; }
+  .dash-bar-track { width: 100%; height: 12px; background: #f1f5f9; border-radius: 99px; overflow: hidden; }
+  .dash-bar-fill { height: 100%; border-radius: 99px; }
+
+  /* ระบบสตรีมเกมสด (Live Stream Player & Donate) */
+  .stream-layout {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  @media(max-width: 900px) { .stream-layout { grid-template-columns: 1fr; } }
+  .stream-stage {
+    background: #090d16;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid #1e293b;
+  }
+  .stream-video-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+    color: #fff;
+    min-height: 300px;
+  }
+  .stream-video-area video {
+    width: 100%;
+    height: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    background: #000;
+  }
+  .live-pill {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 99px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 5;
+  }
+  .viewer-pill {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(15,23,42,0.8);
+    color: #e2e8f0;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    z-index: 5;
+  }
+  /* ป๊อปอัปแจ้งเตือนโดเนทบนหน้าจอสตรีม */
+  .donate-alert-overlay {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(245,158,11,0.95), rgba(217,119,6,0.95));
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    z-index: 10;
+    text-align: center;
+    min-width: 260px;
+  }
+  .donate-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .donate-pkg {
+    border: 1px solid var(--gold-border);
+    background: var(--gold-bg);
+    border-radius: 8px;
+    padding: 6px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 11.5px;
+    font-weight: 600;
+    transition: .15s;
+  }
+  .donate-pkg:hover { background: #fde68a; }
 
   .field { margin-bottom: 10px; }
   .field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
@@ -383,6 +423,7 @@
   .b-green { background: var(--green-bg); color: var(--green); }
   .b-blue { background: var(--blue-bg); color: var(--blue); }
   .b-red { background: var(--red-bg); color: var(--red); }
+  .b-purple { background: var(--purple-bg); color: var(--purple); }
 
   /* แชท */
   .chat-box { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
@@ -391,7 +432,7 @@
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
   }
   .chat-messages {
-    height: 230px; overflow-y: auto; padding: 12px; background: #f8fafc;
+    height: 220px; overflow-y: auto; padding: 12px; background: #f8fafc;
     display: flex; flex-direction: column; gap: 8px;
   }
   .msg { max-width: 75%; padding: 7px 11px; border-radius: 9px; background: #fff; border: 1px solid var(--border); font-size: 13px; align-self: flex-start; }
@@ -417,7 +458,7 @@
     background: #fff; border-radius: 14px; max-width: 460px; width: 100%;
     padding: 20px; position: relative; max-height: 92vh; overflow-y: auto;
   }
-  .modal-card.wide { max-width: 760px; }
+  .modal-card.wide { max-width: 780px; }
   .close-x { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 18px; cursor: pointer; color: var(--muted); }
   .doc-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
   @media(max-width: 680px) { .doc-gallery { grid-template-columns: 1fr; } }
@@ -436,7 +477,7 @@
   👁️ แสดงแถบสลับบทบาท
 </button>
 
-<!-- แถบควบคุมการทดสอบ (รวมทุกปุ่มทดสอบไว้ข้างบนสุดที่เดียว ไม่มีปะปนในหน้าเว็บด้านใน) -->
+<!-- แถบควบคุมการทดสอบด้านบนสุดที่เดียว -->
 <div class="role-bar" id="topRoleBar">
   <div class="role-bar-inner">
     <div style="font-size:12px; color:#cbd5e1;">
@@ -456,7 +497,7 @@
   </div>
 </div>
 
-<!-- Header เว็บไซต์จริง -->
+<!-- Header เว็บไซต์หลัก -->
 <header>
   <div class="header-inner">
     <div class="brand" onclick="goPage('market')">
@@ -474,7 +515,7 @@
       </div>
       <div>
         <h1>Mobius Club</h1>
-        <small>ตลาดกลางซื้อขายปลอดภัยด้วยระบบ Escrow</small>
+        <small>ตลาดกลาง Escrow · ประมูลสินค้า · สตรีมเกมสด (ค่าธรรมเนียมระบบ 8%)</small>
       </div>
     </div>
 
@@ -547,14 +588,8 @@
           <input type="text" id="topupCardNo" value="4532 •••• •••• 8899">
         </div>
         <div class="grid-2">
-          <div class="field">
-            <label>วันหมดอายุ (MM/YY)</label>
-            <input type="text" id="topupCardExp" value="08/29">
-          </div>
-          <div class="field">
-            <label>CVV</label>
-            <input type="password" id="topupCardCvv" value="888">
-          </div>
+          <div class="field"><label>วันหมดอายุ (MM/YY)</label><input type="text" id="topupCardExp" value="08/29"></div>
+          <div class="field"><label>CVV</label><input type="password" id="topupCardCvv" value="888"></div>
         </div>
       </div>
     </div>
@@ -605,12 +640,22 @@
   </div>
 </div>
 
+<!-- Modal 8: บิดประมูลสินค้า -->
+<div class="modal-bg" id="modalPlaceBid">
+  <div class="modal-card">
+    <button class="close-x" onclick="hideModal('modalPlaceBid')">✕</button>
+    <div id="modalPlaceBidContent"></div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-const FEE_RATE = 0.08;
-const STORAGE_KEY = 'mobius_clean_v7';
-const CATEGORIES = ['ทั้งหมด', 'Valorant', 'RoV', 'Blox Fruits', 'Genshin Impact', 'CS2', 'บัตรเติมเกม'];
+const FEE_RATE = 0.08; // เปลี่ยนค่าธรรมเนียมแอดมินเป็น 8% (ผู้ขายรับ 92%)
+const STORAGE_KEY = 'mobius_v8_auction_stream_8pct';
+const CATEGORIES = ['ทั้งหมด', 'Valorant', 'RoV', 'Blox Fruits', 'Genshin Impact', 'CS2', 'RedM / GTA RP', 'บัตรเติมเกม'];
+
+let activeScreenStream = null; // สำหรับระบบแชร์หน้าจอสตรีมจริงผ่านเบราว์เซอร์
 
 const DELIVERY_TYPES = {
   account: {
@@ -668,12 +713,15 @@ function getInitialData() {
 
   return {
     role: 'buyer',
-    page: 'market',
+    page: 'market', // 'market' | 'auctions' | 'streams' | 'stream_settings' | 'chat' | 'orders' | 'seller' | 'admin' | 'shop_profile'
     hideRoleBar: false,
     searchQuery: '',
     selectedCategory: 'ทั้งหมด',
     selectedTypeFilter: 'all',
+    selectedAuctionCategory: 'ทั้งหมด',
+    selectedStreamCategory: 'ทั้งหมด',
     selectedProductId: 'p1',
+    activeStreamId: 'st1',
     viewingShopName: 'Zeed Store Official',
 
     buyer: {
@@ -724,7 +772,7 @@ function getInitialData() {
 
     admin: {
       escrowHolding: 1290,
-      totalRevenue8Percent: 680
+      totalRevenue8Percent: 688 // 8% ของออเดอร์ที่สำเร็จแล้ว (320 + 360 + 8 จากโดเนท)
     },
 
     products: [
@@ -738,8 +786,146 @@ function getInitialData() {
       { id: 'p8', sellerId: 'seller_main', title: 'ไอดี Genshin Impact AR60 5 ดาว C6', cat: 'Genshin Impact', deliveryType: 'account', secretPayload: 'ID: genshin_ar60 | PASS: Hoyo#2026', price: 5500, icon: '✨', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
       { id: 'p9', sellerId: 'seller_vip_01', title: 'ไอดี Genshin Impact AR55 Furina + Neuvillette', cat: 'Genshin Impact', deliveryType: 'account', secretPayload: 'ID: genshin_furina | PASS: Hydro#1200', price: 1200, icon: '💧', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
       { id: 'p10', sellerId: 'seller_main', title: 'มีด Karambit Doppler Phase 2 (CS2 Code)', cat: 'CS2', deliveryType: 'item_code', secretPayload: 'CS2-KARAMBIT-8821', price: 14500, icon: '🔪', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 },
-      { id: 'p11', sellerId: 'seller_vip_01', title: 'สกินปืน AK-47 Asiimov StatTrak (CS2 Code)', cat: 'CS2', deliveryType: 'item_code', secretPayload: 'CS2-AK47-ASIIMOV-3349', price: 1650, icon: '🎯', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
+      { id: 'p11', sellerId: 'seller_vip_01', title: 'ไอดี RedM เซิร์ฟคาวบอย พร้อมม้าแรร์และทอง 500G', cat: 'RedM / GTA RP', deliveryType: 'account', secretPayload: 'STEAM-REDM-VIP-8841 | PASS: West#2026', price: 1750, icon: '🤠', sellerShop: 'ProValorant Thailand', sellerOwner: 'วรเมธ พิทักษ์กุล', sellerStars: 3 },
       { id: 'p12', sellerId: 'seller_main', title: 'บัตรเติมเกม Steam Wallet มูลค่า 1,000 บาท', cat: 'บัตรเติมเกม', deliveryType: 'card_code', secretPayload: 'STEAM-1000THB-9941', price: 1000, icon: '💳', sellerShop: 'Zeed Store Official', sellerOwner: 'กิตติพงศ์ รัตนโชติ', sellerStars: 3 }
+    ],
+
+    // ระบบประมูลสินค้า (เชื่อมผู้ขายและผู้ซื้อ)
+    auctions: [
+      {
+        id: 'auc1',
+        sellerId: 'seller_main',
+        sellerShop: 'Zeed Store Official',
+        sellerOwner: 'กิตติพงศ์ รัตนโชติ',
+        sellerStars: 3,
+        title: 'ไอดี Valorant VCT Champions 2021-2025 ครบทุกปี (ประมูลเริ่มต้น 1,000฿)',
+        cat: 'Valorant',
+        deliveryType: 'account',
+        secretPayload: 'ID: vct_collector01 | PASS: VCT#AllYears',
+        icon: '🏆',
+        startPrice: 1000,
+        currentBid: 2400,
+        minStep: 100,
+        buyoutPrice: 4500,
+        highestBidder: 'Korn_Esports',
+        bidCount: 5,
+        endTimeText: 'เหลือเวลา 01:45:00',
+        status: 'active', // 'active' | 'ended'
+        bidHistory: [
+          { bidder: 'Korn_Esports', amount: 2400, time: '5 นาทีที่แล้ว' },
+          { bidder: 'Non_Gamer_TH', amount: 2200, time: '12 นาทีที่แล้ว' }
+        ]
+      },
+      {
+        id: 'auc2',
+        sellerId: 'seller_vip_01',
+        sellerShop: 'ProValorant Thailand',
+        sellerOwner: 'วรเมธ พิทักษ์กุล',
+        sellerStars: 3,
+        title: 'โค้ดผลปีศาจถาวร Kitsune + Dragon แพ็กคู่ (ประมูล)',
+        cat: 'Blox Fruits',
+        deliveryType: 'item_code',
+        secretPayload: 'BLOX-DUO-PERM-KITSUNE-DRAGON-999',
+        icon: '🐉',
+        startPrice: 800,
+        currentBid: 1300,
+        minStep: 50,
+        buyoutPrice: 2000,
+        highestBidder: 'Non_Gamer_TH',
+        bidCount: 4,
+        endTimeText: 'เหลือเวลา 00:35:00',
+        status: 'active',
+        bidHistory: [
+          { bidder: 'Non_Gamer_TH', amount: 1300, time: 'เมื่อสักครู่' }
+        ]
+      },
+      {
+        id: 'auc3',
+        sellerId: 'seller_main',
+        sellerShop: 'Zeed Store Official',
+        sellerOwner: 'กิตติพงศ์ รัตนโชติ',
+        sellerStars: 3,
+        title: 'สกิน RoV Limited SS1 + บัตรเปลี่ยนชื่อ (ประมูลด่วน)',
+        cat: 'RoV',
+        deliveryType: 'item_code',
+        secretPayload: 'ROV-SS1-LIMITED-CODE-7788',
+        icon: '👑',
+        startPrice: 500,
+        currentBid: 950,
+        minStep: 50,
+        buyoutPrice: 1600,
+        highestBidder: 'Alpha_Player',
+        bidCount: 3,
+        endTimeText: 'เหลือเวลา 02:15:00',
+        status: 'active',
+        bidHistory: [
+          { bidder: 'Alpha_Player', amount: 950, time: '10 นาทีที่แล้ว' }
+        ]
+      }
+    ],
+
+    // ระบบสตรีมเกมสด & โดเนท
+    streams: [
+      {
+        id: 'st1',
+        sellerId: 'seller_main',
+        streamerName: 'Zeed Store Official',
+        title: '🔴 สตรีมสดพาไต่แรงค์ Radiant + รีวิวไอดีในร้าน & แจกโค้ดท้ายสตรีม!',
+        cat: 'Valorant',
+        viewers: 428,
+        isLive: true,
+        totalDonations: 100,
+        linkedProductId: 'p1',
+        lastDonateAlert: '🎁 Non_Gamer_TH โดเนท ฿100: "ขอให้ขึ้น Radiant ไวๆ ครับ!"',
+        chat: [
+          { user: 'Korn_Esports', text: 'สกินมีดสวยมากครับ ร้านนี้ปลอดภัยจริง' },
+          { user: 'Non_Gamer_TH', text: '🎁 โดเนท ฿100 — ขอให้ขึ้น Radiant ไวๆ ครับ!', isDonate: true }
+        ]
+      },
+      {
+        id: 'st2',
+        sellerId: 'seller_vip_01',
+        streamerName: 'ProValorant Thailand',
+        title: '🔴 ล่าบอสทะเล 3 Blox Fruits + เปิดประมูลผล Kitsune ถาวรสดๆ',
+        cat: 'Blox Fruits',
+        viewers: 315,
+        isLive: true,
+        totalDonations: 0,
+        linkedProductId: 'p7',
+        lastDonateAlert: '',
+        chat: [
+          { user: 'SeaHunter99', text: 'รอประมูลผลมังกรครับ' }
+        ]
+      },
+      {
+        id: 'st3',
+        sellerId: 'seller_vip_01',
+        streamerName: 'ProValorant Thailand',
+        title: '🔴 สตรีมเล่น RedM เซิร์ฟคาวบอย พาชมม้าแรร์ก่อนตัดสินใจซื้อ',
+        cat: 'RedM / GTA RP',
+        viewers: 189,
+        isLive: true,
+        totalDonations: 0,
+        linkedProductId: 'p11',
+        lastDonateAlert: '',
+        chat: [
+          { user: 'Cowboy_TH', text: 'ม้าวิ่งไวมากครับ' }
+        ]
+      }
+    ],
+
+    streamSettings: {
+      title: '🔴 สตรีมสดพาไต่แรงค์ Radiant + รีวิวไอดีในร้าน & แจกโค้ดท้ายสตรีม!',
+      cat: 'Valorant',
+      rtmpUrl: 'rtmp://live.mobiusclub.studio/app',
+      streamKey: 'mobius_live_key_99482_secret',
+      minDonate: 20,
+      linkedProductId: 'p1',
+      obsConnected: false
+    },
+
+    donations: [
+      { id: 'don1', streamId: 'st1', streamerName: 'Zeed Store Official', donorName: 'Non_Gamer_TH', amount: 100, fee8: 8, net92: 92, message: 'ขอให้ขึ้น Radiant ไวๆ ครับ!', time: 'วันนี้ 12:15' }
     ],
 
     messages: [
@@ -759,9 +945,10 @@ function getInitialData() {
         sellerShop: 'Zeed Store Official',
         sellerOwner: 'กิตติพงศ์ รัตนโชติ',
         price: 1290,
-        fee8: 103,
-        sellerNet92: 1187,
+        fee8: Math.round(1290 * FEE_RATE), // 103
+        sellerNet92: 1290 - Math.round(1290 * FEE_RATE), // 1187
         payMethod: 'Mobius Wallet (QR)',
+        orderSource: 'ตลาดสินค้า',
         status: 'held',
         reviewed: false
       }
@@ -781,13 +968,14 @@ function getInitialData() {
         fee8: 320,
         sellerNet92: 3680,
         payMethod: 'บัตรเครดิต (••8899)',
+        orderSource: 'ตลาดสินค้า',
         completedAt: 'วันนี้ 11:20',
         reviewed: true
       },
       {
         id: 'ORD-102',
         sellerId: 'seller_vip_01',
-        title: 'สกินแรร์ Limited Edition (Code)',
+        title: 'สกินแรร์ Limited Edition (ชนะประมูล)',
         deliveryType: 'item_code',
         secretPayload: 'SKIN-LIMITED-7721',
         buyerName: 'Non_Gamer_TH',
@@ -796,7 +984,8 @@ function getInitialData() {
         price: 4500,
         fee8: 360,
         sellerNet92: 4140,
-        payMethod: 'Mobius Wallet (QR)',
+        payMethod: 'Mobius Escrow Auction',
+        orderSource: 'ประมูลสินค้า',
         completedAt: 'วันนี้ 12:05',
         reviewed: true
       }
@@ -804,60 +993,12 @@ function getInitialData() {
 
     reviews: [
       { id: 'rev1', orderId: 'ORD-101', sellerShop: 'Zeed Store Official', buyerName: 'Non_Gamer_TH', productTitle: 'ไอดีเกม Valorant Immortal สกินครบ', rating: 5, comment: 'ได้รับไอดีทันทีหลังซื้อ ปลอดภัย 3 ดาว แนะนำครับ', createdAt: 'วันนี้ 11:25' },
-      { id: 'rev2', orderId: 'ORD-102', sellerShop: 'ProValorant Thailand', buyerName: 'Non_Gamer_TH', productTitle: 'สกินแรร์ Limited Edition (Code)', rating: 5, comment: 'โค้ดใช้งานได้จริง ส่งไวมากครับ', createdAt: 'วันนี้ 12:10' }
+      { id: 'rev2', orderId: 'ORD-102', sellerShop: 'ProValorant Thailand', buyerName: 'Non_Gamer_TH', productTitle: 'สกินแรร์ Limited Edition (ชนะประมูล)', rating: 5, comment: 'ประมูลได้ปุ๊บรับโค้ดทันที ส่งไวมากครับ', createdAt: 'วันนี้ 12:10' }
     ]
   };
 }
 
-
 let db = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || getInitialData();
-if (!db.adminChats) db.adminChats = {};
-
-// One-time migration: convert saved 5% transactions and seller balances to 8%.
-function migrateCommissionTo8Percent() {
-  if (db.commissionVersion === 8) return;
-  db.admin = db.admin || {};
-  db.orders = db.orders || [];
-  db.completedOrders = db.completedOrders || [];
-
-  let completedFeeDelta = 0;
-  const sellerDeltas = {};
-
-  [...db.completedOrders, ...db.orders].forEach(order => {
-    const oldFee = Number(order.fee8 ?? order.fee5 ?? Math.round(Number(order.price || 0) * 0.05));
-    const newFee = Math.round(Number(order.price || 0) * FEE_RATE);
-    const newNet = Number(order.price || 0) - newFee;
-
-    if (db.completedOrders.includes(order)) {
-      const delta = newFee - oldFee;
-      completedFeeDelta += delta;
-      const key = order.sellerId || order.sellerShop || 'unknown';
-      sellerDeltas[key] = (sellerDeltas[key] || 0) + delta;
-    }
-
-    order.fee8 = newFee;
-    order.sellerNet92 = newNet;
-    delete order.fee5;
-    delete order.sellerNet95;
-  });
-
-  // Adjust credited seller balances by the additional commission on completed sales.
-  const adjustSeller = seller => {
-    if (!seller) return;
-    const key = seller.id || seller.shopName || 'unknown';
-    seller.wallet = Math.max(0, Number(seller.wallet || 0) - (sellerDeltas[key] || 0));
-  };
-  adjustSeller(db.currentSeller);
-  (db.approvedSellers || []).forEach(adjustSeller);
-
-  const oldRevenue = Number(db.admin.totalRevenue8Percent ?? db.admin.totalRevenue5Percent ?? 0);
-  db.admin.totalRevenue8Percent = Math.max(0, oldRevenue + completedFeeDelta);
-  delete db.admin.totalRevenue5Percent;
-  db.commissionVersion = 8;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-}
-migrateCommissionTo8Percent();
-
 
 function saveDB() { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); }
 function resetAllData() {
@@ -874,7 +1015,7 @@ function toast(msg) {
   t.textContent = msg;
   t.style.display = 'block';
   clearTimeout(t._tm);
-  t._tm = setTimeout(() => t.style.display = 'none', 3000);
+  t._tm = setTimeout(() => t.style.display = 'none', 3200);
 }
 
 function copyText(text) {
@@ -928,21 +1069,32 @@ function render() {
   renderHeader();
   const main = document.getElementById('appMain');
   if (db.page === 'market') main.innerHTML = renderMarket();
+  else if (db.page === 'auctions') main.innerHTML = renderAuctions();
+  else if (db.page === 'streams') {
+    main.innerHTML = renderStreams();
+    attachActiveScreenStreamToVideo();
+  }
+  else if (db.page === 'stream_settings') {
+    main.innerHTML = renderStreamSettings();
+    attachActiveScreenStreamToVideo();
+  }
   else if (db.page === 'chat') main.innerHTML = renderChat();
-  else if (db.page === 'support') main.innerHTML = renderSupportChat();
   else if (db.page === 'orders') main.innerHTML = renderOrders();
   else if (db.page === 'seller') main.innerHTML = renderSeller();
-  else if (db.page === 'admin') main.innerHTML = renderAdmin();
+  else if (db.page === 'admin') main.innerHTML = renderAdminDashboard();
   else if (db.page === 'shop_profile') main.innerHTML = renderShopProfile();
 }
 
-/* ==================== Header สะอาดตา (ไม่มีปุ่มทดสอบปะปน) ==================== */
+/* ==================== Header หลัก ==================== */
 function renderHeader() {
   const h = document.getElementById('headerMenu');
+  const activeCls = p => db.page === p ? ' nav-active' : '';
 
   if (db.role === 'guest') {
     h.innerHTML = `
-      <button class="btn" onclick="goPage('market')">🏠 ตลาดสินค้า</button>
+      <button class="btn${activeCls('market')}" onclick="goPage('market')">🏠 ตลาดสินค้า</button>
+      <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 ประมูลสินค้า (${db.auctions.filter(a=>a.status==='active').length})</button>
+      <button class="btn${activeCls('streams')}" onclick="goPage('streams')">🔴 สตรีมเกมสด (${db.streams.length})</button>
       <button class="btn btn-gold" onclick="showModal('modalGmail')">🔐 เข้าสู่ระบบ</button>
     `;
     return;
@@ -950,12 +1102,13 @@ function renderHeader() {
 
   if (db.role === 'buyer') {
     h.innerHTML = `
-      <button class="btn" onclick="goPage('market')">🏠 ตลาดสินค้า</button>
-      <button class="btn" onclick="goPage('chat')">💬 แชทต่อรอง</button>
-      <button class="btn" onclick="goPage('support')">🛟 ติดต่อแอดมิน</button>
-      <button class="btn" onclick="goPage('orders')">📦 คำสั่งซื้อ (${db.orders.length + db.completedOrders.length})</button>
+      <button class="btn${activeCls('market')}" onclick="goPage('market')">🏠 ตลาดสินค้า</button>
+      <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 ประมูล (${db.auctions.filter(a=>a.status==='active').length})</button>
+      <button class="btn${activeCls('streams')}" onclick="goPage('streams')">🔴 สตรีมสด (${db.streams.length})</button>
+      <button class="btn${activeCls('chat')}" onclick="goPage('chat')">💬 แชทต่อรอง</button>
+      <button class="btn${activeCls('orders')}" onclick="goPage('orders')">📦 คำสั่งซื้อ (${db.orders.length + db.completedOrders.length})</button>
       <button class="btn btn-gold" onclick="openQRModal()">💳 เติมเงิน</button>
-      <button class="btn" onclick="setRole('guest')">ออกจากระบบ</button>
+      <button class="btn" onclick="setRole('guest')">ออก</button>
     `;
     return;
   }
@@ -963,25 +1116,28 @@ function renderHeader() {
   if (db.role === 'seller') {
     const s = db.currentSeller;
     h.innerHTML = `
-      <button class="btn" onclick="goPage('seller')">🏪 จัดการร้านค้า</button>
-      <button class="btn" onclick="openShopProfile('${s.shopName}')">⭐ โปรไฟล์ร้าน</button>
-      <button class="btn" onclick="goPage('chat')">💬 แชทต่อรอง</button>
-      <button class="btn" onclick="goPage('support')">🛟 ติดต่อแอดมิน</button>
-      <span class="badge b-gold" style="padding:7px 12px; font-size:13px;">รายได้: ${fmt(s.wallet)}</span>
+      <button class="btn${activeCls('seller')}" onclick="goPage('seller')">🏪 จัดการร้าน & เปิดประมูล</button>
+      <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 หน้าประมูล</button>
+      <button class="btn${activeCls('streams')}" onclick="goPage('streams')">🔴 ดูสตรีมสด</button>
+      <button class="btn${activeCls('stream_settings')}" onclick="goPage('stream_settings')">⚙️ ตั้งค่าสตรีม</button>
+      <button class="btn${activeCls('chat')}" onclick="goPage('chat')">💬 แชทแก้ราคา</button>
+      <span class="badge b-gold" style="padding:7px 12px; font-size:12.5px;">รายได้สุทธิ (92%): ${fmt(s.wallet)}</span>
     `;
     return;
   }
 
   if (db.role === 'admin') {
     h.innerHTML = `
-      <button class="btn btn-gold" onclick="goPage('admin')">👑 แผงควบคุมแอดมิน</button>
-      <button class="btn" onclick="openAdminRevenueModal()">📈 รายได้ 8% (${fmt(db.admin.totalRevenue8Percent)})</button>
-      <button class="btn" onclick="goPage('market')">🏠 ดูตลาด</button>
+      <button class="btn btn-gold" onclick="goPage('admin')">📊 แดชบอร์ดแอดมิน (หัก 8%)</button>
+      <button class="btn" onclick="openAdminRevenueModal()">📈 รายได้สะสม (${fmt(db.admin.totalRevenue8Percent)})</button>
+      <button class="btn" onclick="goPage('market')">🏠 ตลาด</button>
+      <button class="btn" onclick="goPage('auctions')">🔨 ประมูล</button>
+      <button class="btn" onclick="goPage('streams')">🔴 สตรีมสด</button>
     `;
   }
 }
 
-/* ==================== แถบสรุปผู้ซื้อสั้นกระชับ (ชื่อ + เงินทั้งหมด + โปรโมชั่น) ==================== */
+/* ==================== แถบสรุปผู้ซื้อสั้นกระชับ ==================== */
 function renderBuyerCompactBar() {
   if (db.role !== 'buyer') return '';
   const count = db.buyer.promoCount1000 || 0;
@@ -991,14 +1147,8 @@ function renderBuyerCompactBar() {
   return `
     <div class="buyer-compact-bar">
       <div class="buyer-info-left">
-        <div>
-          <span style="font-size:12px; color:var(--muted);">ผู้ซื้อ:</span>
-          <b>${db.buyer.name}</b>
-        </div>
-        <div>
-          <span style="font-size:12px; color:var(--muted);">เงินคงเหลือ:</span>
-          <b style="color:var(--gold); font-size:17px;">${fmt(db.buyer.wallet)}</b>
-        </div>
+        <div><span style="font-size:12px; color:var(--muted);">ผู้ซื้อ:</span> <b>${db.buyer.name}</b></div>
+        <div><span style="font-size:12px; color:var(--muted);">เงินทั้งหมด:</span> <b style="color:var(--gold); font-size:17px;">${fmt(db.buyer.wallet)}</b></div>
       </div>
 
       <div class="promo-mini">
@@ -1023,7 +1173,7 @@ function simulatePromoStep() {
   render();
 }
 
-/* ==================== 1. หน้าตลาดสินค้า (สั้น กระชับ เข้าใจง่าย) ==================== */
+/* ==================== 1. หน้าตลาดสินค้า ==================== */
 function getShopReviewSummary(shopName) {
   const list = db.reviews.filter(r => r.sellerShop === shopName);
   if (list.length === 0) return { avg: '5.0', count: 0 };
@@ -1065,7 +1215,6 @@ function getFilteredProducts() {
 
 function renderFilteredProductsHTML() {
   const list = getFilteredProducts();
-
   if (list.length === 0) {
     return `<div class="box" style="text-align:center; color:var(--muted);">ไม่พบสินค้าที่ค้นหา</div>`;
   }
@@ -1088,7 +1237,7 @@ function renderFilteredProductsHTML() {
 
             <div class="p-shop-row">
               <span class="shop-link" onclick="openShopProfile('${p.sellerShop}')">🏪 ${p.sellerShop}</span>
-              <span title="การันตีความปลอดภัย">${'⭐'.repeat(p.sellerStars || 3)} (${rev.avg})</span>
+              <span>${'⭐'.repeat(p.sellerStars || 3)} (${rev.avg})</span>
             </div>
 
             <div class="p-price-row">
@@ -1146,11 +1295,594 @@ function renderMarket() {
   `;
 }
 
+/* ==================== 2. ระบบประมูลสินค้า (เชื่อมผู้ขายและผู้ซื้อ) ==================== */
+function renderAuctions() {
+  const cat = db.selectedAuctionCategory || 'ทั้งหมด';
+  const list = db.auctions.filter(a => a.status === 'active' && (cat === 'ทั้งหมด' || a.cat === cat));
+
+  return `
+    ${renderBuyerCompactBar()}
+
+    <div class="box" style="background:linear-gradient(135deg,#fffbeb,#ffffff); border-color:var(--gold-border);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div>
+          <h2>🔨 ลานประมูลสินค้าแรร์ (Mobius Live Auction)</h2>
+          <p style="font-size:13px; color:var(--muted);">
+            เชื่อมตรงระหว่างผู้ขายและผู้ซื้อ · เงินผู้บิดสูงสุดถูกค้ำประกันในระบบ Escrow (หากมีคนบิดแซง ระบบคืนเงินเข้ากระเป๋าให้อัตโนมัติทันที) · หักค่าธรรมเนียมระบบ 8%
+          </p>
+        </div>
+        ${db.role === 'seller' ? `
+          <button class="btn btn-gold" onclick="goPage('seller')">➕ เปิดประมูลสินค้าใหม่</button>
+        ` : ''}
+      </div>
+
+      <div class="cat-pills" style="margin-top:12px;">
+        ${CATEGORIES.map(c => `
+          <button class="cat-pill ${cat === c ? 'active' : ''}" onclick="db.selectedAuctionCategory='${c}'; saveDB(); render();">
+            ${c}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+
+    ${list.length === 0 ? `<div class="box" style="text-align:center; color:var(--muted);">ไม่มีรายการประมูลในหมวดหมู่นี้</div>` : `
+      <div class="grid-products">
+        ${list.map(a => {
+          const tInfo = DELIVERY_TYPES[a.deliveryType || 'account'] || DELIVERY_TYPES.account;
+          const nextMinBid = a.currentBid + a.minStep;
+          return `
+            <div class="p-card" style="border:2px solid #fde68a;">
+              <div class="p-img">
+                <span class="p-cat">${a.cat}</span>
+                <span style="position:absolute; top:6px; right:6px;" class="badge b-red">⏳ ${a.endTimeText}</span>
+                <span>${a.icon || '🔨'}</span>
+                <span class="p-type-badge">${tInfo.shortBadge}</span>
+              </div>
+              <div class="p-body">
+                <div class="p-title">${a.title}</div>
+                <div class="p-shop-row">
+                  <span class="shop-link" onclick="openShopProfile('${a.sellerShop}')">🏪 ${a.sellerShop}</span>
+                  <span>${'⭐'.repeat(a.sellerStars || 3)}</span>
+                </div>
+
+                <div style="background:#f8fafc; border:1px solid var(--border); border-radius:9px; padding:8px 10px; margin-bottom:8px; font-size:12px;">
+                  <div style="display:flex; justify-content:space-between;">
+                    <span>ราคาประมูลปัจจุบัน:</span>
+                    <b style="color:var(--gold); font-size:16px;">${fmt(a.currentBid)}</b>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; color:var(--muted); margin-top:2px;">
+                    <span>ผู้บิดสูงสุด: <b>${a.highestBidder || '-'}</b></span>
+                    <span>(${a.bidCount} บิด)</span>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; color:var(--green); margin-top:2px;">
+                    <span>ราคาซื้อทันที (Buyout):</span>
+                    <b>${fmt(a.buyoutPrice)}</b>
+                  </div>
+                </div>
+
+                <div class="p-actions">
+                  <button class="btn btn-gold" onclick="openBidModal('${a.id}')">🔨 บิดสู้ (${fmt(nextMinBid)}+)</button>
+                  <button class="btn btn-green" onclick="buyoutAuction('${a.id}')">⚡ ซื้อทันที ${fmt(a.buyoutPrice)}</button>
+                </div>
+
+                ${(db.role === 'seller' || db.role === 'admin') ? `
+                  <div style="display:flex; gap:6px; margin-top:6px;">
+                    <button class="btn btn-blue" style="flex:1; justify-content:center; font-size:11px;" onclick="endAuctionNow('${a.id}')">
+                      🏁 ปิดประมูลให้ผู้ชนะทันที
+                    </button>
+                    ${db.role === 'admin' ? `
+                      <button class="btn btn-red" style="font-size:11px;" onclick="adminCancelAuction('${a.id}')">🗑️</button>
+                    ` : ''}
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `}
+  `;
+}
+
+function openBidModal(aucId) {
+  if (db.role === 'guest') {
+    toast('กรุณาเข้าสู่ระบบก่อนร่วมประมูล');
+    showModal('modalGmail');
+    return;
+  }
+  const a = db.auctions.find(x => x.id === aucId);
+  if (!a) return;
+  const minBid = a.currentBid + a.minStep;
+
+  document.getElementById('modalPlaceBidContent').innerHTML = `
+    <h3 style="margin-bottom:6px;">🔨 ร่วมประมูลสินค้า</h3>
+    <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">${a.title}</p>
+
+    <div class="box" style="background:#f8fafc; padding:12px; margin-bottom:12px; font-size:13px;">
+      <div>ราคาปัจจุบัน: <b style="color:var(--gold); font-size:17px;">${fmt(a.currentBid)}</b> (โดย ${a.highestBidder})</div>
+      <div>บิดขั้นต่ำครั้งถัดไป: <b style="color:var(--green);">${fmt(minBid)}</b> (+${fmt(a.minStep)})</div>
+      <div style="margin-top:4px; color:var(--muted); font-size:11.5px;">เงินในกระเป๋าของคุณ: <b>${fmt(db.buyer.wallet)}</b></div>
+    </div>
+
+    <div class="field">
+      <label>ระบุราคาที่ต้องการบิด (บาท) *</label>
+      <input type="number" id="bidAmountInput" value="${minBid}" min="${minBid}" step="${a.minStep}">
+    </div>
+
+    <div style="margin-bottom:12px; max-height:110px; overflow-y:auto; font-size:12px; background:#f8fafc; padding:8px; border-radius:8px;">
+      <b>ประวัติการบิดล่าสุด:</b>
+      ${a.bidHistory.map(h => `<div style="display:flex; justify-content:space-between; margin-top:3px;"><span>🧑 ${h.bidder}</span><b>${fmt(h.amount)} (${h.time})</b></div>`).join('')}
+    </div>
+
+    <button class="btn btn-gold" style="width:100%; justify-content:center; padding:10px;" onclick="submitBid('${a.id}')">
+      🔨 ยืนยันการบิดประมูล
+    </button>
+  `;
+  showModal('modalPlaceBid');
+}
+
+function submitBid(aucId) {
+  const a = db.auctions.find(x => x.id === aucId);
+  if (!a || a.status !== 'active') return;
+  const minBid = a.currentBid + a.minStep;
+  const bidVal = Number(document.getElementById('bidAmountInput').value || 0);
+
+  if (bidVal < minBid) {
+    toast(`ต้องบิดอย่างน้อย ${fmt(minBid)}`);
+    return;
+  }
+  if (db.buyer.wallet < bidVal) {
+    hideModal('modalPlaceBid');
+    toast('ยอดเงินในกระเป๋าไม่พอสำหรับบิดราคานี้ กรุณาเติมเงิน');
+    setQRValue(bidVal - db.buyer.wallet);
+    openQRModal();
+    return;
+  }
+
+  // หากผู้ซื้อคนเดิมเป็นคนบิดสูงสุดอยู่ก่อนแล้ว ให้คืนเงินก้อนเก่าที่ล็อกไว้ก่อนหักก้อนใหม่
+  if (a.highestBidder === db.buyer.name) {
+    db.buyer.wallet += a.currentBid;
+  }
+
+  db.buyer.wallet -= bidVal;
+  a.currentBid = bidVal;
+  a.highestBidder = db.buyer.name;
+  a.bidCount += 1;
+  a.bidHistory.unshift({ bidder: db.buyer.name, amount: bidVal, time: 'เมื่อสักครู่' });
+
+  hideModal('modalPlaceBid');
+
+  // ถ้าราคาบิดถึงหรือเกินราคา Buyout ให้ชนะประมูลทันที
+  if (bidVal >= a.buyoutPrice) {
+    finalizeAuctionOrder(a, bidVal, 'ชนะประมูล (แตะราคา Buyout)');
+    return;
+  }
+
+  saveDB();
+  toast(`บิดประมูลที่ ${fmt(bidVal)} สำเร็จ! คุณเป็นผู้บิดสูงสุดตอนนี้`);
+  render();
+}
+
+function buyoutAuction(aucId) {
+  if (db.role === 'guest') {
+    toast('กรุณาเข้าสู่ระบบก่อนซื้อ');
+    showModal('modalGmail');
+    return;
+  }
+  const a = db.auctions.find(x => x.id === aucId);
+  if (!a || a.status !== 'active') return;
+
+  if (a.highestBidder === db.buyer.name) {
+    db.buyer.wallet += a.currentBid;
+  }
+
+  if (db.buyer.wallet < a.buyoutPrice) {
+    toast('ยอดเงินในกระเป๋าไม่พอสำหรับราคา Buyout กรุณาเติมเงิน');
+    setQRValue(a.buyoutPrice - db.buyer.wallet);
+    openQRModal();
+    return;
+  }
+
+  db.buyer.wallet -= a.buyoutPrice;
+  finalizeAuctionOrder(a, a.buyoutPrice, 'ประมูลซื้อทันที (Buyout)');
+}
+
+function endAuctionNow(aucId) {
+  const a = db.auctions.find(x => x.id === aucId);
+  if (!a || a.status !== 'active') return;
+  finalizeAuctionOrder(a, a.currentBid, 'ชนะประมูลสูงสุด');
+}
+
+function finalizeAuctionOrder(a, finalPrice, methodLabel) {
+  a.status = 'ended';
+  const fee8 = Math.round(finalPrice * FEE_RATE);
+  const net92 = finalPrice - fee8;
+  db.admin.escrowHolding += finalPrice;
+
+  const newOrder = {
+    id: 'AUC-' + Math.floor(100 + Math.random() * 900),
+    productId: a.id,
+    sellerId: a.sellerId || 'seller_main',
+    title: `[ประมูล] ${a.title}`,
+    deliveryType: a.deliveryType || 'account',
+    secretPayload: a.secretPayload || 'AUC-CODE-9999',
+    buyerName: a.highestBidder || db.buyer.name,
+    sellerShop: a.sellerShop,
+    sellerOwner: a.sellerOwner,
+    price: finalPrice,
+    fee8: fee8,
+    sellerNet92: net92,
+    payMethod: methodLabel,
+    orderSource: 'ประมูลสินค้า',
+    status: 'held',
+    reviewed: false
+  };
+
+  db.orders.unshift(newOrder);
+  saveDB();
+  showDeliveredSecretModal(newOrder, false);
+  render();
+}
+
+function adminCancelAuction(aucId) {
+  db.auctions = db.auctions.filter(x => x.id !== aucId);
+  saveDB();
+  toast('ยกเลิกรายการประมูลแล้ว');
+  render();
+}
+
+/* ==================== 3. ระบบสตรีมเกมผ่านเว็บ + แยกหมวดหมู่ + โดเนทระหว่างสตรีม ==================== */
+function renderStreams() {
+  const cat = db.selectedStreamCategory || 'ทั้งหมด';
+  const filteredStreams = db.streams.filter(s => cat === 'ทั้งหมด' || s.cat === cat);
+  const activeStream = db.streams.find(s => s.id === db.activeStreamId) || filteredStreams[0] || db.streams[0];
+  const linkedProd = activeStream ? db.products.find(p => p.id === activeStream.linkedProductId) : null;
+
+  return `
+    ${renderBuyerCompactBar()}
+
+    <!-- หมวดหมู่สตรีมเกมแยกชัดเจน -->
+    <div class="filter-bar">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <b>🔴 หมวดหมู่สตรีมเกมสด (Live Game Streams):</b>
+        ${db.role === 'seller' ? `
+          <button class="btn btn-purple" onclick="goPage('stream_settings')">⚙️ ไปหน้าตั้งค่าสตรีม / แชร์หน้าจอเกมขึ้นเว็บ</button>
+        ` : ''}
+      </div>
+      <div class="cat-pills">
+        ${CATEGORIES.filter(c => c !== 'บัตรเติมเกม').map(c => `
+          <button class="cat-pill ${cat === c ? 'active' : ''}" onclick="db.selectedStreamCategory='${c}'; saveDB(); render();">
+            ${c === 'ทั้งหมด' ? '🔴 ทุกหมวดเกม (' + db.streams.length + ')' : '🎮 ' + c}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+
+    ${activeStream ? `
+      <div class="stream-layout">
+        <!-- จอเล่นสตรีมสด -->
+        <div>
+          <div class="stream-stage">
+            <span class="live-pill">● LIVE · ${activeStream.cat}</span>
+            <span class="viewer-pill">👁️ ${activeStream.viewers} คนกำลังดู</span>
+
+            <div class="stream-video-area" id="streamVideoContainer">
+              <video id="liveScreenVideo" autoplay playsinline muted style="display:none;"></video>
+              <div id="simulatedStreamView" style="text-align:center; padding:20px;">
+                <div style="font-size:60px; margin-bottom:8px;">🎮</div>
+                <h3 style="color:#fbbf24;">${activeStream.streamerName} กำลังสตรีมเกม ${activeStream.cat}</h3>
+                <p style="font-size:13px; color:#94a3b8; margin-top:4px;">${activeStream.title}</p>
+                <div style="margin-top:14px;">
+                  <button class="btn btn-purple" onclick="startBrowserScreenShare()">
+                    🖥️ คลิกเพื่อแชร์หน้าจอเกมของคุณขึ้นสตรีมสดบนเว็บทันที
+                  </button>
+                </div>
+              </div>
+
+              ${activeStream.lastDonateAlert ? `
+                <div class="donate-alert-overlay">
+                  ${activeStream.lastDonateAlert}
+                </div>
+              ` : ''}
+            </div>
+
+            <div style="background:#0f172a; color:#fff; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <b style="font-size:15px;">${activeStream.title}</b>
+                <div style="font-size:12px; color:#94a3b8;">
+                  สตรีมเมอร์: <span class="shop-link" style="color:#fbbf24;" onclick="openShopProfile('${activeStream.streamerName}')">${activeStream.streamerName}</span>
+                  · ยอดโดเนทสะสมในสตรีมนี้: <b style="color:#10b981;">${fmt(activeStream.totalDonations)}</b>
+                </div>
+              </div>
+              ${linkedProd ? `
+                <button class="btn btn-gold" onclick="openCheckoutConfirm('${linkedProd.id}')">
+                  🛒 ซื้อสินค้าที่กำลังรีวิว (${fmt(linkedProd.price)})
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        </div>
+
+        <!-- แชทสตรีมสด + ระบบโดเนทระหว่างสตรีม -->
+        <div class="box" style="margin-bottom:0; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div class="box-title" style="margin-bottom:8px;">
+              <span>💬 แชทสด & โดเนทสนับสนุนสตรีมเมอร์</span>
+              <span class="badge b-purple">หักเข้าระบบ 8%</span>
+            </div>
+
+            <div class="chat-messages" style="height:200px; margin-bottom:10px;">
+              ${activeStream.chat.map(c => `
+                <div class="msg ${c.isDonate ? 'sys' : ''}" style="max-width:100%;">
+                  <b>${c.user}:</b> ${c.text}
+                </div>
+              `).join('')}
+            </div>
+
+            <div style="display:flex; gap:6px; margin-bottom:12px;">
+              <input type="text" id="streamChatInput" placeholder="พิมพ์พูดคุยในสตรีม..." style="flex:1; padding:7px 10px; border:1px solid var(--border); border-radius:8px; font-size:12.5px;">
+              <button class="btn" onclick="sendStreamChat('${activeStream.id}')">ส่ง</button>
+            </div>
+          </div>
+
+          <!-- กล่องโดเนทระหว่างสตรีม -->
+          <div style="background:var(--gold-bg); border:1px solid var(--gold-border); border-radius:12px; padding:12px;">
+            <div style="font-size:12.5px; font-weight:700; color:#92400e; margin-bottom:6px;">
+              🎁 ส่งโดเนทขึ้นจอสตรีม (สตรีมเมอร์รับ 92% · แอดมินรับ 8%)
+            </div>
+            <div class="donate-grid">
+              <div class="donate-pkg" onclick="setDonateAmt(50)">☕ ฿50</div>
+              <div class="donate-pkg" onclick="setDonateAmt(100)">🔥 ฿100</div>
+              <div class="donate-pkg" onclick="setDonateAmt(500)">💎 ฿500</div>
+              <div class="donate-pkg" onclick="setDonateAmt(1000)">👑 ฿1,000</div>
+            </div>
+            <div style="display:flex; gap:6px; margin-bottom:6px;">
+              <input type="number" id="donateAmtInput" value="100" style="width:95px; padding:6px 8px; border:1px solid var(--border); border-radius:8px; font-size:12.5px;">
+              <input type="text" id="donateMsgInput" placeholder="ข้อความโดเนทขึ้นหน้าจอ..." value="สตรีมสนุกมากครับ!" style="flex:1; padding:6px 8px; border:1px solid var(--border); border-radius:8px; font-size:12.5px;">
+            </div>
+            <button class="btn btn-gold" style="width:100%; justify-content:center;" onclick="sendStreamDonate('${activeStream.id}')">
+              💖 ส่งโดเนทขึ้นจอทันที
+            </button>
+          </div>
+        </div>
+      </div>
+    ` : ''}
+
+    <!-- รายการช่องสตรีมตามหมวดหมู่ -->
+    <div class="box-title">
+      <span>📺 ช่องสตรีมที่กำลังไลฟ์สด (${filteredStreams.length} ช่อง)</span>
+    </div>
+    <div class="grid-3">
+      ${filteredStreams.map(st => `
+        <div class="p-card" style="cursor:pointer; border-color:${st.id===activeStream?.id?'var(--gold)':'var(--border)'};" onclick="db.activeStreamId='${st.id}'; saveDB(); render();">
+          <div class="p-img" style="background:linear-gradient(135deg,#1e293b,#0f172a); color:#fff;">
+            <span class="p-cat" style="background:#ef4444; color:#fff; border:none;">● LIVE · ${st.cat}</span>
+            <span>🎥</span>
+            <span class="p-type-badge">👁️ ${st.viewers} คนดู</span>
+          </div>
+          <div class="p-body">
+            <div class="p-title">${st.title}</div>
+            <div style="font-size:12px; color:var(--muted);">สตรีมเมอร์: <b>${st.streamerName}</b></div>
+            <div style="font-size:12px; color:var(--green); margin-top:4px;">ยอดโดเนท: <b>${fmt(st.totalDonations)}</b></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function setDonateAmt(val) {
+  const el = document.getElementById('donateAmtInput');
+  if (el) el.value = val;
+}
+
+function sendStreamChat(streamId) {
+  const st = db.streams.find(x => x.id === streamId);
+  const inp = document.getElementById('streamChatInput');
+  if (!st || !inp || !inp.value.trim()) return;
+  const senderName = db.role === 'seller' ? db.currentSeller.shopName : db.buyer.name;
+  st.chat.push({ user: senderName, text: inp.value.trim(), isDonate: false });
+  saveDB();
+  render();
+}
+
+function sendStreamDonate(streamId) {
+  if (db.role === 'guest') {
+    toast('กรุณาเข้าสู่ระบบก่อนส่งโดเนท');
+    showModal('modalGmail');
+    return;
+  }
+  const st = db.streams.find(x => x.id === streamId);
+  if (!st) return;
+  const amt = Number(document.getElementById('donateAmtInput').value || 0);
+  const msg = document.getElementById('donateMsgInput').value.trim() || 'สนับสนุนสตรีมเมอร์ครับ!';
+
+  if (amt <= 0) return;
+  if (db.buyer.wallet < amt) {
+    toast('เงินในกระเป๋าไม่พอส่งโดเนท กรุณาเติมเงิน');
+    setQRValue(amt);
+    openQRModal();
+    return;
+  }
+
+  const fee8 = Math.round(amt * FEE_RATE);
+  const net92 = amt - fee8;
+
+  db.buyer.wallet -= amt;
+  db.admin.totalRevenue8Percent += fee8;
+  st.totalDonations += amt;
+
+  // โอนเงิน 92% เข้ากระเป๋าสตรีมเมอร์ทันที
+  if (st.streamerName === db.currentSeller.shopName) {
+    db.currentSeller.wallet += net92;
+  }
+  const ap = db.approvedSellers.find(s => s.shopName === st.streamerName);
+  if (ap) ap.wallet += net92;
+
+  st.lastDonateAlert = `🎁 ${db.buyer.name} โดเนท ${fmt(amt)}: "${msg}"`;
+  st.chat.push({ user: db.buyer.name, text: `🎁 โดเนท ${fmt(amt)} — "${msg}"`, isDonate: true });
+
+  db.donations.unshift({
+    id: 'DON-' + Math.floor(100 + Math.random() * 900),
+    streamId: st.id,
+    streamerName: st.streamerName,
+    donorName: db.buyer.name,
+    amount: amt,
+    fee8: fee8,
+    net92: net92,
+    message: msg,
+    time: 'เมื่อสักครู่'
+  });
+
+  saveDB();
+  toast(`ส่งโดเนท ${fmt(amt)} สำเร็จ! (สตรีมเมอร์รับ ${fmt(net92)} · แอดมินรับ 8% = ${fmt(fee8)})`);
+  render();
+}
+
+async function startBrowserScreenShare() {
+  try {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+      toast('เบราว์เซอร์ของคุณไม่รองรับการแชร์หน้าจอ');
+      return;
+    }
+    activeScreenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+    attachActiveScreenStreamToVideo();
+    toast('🔴 เริ่มสตรีมแชร์หน้าจอเกมของคุณขึ้นเว็บไซต์สำเร็จ!');
+  } catch (err) {
+    toast('ยกเลิกการแชร์หน้าจอ หรือเบราว์เซอร์ไม่อนุญาต');
+  }
+}
+
+function stopBrowserScreenShare() {
+  if (activeScreenStream) {
+    activeScreenStream.getTracks().forEach(t => t.stop());
+    activeScreenStream = null;
+    toast('⏹️ หยุดแชร์หน้าจอสตรีมแล้ว');
+    render();
+  }
+}
+
+function attachActiveScreenStreamToVideo() {
+  const vid = document.getElementById('liveScreenVideo');
+  const sim = document.getElementById('simulatedStreamView');
+  if (vid && activeScreenStream) {
+    vid.srcObject = activeScreenStream;
+    vid.style.display = 'block';
+    if (sim) sim.style.display = 'none';
+  }
+}
+
+/* ==================== 4. หน้าเซ็ทติ่งสตรีม (Stream Settings) ==================== */
+function renderStreamSettings() {
+  const st = db.streamSettings;
+  const s = db.currentSeller;
+
+  return `
+    <div class="box-title">
+      <span>⚙️ ตั้งค่าสตรีมเกมสด (Stream Settings — ${s.shopName})</span>
+      <button class="btn btn-purple" onclick="goPage('streams')">🔴 ไปหน้าจอสตรีมสด</button>
+    </div>
+
+    <div class="grid-2">
+      <!-- ตั้งค่าข้อมูลสตรีมและหมวดหมู่เกม -->
+      <div class="box">
+        <div class="box-title"><span>1. ข้อมูลห้องสตรีม & หมวดหมู่เกม</span></div>
+        <div class="field">
+          <label>ชื่อหัวข้อสตรีม (Stream Title) *</label>
+          <input type="text" id="setStreamTitle" value="${st.title}">
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>หมวดหมู่เกมที่สตรีม *</label>
+            <select id="setStreamCat">
+              ${CATEGORIES.filter(c => c !== 'ทั้งหมด' && c !== 'บัตรเติมเกม').map(c => `
+                <option value="${c}" ${st.cat === c ? 'selected' : ''}>${c}</option>
+              `).join('')}
+            </select>
+          </div>
+          <div class="field">
+            <label>ขั้นต่ำการโดเนทขึ้นจอ (บาท)</label>
+            <input type="number" id="setStreamMinDonate" value="${st.minDonate}">
+          </div>
+        </div>
+        <div class="field">
+          <label>ปักหมุดสินค้าของร้านในสตรีม (ให้คนดูกดซื้อได้ทันที)</label>
+          <select id="setStreamProd">
+            ${db.products.map(p => `<option value="${p.id}" ${st.linkedProductId===p.id?'selected':''}>${p.title} (${fmt(p.price)})</option>`).join('')}
+          </select>
+        </div>
+
+        <button class="btn btn-gold" style="width:100%; justify-content:center; padding:10px;" onclick="saveStreamSettingsForm()">
+          💾 บันทึกการตั้งค่าและอัปเดตห้องสตรีมสด
+        </button>
+      </div>
+
+      <!-- ตั้งค่าการสตรีมผ่านเว็บ / OBS Stream Key -->
+      <div class="box">
+        <div class="box-title"><span>2. เชื่อมต่อสัญญาณภาพสตรีม (WebRTC / OBS)</span></div>
+
+        <div class="alert alert-ok">
+          🖥️ <b>สตรีมผ่านเว็บโดยตรง (ไม่ต้องใช้โปรแกรมเสริม):</b> กดปุ่มด้านล่างเพื่อแชร์หน้าจอเกมของคุณขึ้นแสดงสดบนเว็บทันที
+        </div>
+
+        <div style="display:flex; gap:8px; margin-bottom:14px;">
+          <button class="btn btn-purple" style="flex:1; justify-content:center; padding:10px;" onclick="startBrowserScreenShare()">
+            🔴 เริ่มแชร์หน้าจอเกมขึ้นเว็บ
+          </button>
+          <button class="btn btn-red" onclick="stopBrowserScreenShare()">
+            ⏹️ หยุดแชร์หน้าจอ
+          </button>
+        </div>
+
+        <div class="field">
+          <label>Stream Server URL (สำหรับโปรแกรม OBS / TikTok Live Studio)</label>
+          <div style="display:flex; gap:6px;">
+            <input type="text" value="${st.rtmpUrl}" readonly style="background:#f8fafc;">
+            <button class="btn" onclick="copyText('${st.rtmpUrl}')">คัดลอก</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Stream Key (ห้ามเปิดเผยให้ผู้อื่น)</label>
+          <div style="display:flex; gap:6px;">
+            <input type="password" value="${st.streamKey}" readonly style="background:#f8fafc;">
+            <button class="btn" onclick="copyText('${st.streamKey}')">คัดลอก Key</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function saveStreamSettingsForm() {
+  const title = document.getElementById('setStreamTitle').value.trim();
+  const cat = document.getElementById('setStreamCat').value;
+  const minDonate = Number(document.getElementById('setStreamMinDonate').value || 20);
+  const linkedProductId = document.getElementById('setStreamProd').value;
+
+  db.streamSettings.title = title || db.streamSettings.title;
+  db.streamSettings.cat = cat;
+  db.streamSettings.minDonate = minDonate;
+  db.streamSettings.linkedProductId = linkedProductId;
+
+  // อัปเดตเข้าห้องสตรีมหลักของผู้ขาย
+  const myStream = db.streams.find(x => x.id === 'st1') || db.streams[0];
+  if (myStream) {
+    myStream.title = db.streamSettings.title;
+    myStream.cat = cat;
+    myStream.linkedProductId = linkedProductId;
+    myStream.streamerName = db.currentSeller.shopName;
+  }
+
+  saveDB();
+  toast('บันทึกการตั้งค่าสตรีมเรียบร้อย!');
+  goPage('streams');
+}
+
 /* ==================== หน้าโปรไฟล์ร้านค้า ==================== */
 function renderShopProfile() {
   const shopName = db.viewingShopName || 'Zeed Store Official';
   const sellerObj = db.approvedSellers.find(s => s.shopName === shopName) || db.currentSeller;
-  const shopProducts = db.products.filter(p => p.sellerShop === shopName);
   const shopReviews = db.reviews.filter(r => r.sellerShop === shopName);
   const shopSalesHistory = [
     ...db.completedOrders.filter(o => o.sellerShop === shopName),
@@ -1222,7 +1954,7 @@ function renderShopProfile() {
   `;
 }
 
-/* ==================== ยืนยันก่อนสั่งซื้อ + ใช้คูปองลด 10% ==================== */
+/* ==================== ยืนยันก่อนสั่งซื้อ + ใช้คูปองลด 10% (หักค่าธรรมเนียมแอดมิน 8%) ==================== */
 let checkoutPayMethod = 'wallet';
 let usePromoCoupon10 = false;
 
@@ -1377,6 +2109,7 @@ function executeConfirmedPurchase(productId) {
     fee8: fee8,
     sellerNet92: net92,
     payMethod: payLabel,
+    orderSource: 'ตลาดสินค้า',
     status: 'held',
     reviewed: false
   };
@@ -1393,7 +2126,7 @@ function showDeliveredSecretModal(order, earnedNewCoupon = false) {
   document.getElementById('modalDeliveredSecretContent').innerHTML = `
     <div style="text-align:center; margin-bottom:12px;">
       <div style="font-size:42px;">🎉</div>
-      <h3 style="color:var(--green);">สั่งซื้อสำเร็จ!</h3>
+      <h3 style="color:var(--green);">สำเร็จ! นี่คือรหัสสินค้าของคุณ</h3>
       <small style="color:var(--muted);">${order.title}</small>
     </div>
 
@@ -1424,7 +2157,7 @@ function startNegotiate(id) {
   goPage('chat');
 }
 
-/* ==================== 2. หน้าแชทต่อรอง & แก้ราคา ==================== */
+/* ==================== แชทต่อรอง & แก้ราคา ==================== */
 function renderChat() {
   const p = db.products.find(x => x.id === db.selectedProductId) || db.products[0];
   if (!p) return `<div class="box">ไม่มีสินค้า</div>`;
@@ -1433,7 +2166,7 @@ function renderChat() {
     ${renderBuyerCompactBar()}
     <div class="box">
       <div class="box-title">
-        <span>💬 แชทต่อรองราคา</span>
+        <span>💬 แชทต่อรองราคา (หักค่าธรรมเนียมระบบ 8%)</span>
         <select onchange="db.selectedProductId=this.value; saveDB(); render();" style="padding:5px 8px; border-radius:8px; border:1px solid var(--border);">
           ${db.products.map(item => `<option value="${item.id}" ${item.id===p.id?'selected':''}>${item.title} (${fmt(item.price)})</option>`).join('')}
         </select>
@@ -1443,6 +2176,7 @@ function renderChat() {
         <div class="chat-top">
           <div>
             <b>${p.title}</b> · <span style="color:var(--gold); font-weight:700;">${fmt(p.price)}</span>
+            <small style="color:var(--muted);"> (แอดมิน 8% = ${fmt(Math.round(p.price*FEE_RATE))} · ผู้ขายรับ 92% = ${fmt(p.price - Math.round(p.price*FEE_RATE))})</small>
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
             ${db.role === 'seller' ? `
@@ -1496,7 +2230,7 @@ function sellerChangePrice(productId) {
   render();
 }
 
-/* ==================== 3. หน้าคำสั่งซื้อ ==================== */
+/* ==================== หน้าคำสั่งซื้อ ==================== */
 function renderOrders() {
   return `
     ${renderBuyerCompactBar()}
@@ -1505,7 +2239,7 @@ function renderOrders() {
       ${db.orders.length === 0 ? `<small style="color:var(--muted);">ไม่มีรายการค้าง</small>` : `
         <table>
           <thead>
-            <tr><th>รหัส</th><th>สินค้า</th><th>Code / ไอดีที่ได้รับ</th><th>ราคา</th><th>จัดการ</th></tr>
+            <tr><th>รหัส</th><th>สินค้า</th><th>Code / ไอดีที่ได้รับ</th><th>ราคา</th><th>แอดมิน (8%)</th><th>จัดการ</th></tr>
           </thead>
           <tbody>
             ${db.orders.map(o => `
@@ -1514,6 +2248,7 @@ function renderOrders() {
                 <td><b>${o.title}</b><br><small style="color:var(--muted)">ร้าน: ${o.sellerShop}</small></td>
                 <td><code>${o.secretPayload}</code></td>
                 <td><b>${fmt(o.price)}</b></td>
+                <td><span class="badge b-green">${fmt(o.fee8)} (8%)</span></td>
                 <td><button class="btn btn-green" onclick="completeOrder('${o.id}', true)">✅ ยืนยันรับของ & รีวิว</button></td>
               </tr>
             `).join('')}
@@ -1526,7 +2261,7 @@ function renderOrders() {
       <div class="box-title"><span>✅ ประวัติคำสั่งซื้อที่สำเร็จแล้ว (${db.completedOrders.length})</span></div>
       <table>
         <thead>
-          <tr><th>รหัส</th><th>สินค้า</th><th>Code / ไอดี</th><th>ราคา</th><th>รีวิว</th></tr>
+          <tr><th>รหัส</th><th>สินค้า</th><th>Code / ไอดี</th><th>ราคา</th><th>หัก 8%</th><th>รีวิว</th></tr>
         </thead>
         <tbody>
           ${db.completedOrders.map(c => `
@@ -1535,6 +2270,7 @@ function renderOrders() {
               <td>${c.title}</td>
               <td><code>${c.secretPayload}</code></td>
               <td>${fmt(c.price)}</td>
+              <td><span class="badge b-green">+${fmt(c.fee8)}</span></td>
               <td>
                 ${c.reviewed
                   ? `<span class="badge b-green">⭐ รีวิวแล้ว</span>`
@@ -1566,6 +2302,7 @@ function completeOrder(orderId, promptReview = false) {
   const done = { ...o, completedAt: 'เมื่อสักครู่', reviewed: false };
   db.completedOrders.unshift(done);
   saveDB();
+  toast(`สำเร็จ! แอดมินรับ 8% (${fmt(o.fee8)}) และโอนให้ผู้ขาย 92% (${fmt(o.sellerNet92)})`);
   render();
   if (promptReview) openWriteReviewModal(done.id);
 }
@@ -1613,7 +2350,7 @@ function submitOrderReview(orderId) {
   openShopProfile(order.sellerShop);
 }
 
-/* ==================== 4. ฝั่งผู้ขาย (กรอกชื่อรอบเดียว + รอแอดมินอนุมัติ) ==================== */
+/* ==================== ฝั่งผู้ขาย (ลงสินค้าปกติ + เปิดประมูลสินค้าได้) ==================== */
 let selectedDeliveryType = 'account';
 
 function onChangeDeliveryType(val) {
@@ -1623,85 +2360,6 @@ function onChangeDeliveryType(val) {
   const inp = document.getElementById('newPSecret');
   if (lbl) lbl.textContent = tInfo.inputLabel;
   if (inp) inp.placeholder = tInfo.placeholder;
-}
-
-/* ==================== แชทติดต่อแอดมิน (ผู้ซื้อ/ผู้ขาย) ==================== */
-function getSupportIdentity() {
-  if (db.role === 'seller') {
-    const seller = db.currentSeller || {};
-    return { id: 'seller:' + (seller.id || seller.shopName || 'seller'), name: seller.shopName || seller.fullName || 'ผู้ขาย', type: 'ผู้ขาย' };
-  }
-  return { id: 'buyer:' + ((db.buyer && (db.buyer.email || db.buyer.name)) || 'buyer'), name: (db.buyer && db.buyer.name) || 'ผู้ซื้อ', type: 'ผู้ซื้อ' };
-}
-function getSupportThread(id) {
-  if (!db.adminChats) db.adminChats = {};
-  if (!db.adminChats[id]) db.adminChats[id] = [];
-  return db.adminChats[id];
-}
-function renderSupportChat() {
-  const who = getSupportIdentity();
-  const thread = getSupportThread(who.id);
-  return `
-    <div class="box" style="max-width:850px;margin:0 auto;">
-      <div class="box-title"><span>🛟 ติดต่อแอดมิน</span><span class="badge b-green">แชทส่วนตัว · ${who.type}</span></div>
-      <p style="color:var(--muted);font-size:13px;">ส่งคำถามหรือแจ้งปัญหาได้โดยตรง ข้อความจะปรากฏในกล่องข้อความของแอดมิน</p>
-      <div class="chat-messages" style="min-height:280px;max-height:420px;overflow:auto;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:12px;">
-        ${thread.length ? thread.map(m => `<div class="msg ${m.sender === 'user' ? 'me' : ''}"><small style="display:block;color:var(--muted);font-size:10px;">${escapeHtml(m.author)} · ${escapeHtml(m.time || '')}</small>${escapeHtml(m.text)}</div>`).join('') : '<div class="msg sys">เริ่มต้นสนทนากับแอดมินได้ที่นี่</div>'}
-      </div>
-      <div class="chat-bar" style="margin-top:10px;">
-        <input id="supportMessageInput" type="text" placeholder="พิมพ์ข้อความถึงแอดมิน..." style="flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;" onkeydown="if(event.key==='Enter')sendSupportMessage()">
-        <button class="btn btn-gold" onclick="sendSupportMessage()">ส่งข้อความ</button>
-      </div>
-    </div>`;
-}
-function sendSupportMessage() {
-  const input = document.getElementById('supportMessageInput');
-  const message = input ? input.value.trim() : '';
-  if (!message) return;
-  const who = getSupportIdentity();
-  getSupportThread(who.id).push({ sender: 'user', author: who.name, type: who.type, text: message, time: new Date().toLocaleString('th-TH') });
-  saveDB(); render();
-}
-function renderAdminSupportInbox() {
-  const chats = db.adminChats || {};
-  const ids = Object.keys(chats).sort((a,b) => {
-    const ta = chats[a].length ? chats[a][chats[a].length-1].time || '' : '';
-    const tb = chats[b].length ? chats[b][chats[b].length-1].time || '' : '';
-    return tb.localeCompare(ta);
-  });
-  const active = db.adminSelectedChat && chats[db.adminSelectedChat] ? db.adminSelectedChat : ids[0];
-  db.adminSelectedChat = active || '';
-  return `
-    <div class="box">
-      <div class="box-title"><span>🛟 กล่องข้อความติดต่อแอดมิน (${ids.length} ห้อง)</span></div>
-      ${!ids.length ? '<p style="color:var(--muted)">ยังไม่มีข้อความติดต่อจากผู้ซื้อหรือผู้ขาย</p>' : `
-        <div class="grid-2" style="align-items:start;">
-          <div style="display:grid;gap:8px;">
-            ${ids.map(id => { const arr=chats[id]||[]; const last=arr[arr.length-1]||{}; return `<button class="btn" style="justify-content:space-between;text-align:left;${id===active?'border-color:var(--gold);background:var(--soft);':''}" onclick="selectAdminChat('${id.replace(/'/g,"\\'")}')"><span><b>${escapeHtml(last.author || id)}</b><small style="display:block;color:var(--muted)">${escapeHtml(last.type || (id.startsWith('seller:')?'ผู้ขาย':'ผู้ซื้อ'))} · ${escapeHtml(last.text || '')}</small></span><span>›</span></button>`; }).join('')}
-          </div>
-          <div>
-            <div class="chat-messages" style="min-height:240px;max-height:360px;overflow:auto;background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:10px;">
-              ${(chats[active]||[]).map(m=>`<div class="msg ${m.sender==='admin'?'me':''}"><small style="display:block;color:var(--muted);font-size:10px;">${escapeHtml(m.author)} · ${escapeHtml(m.time||'')}</small>${escapeHtml(m.text)}</div>`).join('')}
-            </div>
-            <div class="chat-bar" style="margin-top:8px;">
-              <input id="adminSupportReply" placeholder="พิมพ์ตอบกลับ..." style="flex:1;padding:9px;border:1px solid var(--border);border-radius:8px;" onkeydown="if(event.key==='Enter')replySupportChat()">
-              <button class="btn btn-gold" onclick="replySupportChat()">ตอบกลับ</button>
-            </div>
-          </div>
-        </div>`}
-    </div>`;
-}
-function selectAdminChat(id) { db.adminSelectedChat=id; saveDB(); render(); }
-function replySupportChat() {
-  const input=document.getElementById('adminSupportReply');
-  const message=input?input.value.trim():'';
-  const id=db.adminSelectedChat;
-  if (!message || !id) return;
-  getSupportThread(id).push({sender:'admin',author:'แอดมิน',text:message,time:new Date().toLocaleString('th-TH')});
-  saveDB(); render();
-}
-function escapeHtml(value) {
-  return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
 
 function renderSeller() {
@@ -1788,10 +2446,11 @@ function renderSeller() {
 
   return `
     <div class="grid-2">
+      <!-- ลงขายสินค้าปกติ -->
       <div class="box">
         <div class="box-title">
-          <span>➕ ลงขายสินค้าใหม่ (${s.shopName})</span>
-          <span class="badge b-gold">${'⭐'.repeat(s.stars)}</span>
+          <span>➕ 1. ลงขายสินค้าในตลาด (${s.shopName})</span>
+          <span class="badge b-gold">หักระบบ 8% (รับ 92%)</span>
         </div>
 
         <div class="field">
@@ -1817,38 +2476,72 @@ function renderSeller() {
           <div class="field">
             <label>หมวดหมู่</label>
             <select id="newPCat">
-              <option value="Valorant">Valorant</option>
-              <option value="RoV">RoV</option>
-              <option value="Blox Fruits">Blox Fruits</option>
-              <option value="Genshin Impact">Genshin Impact</option>
-              <option value="CS2">CS2</option>
-              <option value="บัตรเติมเกม">บัตรเติมเกม</option>
+              ${CATEGORIES.filter(c => c !== 'ทั้งหมด').map(c => `<option value="${c}">${c}</option>`).join('')}
             </select>
           </div>
           <div class="field">
-            <label>ราคา (บาท) *</label>
+            <label>ราคาขาย (บาท) *</label>
             <input type="number" id="newPPrice" placeholder="1200">
           </div>
         </div>
 
         <button class="btn btn-gold" style="width:100%; justify-content:center; padding:10px;" onclick="sellerAddProduct()">
-          🚀 ลงขายสินค้า
+          🚀 ลงขายสินค้าขึ้นตลาด
         </button>
       </div>
 
+      <!-- เปิดประมูลสินค้าใหม่ -->
       <div class="box">
-        <div class="box-title"><span>📋 สินค้าที่เปิดขายอยู่ (${db.products.length})</span></div>
-        <div style="max-height:380px; overflow-y:auto;">
-          ${db.products.map(p => `
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border);">
-              <div>
-                <b>${p.title}</b>
-                <div style="font-size:12px; color:var(--gold); font-weight:700;">${fmt(p.price)}</div>
-              </div>
-              <button class="btn" onclick="db.selectedProductId='${p.id}'; goPage('chat');">แก้ราคา</button>
-            </div>
-          `).join('')}
+        <div class="box-title">
+          <span>🔨 2. เปิดประมูลสินค้า (Live Auction)</span>
+          <span class="badge b-purple">เชื่อมผู้ซื้อบิดสด</span>
         </div>
+
+        <div class="field">
+          <label>ชื่อสินค้าที่เปิดประมูล *</label>
+          <input type="text" id="aucTitle" placeholder="เช่น ไอดี Valorant VCT Champions ครบชุด">
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label>หมวดหมู่</label>
+            <select id="aucCat">
+              ${CATEGORIES.filter(c => c !== 'ทั้งหมด').map(c => `<option value="${c}">${c}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field">
+            <label>ประเภทการส่งมอบ</label>
+            <select id="aucType">
+              <option value="account">🎮 ไอดีเกม</option>
+              <option value="item_code">🎁 Code ไอเท็ม</option>
+              <option value="card_code">💳 Code บัตรเติมเกม</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="field">
+            <label>ราคาเริ่มประมูล *</label>
+            <input type="number" id="aucStart" value="500">
+          </div>
+          <div class="field">
+            <label>บิดขั้นต่ำครั้งละ *</label>
+            <input type="number" id="aucStep" value="100">
+          </div>
+          <div class="field">
+            <label>ราคาซื้อทันที (Buyout) *</label>
+            <input type="number" id="aucBuyout" value="2000">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>ข้อมูลไอดีเกม / Code ที่จะส่งให้ผู้ชนะประมูลอัตโนมัติ *</label>
+          <input type="text" id="aucSecret" placeholder="เช่น ID: pro_valo | PASS: Win#999">
+        </div>
+
+        <button class="btn btn-purple" style="width:100%; justify-content:center; padding:10px;" onclick="sellerCreateAuction()">
+          🔨 เปิดประมูลสินค้าทันที
+        </button>
       </div>
     </div>
   `;
@@ -1923,212 +2616,144 @@ function sellerAddProduct() {
   goPage('market');
 }
 
-/* ==================== 5. ฝั่งแอดมิน ==================== */
-function renderAdminDashboard() {
-  const completed = db.completedOrders || [];
-  const pending = db.orders || [];
-  const grossCompleted = completed.reduce((sum, o) => sum + Number(o.price || 0), 0);
-  const pendingGross = pending.reduce((sum, o) => sum + Number(o.price || 0), 0);
-  const earnedFees = completed.reduce((sum, o) => sum + Number(o.fee8 || 0), 0);
-  const pendingFees = pending.reduce((sum, o) => sum + Number(o.fee8 || 0), 0);
-  const totalOrders = completed.length + pending.length;
-  const recent = [...completed].slice(0, 5);
-  const categoryTotals = {};
-  completed.forEach(order => {
-    const product = (db.products || []).find(p => p.id === order.productId);
-    const category = product?.cat || 'อื่น ๆ';
-    categoryTotals[category] = (categoryTotals[category] || 0) + Number(order.price || 0);
+function sellerCreateAuction() {
+  const s = db.currentSeller;
+  const title = document.getElementById('aucTitle').value.trim();
+  const cat = document.getElementById('aucCat').value;
+  const deliveryType = document.getElementById('aucType').value;
+  const startPrice = Number(document.getElementById('aucStart').value || 0);
+  const minStep = Number(document.getElementById('aucStep').value || 50);
+  const buyoutPrice = Number(document.getElementById('aucBuyout').value || 0);
+  const secretPayload = document.getElementById('aucSecret').value.trim();
+
+  if (!title || !secretPayload || startPrice <= 0 || buyoutPrice <= startPrice) {
+    toast('กรุณากรอกข้อมูลประมูลให้ครบ และตั้งราคา Buyout ให้สูงกว่าราคาเริ่มต้น');
+    return;
+  }
+
+  db.auctions.unshift({
+    id: 'auc_' + Date.now(),
+    sellerId: s.id,
+    sellerShop: s.shopName,
+    sellerOwner: s.fullName,
+    sellerStars: s.stars || 3,
+    title,
+    cat,
+    deliveryType,
+    secretPayload,
+    icon: '🔨',
+    startPrice,
+    currentBid: startPrice,
+    minStep,
+    buyoutPrice,
+    highestBidder: 'ยังไม่มีผู้บิด',
+    bidCount: 0,
+    endTimeText: 'เหลือเวลา 02:00:00',
+    status: 'active',
+    bidHistory: []
   });
-  const categoryRows = Object.entries(categoryTotals).sort((a,b) => b[1] - a[1]).slice(0, 5);
-  const maxCategory = Math.max(1, ...categoryRows.map(x => x[1]));
 
-  return `
-    <section class="admin-dashboard">
-      <div class="admin-dashboard-head">
-        <div>
-          <h2>👑 Admin Dashboard</h2>
-          <p>ภาพรวมระบบ Mobius Club · ค่าธรรมเนียมแพลตฟอร์ม 8% · ผู้ขายได้รับ 92%</p>
-        </div>
-        <span class="admin-status-pill">● ระบบพร้อมใช้งาน</span>
-      </div>
-
-      <div class="admin-kpi-grid">
-        <div class="admin-kpi">
-          <div class="kpi-label">💰 รายได้แอดมินสะสม (8%)</div>
-          <div class="kpi-value" style="color:var(--green)">${fmt(earnedFees)}</div>
-          <div class="kpi-note">จากคำสั่งซื้อที่ปล่อยเงินสำเร็จ</div>
-        </div>
-        <div class="admin-kpi">
-          <div class="kpi-label">🛒 ยอดขายสำเร็จ</div>
-          <div class="kpi-value">${fmt(grossCompleted)}</div>
-          <div class="kpi-note">${completed.length} รายการที่สำเร็จ</div>
-        </div>
-        <div class="admin-kpi">
-          <div class="kpi-label">⏳ คำสั่งซื้อรอดำเนินการ</div>
-          <div class="kpi-value" style="color:var(--gold)">${pending.length} รายการ</div>
-          <div class="kpi-note">ยอดรวม ${fmt(pendingGross)} · ค่าธรรมเนียม ${fmt(pendingFees)}</div>
-        </div>
-        <div class="admin-kpi">
-          <div class="kpi-label">🔒 เงินที่พักใน Escrow</div>
-          <div class="kpi-value" style="color:var(--blue)">${fmt(db.admin.escrowHolding)}</div>
-          <div class="kpi-note">เงินที่รอการอนุมัติหรือคืนเงิน</div>
-        </div>
-        <div class="admin-kpi">
-          <div class="kpi-label">🏪 ร้านค้าที่อนุมัติแล้ว</div>
-          <div class="kpi-value">${db.approvedSellers.length}</div>
-          <div class="kpi-note">ร้านค้าในระบบ</div>
-        </div>
-        <div class="admin-kpi">
-          <div class="kpi-label">📦 สินค้าในตลาด</div>
-          <div class="kpi-value">${db.products.length}</div>
-          <div class="kpi-note">สินค้าที่กำลังแสดงในตลาด</div>
-        </div>
-        <div class="admin-kpi">
-          <div class="kpi-label">📋 คำสั่งซื้อทั้งหมด</div>
-          <div class="kpi-value">${totalOrders}</div>
-          <div class="kpi-note">สำเร็จ ${completed.length} · รอดำเนินการ ${pending.length}</div>
-        </div>
-        <div class="admin-kpi">
-          <div class="kpi-label">📈 รายได้ที่รอรับ</div>
-          <div class="kpi-value" style="color:var(--gold)">${fmt(pendingFees)}</div>
-          <div class="kpi-note">ค่าธรรมเนียม 8% จากรายการค้าง</div>
-        </div>
-      </div>
-
-      <div class="admin-chart-grid">
-        <div class="admin-chart-card">
-          <div class="admin-chart-title">
-            <span>📊 กราฟยอดขายแยกตามหมวดหมู่</span>
-            <span class="admin-chart-sub">เฉพาะคำสั่งซื้อที่สำเร็จ</span>
-          </div>
-          ${categoryRows.length ? categoryRows.map(([name, amount]) => `
-            <div class="sales-bar-row">
-              <div class="sales-bar-meta"><b>${name}</b><span>${fmt(amount)}</span></div>
-              <div class="sales-bar-track"><div class="sales-bar-fill" style="width:${Math.max(1, amount / maxCategory * 100)}%"></div></div>
-            </div>
-          `).join('') : `<small style="color:var(--muted)">ยังไม่มีข้อมูลยอดขายสำเร็จ</small>`}
-        </div>
-
-        <div class="admin-chart-card">
-          <div class="admin-chart-title">
-            <span>💸 สัดส่วนยอดขายทั้งหมด</span>
-            <span class="admin-chart-sub">แบ่งตามรายได้จากรายการสำเร็จ</span>
-          </div>
-          <div class="sales-donut-wrap">
-            <div class="sales-donut" style="background:conic-gradient(#059669 0% ${grossCompleted ? (earnedFees / grossCompleted * 100) : 0}%, #2563eb ${grossCompleted ? (earnedFees / grossCompleted * 100) : 0}% 100%);">
-              <div class="sales-donut-center">ยอดขายสำเร็จ<b>${fmt(grossCompleted)}</b></div>
-            </div>
-            <div class="sales-legend">
-              <div class="sales-legend-item">
-                <span class="sales-legend-label"><i class="sales-dot" style="background:#059669"></i>แอดมิน 8%</span>
-                <b>${fmt(earnedFees)}</b>
-              </div>
-              <div class="sales-legend-item">
-                <span class="sales-legend-label"><i class="sales-dot" style="background:#2563eb"></i>ผู้ขาย 92%</span>
-                <b>${fmt(grossCompleted - earnedFees)}</b>
-              </div>
-              <div class="sales-legend-item" style="border-top:1px solid var(--border);padding-top:8px">
-                <span>รอดำเนินการ</span><b style="color:var(--gold)">${fmt(pendingGross)}</b>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="admin-chart-card" style="margin-bottom:14px">
-        <div class="admin-chart-title">
-          <span>🏪 ยอดขายแยกตามร้านค้า</span>
-          <span class="admin-chart-sub">เรียงจากยอดขายสำเร็จสูงสุด</span>
-        </div>
-        ${(() => {
-          const sellerTotals = {};
-          completed.forEach(order => {
-            const sellerName = order.sellerShop || 'ไม่ระบุร้านค้า';
-            sellerTotals[sellerName] = (sellerTotals[sellerName] || 0) + Number(order.price || 0);
-          });
-          const sellerRows = Object.entries(sellerTotals).sort((a,b) => b[1] - a[1]);
-          const maxSeller = Math.max(1, ...sellerRows.map(x => x[1]));
-          return sellerRows.length ? sellerRows.map(([name, amount]) => `
-            <div class="sales-bar-row">
-              <div class="sales-bar-meta"><b>${name}</b><span>${fmt(amount)}</span></div>
-              <div class="sales-bar-track"><div class="sales-bar-fill seller" style="width:${Math.max(1, amount / maxSeller * 100)}%"></div></div>
-            </div>
-          `).join('') : `<small style="color:var(--muted)">ยังไม่มีข้อมูลยอดขายสำเร็จ</small>`;
-        })()}
-      </div>
-
-      <div class="admin-dashboard-grid">
-        <div class="box">
-          <div class="box-title">⚡ สถานะระบบ</div>
-          <div class="admin-mini-row"><span>คำสั่งซื้อสำเร็จ</span><b style="color:var(--green)">${completed.length}</b></div>
-          <div class="admin-mini-row"><span>รออนุมัติปล่อยเงิน</span><b style="color:var(--gold)">${pending.length}</b></div>
-          <div class="admin-mini-row"><span>ผู้ขายรออนุมัติ</span><b>${db.currentSeller.status === 'pending' ? 1 : 0}</b></div>
-          <div class="admin-mini-row"><span>อัตราค่าธรรมเนียม</span><b>8%</b></div>
-          <div class="admin-mini-row"><span>ส่วนแบ่งผู้ขาย</span><b>92%</b></div>
-        </div>
-        <div class="box">
-          <div class="box-title">🧮 สรุปยอดรวม</div>
-          <div class="admin-mini-row"><span>ยอดขายสำเร็จ</span><b>${fmt(grossCompleted)}</b></div>
-          <div class="admin-mini-row"><span>ยอดรอดำเนินการ</span><b style="color:var(--gold)">${fmt(pendingGross)}</b></div>
-          <div class="admin-mini-row"><span>ยอดขายรวม (สำเร็จ + ค้าง)</span><b>${fmt(grossCompleted + pendingGross)}</b></div>
-          <div class="admin-mini-row"><span>รายได้แอดมินที่ได้รับแล้ว</span><b style="color:var(--green)">${fmt(earnedFees)}</b></div>
-        </div>
-      </div>
-
-      <div class="box">
-        <div class="box-title">
-          <span>🧾 ธุรกรรมล่าสุด</span>
-          <button class="btn btn-blue" onclick="openAdminRevenueModal()">ดูรายได้ทั้งหมด</button>
-        </div>
-        ${recent.length ? `
-          <div style="overflow-x:auto">
-            <table>
-              <thead><tr><th>รหัสคำสั่งซื้อ</th><th>สินค้า</th><th>ร้านค้า</th><th>ยอดขาย</th><th>ค่าธรรมเนียม 8%</th><th>ผู้ขายได้รับ 92%</th></tr></thead>
-              <tbody>
-                ${recent.map(o => `
-                  <tr>
-                    <td><b>${o.id}</b></td><td>${o.title}</td><td>${o.sellerShop}</td>
-                    <td>${fmt(o.price)}</td><td><span class="badge b-green">+${fmt(o.fee8)}</span></td>
-                    <td>${fmt(o.sellerNet92)}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>
-        ` : `<small style="color:var(--muted)">ยังไม่มีธุรกรรมสำเร็จ</small>`}
-      </div>
-    </section>
-  `;
+  saveDB();
+  toast('เปิดประมูลสินค้าใหม่เรียบร้อย!');
+  goPage('auctions');
 }
 
-function renderAdmin() {
+/* ==================== 5. แดชบอร์ดแอดมิน (Admin Dashboard + หัก 8%) ==================== */
+function renderAdminDashboard() {
   const s = db.currentSeller;
   const hasPendingSeller = s.status === 'pending';
   const expectedPendingFee = db.orders.reduce((sum, o) => sum + o.fee8, 0);
 
+  // คำนวณสัดส่วนรายได้แอดมิน 8% แยกตามช่องทาง
+  const mktRev = db.completedOrders.filter(o => o.orderSource !== 'ประมูลสินค้า').reduce((sum, o) => sum + o.fee8, 0);
+  const aucRev = db.completedOrders.filter(o => o.orderSource === 'ประมูลสินค้า').reduce((sum, o) => sum + o.fee8, 0);
+  const donRev = db.donations.reduce((sum, d) => sum + d.fee8, 0);
+  const totalRev = Math.max(1, mktRev + aucRev + donRev);
+
+  const mktPct = Math.round((mktRev / totalRev) * 100);
+  const aucPct = Math.round((aucRev / totalRev) * 100);
+  const donPct = Math.round((donRev / totalRev) * 100);
+
+  const totalGMV = db.completedOrders.reduce((sum, o) => sum + o.price, 0) + db.donations.reduce((sum, d) => sum + d.amount, 0);
+
   return `
-    ${renderAdminDashboard()}
-    ${renderAdminSupportInbox()}
+    <div class="box-title">
+      <span>📊 แดชบอร์ดผู้ดูแลระบบ (Mobius Admin Analytics Dashboard — ค่าธรรมเนียม 8%)</span>
+      <button class="btn btn-gold" onclick="openAdminRevenueModal()">📈 ดูตารางบัญชีย่อยรายได้ 8% ทั้งหมด</button>
+    </div>
+
+    <!-- KPI Cards 4 กล่องหลัก -->
     <div class="grid-4" style="margin-bottom:16px;">
       <div class="stat-box highlight clickable" onclick="openAdminRevenueModal()">
-        <small>💰 รายได้แอดมินสะสม (8%)</small>
+        <small>💰 รายได้แอดมินสะสมสุทธิ (หัก 8%)</small>
         <div class="num" style="color:var(--green);">${fmt(db.admin.totalRevenue8Percent)}</div>
-        <small style="color:var(--green); font-weight:600;">🔍 คลิกดูรายละเอียด</small>
+        <small style="color:var(--green); font-weight:600;">จากยอดซื้อขายรวม (GMV) ${fmt(totalGMV)}</small>
       </div>
       <div class="stat-box">
-        <small>⏳ รายได้ 8% รออนุมัติ</small>
+        <small>⏳ รายได้ 8% รอปล่อยเงิน</small>
         <div class="num" style="color:var(--gold);">${fmt(expectedPendingFee)}</div>
+        <small>เงินพักใน Escrow: ${fmt(db.admin.escrowHolding)}</small>
       </div>
       <div class="stat-box">
-        <small>🏪 ผู้ขายทั้งหมด</small>
+        <small>🔨 ประมูลสด / 🔴 สตรีมสด</small>
+        <div class="num" style="color:var(--purple);">${db.auctions.filter(a=>a.status==='active').length} ประมูล · ${db.streams.length} สตรีม</div>
+        <small>สินค้าในตลาด ${db.products.length} ชิ้น</small>
+      </div>
+      <div class="stat-box">
+        <small>🏪 ร้านค้าที่อนุมัติแล้วทั้งหมด</small>
         <div class="num" style="color:var(--blue);">${db.approvedSellers.length} ร้าน</div>
-      </div>
-      <div class="stat-box">
-        <small>🔒 เงินพักใน Escrow</small>
-        <div class="num">${fmt(db.admin.escrowHolding)}</div>
+        <small>รออนุมัติใหม่ ${hasPendingSeller ? 1 : 0} ร้าน</small>
       </div>
     </div>
 
+    <!-- กราฟวิเคราะห์รายได้แอดมิน 8% แยกตามช่องทาง -->
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div class="box" style="margin-bottom:0;">
+        <div class="box-title"><span>📈 สัดส่วนรายได้แอดมิน (8%) แยกตามช่องทาง</span></div>
+
+        <div class="dash-bar-row">
+          <div class="dash-bar-head">
+            <span>🛒 1. ค่าธรรมเนียมตลาดซื้อขายสินค้า (8%)</span>
+            <b>${fmt(mktRev)} (${mktPct}%)</b>
+          </div>
+          <div class="dash-bar-track"><div class="dash-bar-fill" style="width:${mktPct}%; background:var(--green);"></div></div>
+        </div>
+
+        <div class="dash-bar-row">
+          <div class="dash-bar-head">
+            <span>🔨 2. ค่าธรรมเนียมลานประมูลสินค้า (8%)</span>
+            <b>${fmt(aucRev)} (${aucPct}%)</b>
+          </div>
+          <div class="dash-bar-track"><div class="dash-bar-fill" style="width:${aucPct}%; background:var(--gold);"></div></div>
+        </div>
+
+        <div class="dash-bar-row">
+          <div class="dash-bar-head">
+            <span>🎁 3. ค่าธรรมเนียมโดเนทสตรีมสด (8%)</span>
+            <b>${fmt(donRev)} (${donPct}%)</b>
+          </div>
+          <div class="dash-bar-track"><div class="dash-bar-fill" style="width:${donPct}%; background:var(--purple);"></div></div>
+        </div>
+      </div>
+
+      <div class="box" style="margin-bottom:0;">
+        <div class="box-title"><span>⚖️ โครงสร้างการแบ่งรายได้ (Escrow Revenue Split)</span></div>
+        <div style="display:flex; align-items:center; gap:14px; margin-top:10px;">
+          <div style="flex:1; background:var(--green-bg); border:1px solid #a7f3d0; padding:14px; border-radius:12px; text-align:center;">
+            <small style="color:var(--muted);">ส่วนแบ่งผู้ขาย / สตรีมเมอร์</small>
+            <div style="font-size:26px; font-weight:700; color:var(--green);">92%</div>
+            <small>โอนเข้ากระเป๋าร้านค้าทันทีเมื่อจบงาน</small>
+          </div>
+          <div style="flex:1; background:var(--gold-bg); border:1px solid var(--gold-border); padding:14px; border-radius:12px; text-align:center;">
+            <small style="color:var(--muted);">ค่าธรรมเนียมแอดมินคนกลาง</small>
+            <div style="font-size:26px; font-weight:700; color:var(--gold);">8%</div>
+            <small>คุ้มครองความปลอดภัย Escrow 100%</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- คิวผู้ขายรออนุมัติ -->
     <div class="box">
       <div class="box-title"><span>⏳ 1. ผู้ขายรออนุมัติ (${hasPendingSeller ? 1 : 0})</span></div>
       ${!hasPendingSeller ? `<small style="color:var(--muted);">ไม่มีรายการค้าง</small>` : `
@@ -2152,6 +2777,7 @@ function renderAdmin() {
       `}
     </div>
 
+    <!-- รายชื่อผู้ขายทั้งหมด -->
     <div class="box">
       <div class="box-title"><span>🏪 2. ผู้ขายทั้งหมดในระบบ (${db.approvedSellers.length} ร้าน)</span></div>
       <table>
@@ -2172,12 +2798,13 @@ function renderAdmin() {
       </table>
     </div>
 
+    <!-- คำสั่งซื้อรออนุมัติปล่อยเงิน -->
     <div class="box">
       <div class="box-title"><span>📦 3. คำสั่งซื้อรออนุมัติปล่อยเงิน (${db.orders.length})</span></div>
       ${db.orders.length === 0 ? `<small style="color:var(--muted);">ไม่มีคำสั่งซื้อค้าง</small>` : `
         <table>
           <thead>
-            <tr><th>รหัส</th><th>สินค้า</th><th>ราคา</th><th>แอดมิน (8%)</th><th>ผู้ขาย (92%)</th><th>จัดการ</th></tr>
+            <tr><th>รหัส</th><th>สินค้า</th><th>ราคาเต็ม</th><th>แอดมิน (8%)</th><th>ผู้ขาย (92%)</th><th>จัดการ</th></tr>
           </thead>
           <tbody>
             ${db.orders.map(o => `
@@ -2185,8 +2812,8 @@ function renderAdmin() {
                 <td><b>${o.id}</b></td>
                 <td>${o.title}</td>
                 <td>${fmt(o.price)}</td>
-                <td><span class="badge b-green">+${fmt(o.fee8)}</span></td>
-                <td>${fmt(o.sellerNet92)}</td>
+                <td><span class="badge b-green">+${fmt(o.fee8)} (8%)</span></td>
+                <td>${fmt(o.sellerNet92)} (92%)</td>
                 <td>
                   <button class="btn btn-green" onclick="completeOrder('${o.id}', false)">✅ อนุมัติปล่อยเงิน</button>
                   <button class="btn btn-red" onclick="refundOrder('${o.id}')">↩️ คืนเงิน</button>
@@ -2198,11 +2825,12 @@ function renderAdmin() {
       `}
     </div>
 
+    <!-- จัดการสินค้าในตลาด -->
     <div class="box">
       <div class="box-title"><span>🛒 4. จัดการสินค้าในตลาด (${db.products.length})</span></div>
       <table>
         <thead>
-          <tr><th>สินค้า</th><th>ร้านค้า</th><th>ราคา</th><th>จัดการ</th></tr>
+          <tr><th>สินค้า</th><th>ร้านค้า</th><th>ราคา</th><th>ค่าธรรมเนียม (8%)</th><th>จัดการ</th></tr>
         </thead>
         <tbody>
           ${db.products.map(p => `
@@ -2210,6 +2838,7 @@ function renderAdmin() {
               <td><b>${p.title}</b></td>
               <td>${p.sellerShop} (${p.sellerOwner})</td>
               <td>${fmt(p.price)}</td>
+              <td><span class="badge b-green">${fmt(Math.round(p.price * FEE_RATE))} (8%)</span></td>
               <td><button class="btn btn-red" onclick="adminCancelProduct('${p.id}')">🗑️ ยกเลิกสินค้า</button></td>
             </tr>
           `).join('')}
@@ -2255,7 +2884,7 @@ function refundOrder(orderId) {
   render();
 }
 
-/* ==================== Modal ดูรูปเอกสาร & รายได้แอดมิน ==================== */
+/* ==================== Modal ดูรูปเอกสาร & รายได้แอดมิน 8% ==================== */
 function openSellerDocsModal(targetId) {
   let seller = targetId === 'current' ? db.currentSeller : (db.approvedSellers.find(s => s.id === targetId) || db.currentSeller);
   const d = seller.docs;
@@ -2273,7 +2902,7 @@ function openSellerDocsModal(targetId) {
   document.getElementById('modalSellerDocsContent').innerHTML = `
     <h3>🪪 ข้อมูลผู้ขาย: ${seller.shopName} (${seller.fullName})</h3>
     <div class="grid-3" style="margin:10px 0;">
-      <div class="stat-box"><small>รายได้ผู้ขาย (92%)</small><div class="num" style="color:var(--green)">${fmt(seller.wallet)}</div></div>
+      <div class="stat-box"><small>รายได้ผู้ขายสุทธิ (92%)</small><div class="num" style="color:var(--green)">${fmt(seller.wallet)}</div></div>
       <div class="stat-box"><small>รายได้แอดมิน 8% จากร้านนี้</small><div class="num" style="color:var(--gold)">${fmt(feeFromSeller)}</div></div>
       <div class="stat-box"><small>บัญชีธนาคาร</small><b>${seller.bankName}</b><br><small>${seller.bankNo}</small></div>
     </div>
@@ -2291,17 +2920,29 @@ function openAdminRevenueModal() {
     <h3 style="margin-bottom:10px;">📈 รายได้แอดมิน 8% สะสมทั้งหมด: ${fmt(db.admin.totalRevenue8Percent)}</h3>
     <table>
       <thead>
-        <tr><th>รหัส</th><th>สินค้า</th><th>ร้านค้า</th><th>ราคาเต็ม</th><th>แอดมิน (8%)</th><th>ผู้ขาย (92%)</th></tr>
+        <tr><th>รหัส</th><th>ช่องทาง</th><th>รายการ</th><th>ร้านค้า</th><th>ยอดเต็ม (100%)</th><th>แอดมิน (8%)</th><th>ผู้ขาย (92%)</th></tr>
       </thead>
       <tbody>
         ${db.completedOrders.map(c => `
           <tr>
             <td><b>${c.id}</b></td>
+            <td><span class="badge b-blue">${c.orderSource || 'ตลาดสินค้า'}</span></td>
             <td>${c.title}</td>
             <td>${c.sellerShop}</td>
             <td>${fmt(c.price)}</td>
-            <td><span class="badge b-green">+${fmt(c.fee8)}</span></td>
+            <td><span class="badge b-green">+${fmt(c.fee8)} (8%)</span></td>
             <td>${fmt(c.sellerNet92)}</td>
+          </tr>
+        `).join('')}
+        ${db.donations.map(d => `
+          <tr>
+            <td><b>${d.id}</b></td>
+            <td><span class="badge b-purple">โดเนทสตรีม</span></td>
+            <td>โดเนท: "${d.message}"</td>
+            <td>${d.streamerName}</td>
+            <td>${fmt(d.amount)}</td>
+            <td><span class="badge b-green">+${fmt(d.fee8)} (8%)</span></td>
+            <td>${fmt(d.net92)}</td>
           </tr>
         `).join('')}
       </tbody>
