@@ -337,6 +337,12 @@
     border: 2px solid #fde68a;
   }
 
+  .live-auction-panel { background:#fffaf0; border:1px solid #fcd34d; border-radius:12px; padding:12px; margin:12px 0; }
+  .live-auction-card { background:#fff; border:1px solid #fde68a; border-radius:10px; padding:10px; margin-top:8px; }
+  .live-auction-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:10px; }
+  .live-auction-form .field { margin:0; }
+  @media(max-width:600px) { .live-auction-form { grid-template-columns:1fr; } }
+
   .donate-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1052,7 +1058,12 @@ function getInitialData() {
       minDonate: 20,
       donateGoal: 2000,
       linkedProductId: 'p1',
-      quality: '1080p 60fps'
+      quality: '1080p 60fps',
+      description: '',
+      cover: '',
+      allowChat: true,
+      allowDonations: true,
+      auctionEnabled: true
     },
 
     donations: [
@@ -1208,6 +1219,7 @@ function toggleSoftEyeMode() {
 }
 
 function setRole(role) {
+  if (role !== 'seller' && activeMediaStream) stopBrowserScreenShare();
   db.role = role;
   // หน้าแรกของคนทั่วไปและผู้ซื้อให้เป็นหน้าสตรีมได้ทันที
   if (role === 'guest') db.page = 'streams';
@@ -1252,7 +1264,7 @@ function render() {
     main.innerHTML = renderStreams();
     attachActiveStreamToVideo();
   }
-  else if (db.page === 'user_profile') {
+  else if (db.page === 'user_profile' || db.page === 'stream_settings') {
     main.innerHTML = renderUserProfilePage();
     attachActiveStreamToVideo();
   }
@@ -1286,7 +1298,7 @@ function renderHeader() {
       <button class="btn${activeCls('market')}" onclick="goPage('market')">⚡ ตลาด & Flash Sale</button>
       <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 ประมูลสด (${db.auctions.filter(a=>a.status==='active').length})</button>
       <button class="btn${activeCls('orders')}" onclick="goPage('orders')">📦 คำสั่งซื้อ (${db.orders.length + db.completedOrders.length})</button>
-      <button class="btn${activeCls('user_profile')}" onclick="goPage('user_profile')">👤 โปรไฟล์ & เริ่มสตรีม</button>
+      <button class="btn${activeCls('seller')}" onclick="goPage('seller')">🏪 สมัครเป็นผู้ขายเพื่อสตรีม</button>
       <button class="btn btn-gold" onclick="openQRModal()">💳 ${fmt(db.buyer.wallet)}</button>
     `;
     return;
@@ -1296,7 +1308,7 @@ function renderHeader() {
     const s = db.currentSeller;
     h.innerHTML = `
       <button class="btn${activeCls('streams')}" onclick="goPage('streams')">🔴 หน้าสตรีมสด</button>
-      <button class="btn${activeCls('user_profile')}" onclick="goPage('user_profile')">👤 โปรไฟล์ & เริ่มสตรีม</button>
+      <button class="btn${activeCls('stream_settings')}" onclick="handleGoToMyStreamSettings()">🎥 ตั้งค่าสตรีม / เริ่มไลฟ์</button>
       <button class="btn${activeCls('seller')}" onclick="goPage('seller')">🏪 ลงสินค้า / Flash Sale / ประมูล</button>
       <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 ลานประมูล</button>
       <button class="btn${activeCls('chat')}" onclick="goPage('chat')">💬 แชทแก้ราคา</button>
@@ -1378,7 +1390,7 @@ function simulatePromoStep() {
 /* ==================== 1. หน้าแรก: ระบบสตรีมเกมสด (ดูสบายตา + เต็มจอได้ + โดเนทขึ้นแล้วหายไป) ==================== */
 function renderStreams() {
   const cat = db.selectedStreamCategory || 'ทั้งหมด';
-  const filteredStreams = db.streams.filter(s => cat === 'ทั้งหมด' || s.cat === cat);
+  const filteredStreams = db.streams.filter(s => s.isLive && (cat === 'ทั้งหมด' || s.cat === cat));
   const activeStream = db.streams.find(s => s.id === db.activeStreamId) || filteredStreams[0] || db.streams[0];
   const linkedProd = activeStream ? db.products.find(p => p.id === activeStream.linkedProductId) : null;
   const isFollowing = db.buyer.followedStreamers?.includes(activeStream?.streamerName);
@@ -1406,7 +1418,7 @@ function renderStreams() {
         <!-- จอเล่นสตรีมสด (รองรับ Fullscreen & Theater Mode) -->
         <div class="stream-player-card">
           <div class="stream-stage" id="streamStageBox">
-            <span class="live-pill">● LIVE · ${activeStream.cat}</span>
+            <span class="live-pill" style="${activeStream.isLive ? '' : 'background:#64748b;'}">${activeStream.isLive ? '● LIVE' : '● ออฟไลน์'} · ${activeStream.cat}</span>
             <span class="viewer-pill">👁️ ${activeStream.viewers.toLocaleString()} คนดู · ❤️ ${(activeStream.likes || 0).toLocaleString()}</span>
 
             <video id="liveScreenVideo" autoplay playsinline muted style="display:none;"></video>
@@ -1453,6 +1465,28 @@ function renderStreams() {
               ` : ''}
             </div>
           </div>
+
+          ${isApprovedStreamer() && activeStream.sellerId === db.currentSeller.id && activeStream.isLive && db.streamSettings.auctionEnabled !== false ? `
+            <div class="live-auction-panel">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                <b>🔨 เพิ่มสินค้าเข้าประมูลระหว่างไลฟ์</b>
+                <span class="badge b-green">สตรีมเมอร์เท่านั้น</span>
+              </div>
+              <p style="font-size:12px;color:var(--muted);">เปิดประมูลได้ทันทีโดยไม่ต้องออกจากหน้าสตรีม รายการจะไปแสดงในลานประมูลด้วย</p>
+              <div class="live-auction-form">
+                <div class="field"><label>ชื่อสินค้า *</label><input id="liveAucTitle" placeholder="ชื่อสินค้าที่ต้องการประมูล"></div>
+                <div class="field"><label>หมวดหมู่</label><select id="liveAucCat">${CATEGORIES.filter(c=>c!=='ทั้งหมด'&&c!=='บัตรเติมเกม').map(c=>`<option value="${c}" ${c===activeStream.cat?'selected':''}>${c}</option>`).join('')}</select></div>
+                <div class="field"><label>ราคาเริ่มต้น (บาท)</label><input id="liveAucStart" type="number" min="1" value="500"></div>
+                <div class="field"><label>บิดขั้นต่ำ (บาท)</label><input id="liveAucStep" type="number" min="1" value="50"></div>
+                <div class="field"><label>ซื้อทันที (บาท)</label><input id="liveAucBuyout" type="number" min="1" value="2000"></div>
+                <div class="field"><label>เวลาประมูล (นาที)</label><input id="liveAucMins" type="number" min="1" value="15"></div>
+                <div class="field"><label>ประเภทส่งมอบ</label><select id="liveAucType"><option value="account">🎮 ไอดีเกม</option><option value="item_code">🎁 Code ไอเท็ม</option><option value="card_code">💳 Code บัตรเติมเกม</option></select></div>
+                <div class="field"><label>ข้อมูลไอดี / Code สำหรับผู้ชนะ *</label><input id="liveAucSecret" type="password" placeholder="ข้อมูลส่งมอบสินค้า"></div>
+              </div>
+              <button class="btn btn-purple" style="width:100%;justify-content:center;margin-top:10px;" onclick="createLiveAuction('${activeStream.id}')">🚀 เปิดประมูลสินค้านี้ทันที</button>
+              ${db.auctions.filter(a=>a.streamId===activeStream.id && a.status==='active').map(a=>`<div class="live-auction-card"><b>${a.title}</b><div style="display:flex;justify-content:space-between;font-size:12px;margin-top:4px;"><span>ราคาปัจจุบัน ${fmt(a.currentBid)}</span><span>เหลือ <b data-endtime="${a.endTime}">${formatDuration(a.endTime-Date.now())}</b></span></div><button class="btn btn-blue" style="margin-top:6px;" onclick="goPage('auctions')">ดูในลานประมูล</button></div>`).join('')}
+            </div>
+          ` : (activeStream.isLive && db.streamSettings.auctionEnabled !== false ? db.auctions.filter(a=>a.streamId===activeStream.id && a.status==='active').map(a=>`<div class="live-auction-card"><b>🔨 ประมูลระหว่างไลฟ์: ${a.title}</b><div>ราคาปัจจุบัน <b>${fmt(a.currentBid)}</b> · เหลือ <b data-endtime="${a.endTime}">${formatDuration(a.endTime-Date.now())}</b></div><button class="btn btn-gold" onclick="openBidModal('${a.id}')">เข้าร่วมประมูล</button></div>`).join('') : '')}
         </div>
 
         <!-- คอลัมน์ขวา: แชทสด & ระบบโดเนท (ถ้ายังไม่ล็อกอิน กดแล้วจะให้สมัครสมาชิกก่อน) -->
@@ -1471,13 +1505,13 @@ function renderStreams() {
           </div>
 
           <!-- ช่องพิมพ์แชท -->
-          <div style="display:flex; gap:6px; margin-bottom:14px;">
+          ${db.streamSettings.allowChat === false ? '<div class="alert alert-warn">สตรีมเมอร์ปิดแชทสำหรับไลฟ์นี้</div>' : `<div style="display:flex; gap:6px; margin-bottom:14px;">
             <input type="text" id="streamChatInput" placeholder="${db.role === 'guest' ? 'สมัครสมาชิกก่อนพิมพ์ข้อความ...' : 'พิมพ์พูดคุยในสตรีม...'}" style="flex:1; padding:8px 10px; border:1px solid var(--border); border-radius:9px; font-size:12.5px;" onkeydown="if(event.key==='Enter') sendStreamChat('${activeStream.id}')">
             <button class="btn btn-blue" onclick="sendStreamChat('${activeStream.id}')">ส่งแชท</button>
-          </div>
+          </div>`}
 
           <!-- กล่องส่งโดเนท (เด้งขึ้นจอแล้วหายไปอัตโนมัติ) -->
-          <div style="background:var(--gold-bg); border:1px solid var(--gold-border); border-radius:12px; padding:12px;">
+          ${db.streamSettings.allowDonations === false ? '<div class="alert alert-warn">สตรีมเมอร์ปิดรับโดเนทในไลฟ์นี้</div>' : `<div style="background:var(--gold-bg); border:1px solid var(--gold-border); border-radius:12px; padding:12px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
               <b style="font-size:12.5px; color:#92400e;">🎁 โดเนทขึ้นจอสตรีม (ขึ้นโชว์ 5 วิแล้วหายไป)</b>
               <small style="color:var(--muted); font-size:11px;">หักระบบ 8%</small>
@@ -1495,7 +1529,7 @@ function renderStreams() {
             <button class="btn btn-gold" style="width:100%; justify-content:center; padding:9px;" onclick="sendStreamDonate('${activeStream.id}')">
               💖 ${db.role === 'guest' ? 'สมัครสมาชิกเพื่อส่งโดเนท' : 'ส่งโดเนทขึ้นจอทันที'}
             </button>
-          </div>
+          </div>`}
         </div>
       </div>
     ` : ''}
@@ -1653,19 +1687,51 @@ function sendStreamDonate(streamId) {
   toast(`ส่งโดเนท ${fmt(amt)} สำเร็จ!`);
 }
 
+function isApprovedStreamer() {
+  return db.role === 'seller' && db.currentSeller && db.currentSeller.status === 'approved';
+}
+
+function requireApprovedStreamer() {
+  if (isApprovedStreamer()) return true;
+  toast('ต้องสมัครและได้รับอนุมัติเป็นผู้ขายก่อน จึงจะตั้งค่าและเริ่มสตรีมได้');
+  if (db.role === 'guest') showModal('modalGmail');
+  else goPage('seller');
+  return false;
+}
+
 function handleGoToMyStreamSettings() {
   if (db.role === 'guest') {
-    toast('กรุณาเข้าสู่ระบบก่อนเข้าหน้าโปรไฟล์และเริ่มสตรีม');
+    toast('กรุณาสมัครสมาชิกและสมัครเป็นผู้ขายก่อนเริ่มสตรีม');
     showModal('modalGmail');
     return;
   }
-  goPage('user_profile');
+  if (!isApprovedStreamer()) {
+    toast('สิทธิ์สตรีมสงวนไว้สำหรับผู้ขายที่ได้รับอนุมัติแล้วเท่านั้น');
+    goPage('seller');
+    return;
+  }
+  goPage('stream_settings');
 }
 
 /* ==================== 2. หน้าโปรไฟล์ผู้ใช้ + ตั้งค่าต่างๆ + เริ่มสตรีมจากหน้าโปรไฟล์ได้เลย ==================== */
 function renderUserProfilePage() {
   const st = db.streamSettings;
   const isStreamingNow = !!activeMediaStream;
+
+  if (!isApprovedStreamer()) {
+    return `
+      <div class="box" style="max-width:720px; margin:30px auto; text-align:center; padding:28px;">
+        <div style="font-size:48px;">🔒</div>
+        <h2 style="margin:8px 0;">ตั้งค่าสตรีมสำหรับผู้ขายเท่านั้น</h2>
+        <p style="color:var(--muted); margin:8px 0 18px;">ผู้ที่ต้องการไลฟ์ต้องลงทะเบียนเป็นผู้ขาย และรอแอดมินอนุมัติก่อน จึงจะเปิดห้องไลฟ์ เพิ่มสินค้าเข้าประมูล และเริ่มสตรีมได้</p>
+        <div class="alert ${db.currentSeller.status === 'pending' ? 'alert-warn' : 'alert-ok'}">
+          ${db.currentSeller.status === 'pending' ? '⏳ ใบสมัครผู้ขายอยู่ระหว่างรออนุมัติ' : 'ยังไม่ได้รับสิทธิ์ผู้ขายที่อนุมัติแล้ว'}
+        </div>
+        <button class="btn btn-gold" onclick="goPage('seller')">🏪 ไปหน้าสมัคร / จัดการร้านค้า</button>
+        <button class="btn" onclick="goPage('streams')">กลับไปดูสตรีม</button>
+      </div>
+    `;
+  }
 
   return `
     <div class="box-title">
@@ -1753,6 +1819,35 @@ function renderUserProfilePage() {
         </div>
 
         <div class="field">
+          <label>รายละเอียดไลฟ์ / ข้อความประกาศ</label>
+          <textarea id="setStreamDescription" rows="2" placeholder="บอกผู้ชมว่าไลฟ์นี้มีอะไรบ้าง">${st.description || ''}</textarea>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label>เปิดให้ผู้ชมแชท</label>
+            <select id="setStreamAllowChat">
+              <option value="yes" ${(st.allowChat !== false) ? 'selected' : ''}>เปิดใช้งาน</option>
+              <option value="no" ${(st.allowChat === false) ? 'selected' : ''}>ปิดแชท</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>เปิดรับโดเนท</label>
+            <select id="setStreamAllowDonations">
+              <option value="yes" ${(st.allowDonations !== false) ? 'selected' : ''}>เปิดรับโดเนท</option>
+              <option value="no" ${(st.allowDonations === false) ? 'selected' : ''}>ปิดรับโดเนท</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>อนุญาตให้เปิดประมูลระหว่างไลฟ์</label>
+          <select id="setStreamAuctionEnabled">
+            <option value="yes" ${(st.auctionEnabled !== false) ? 'selected' : ''}>เปิดใช้งาน</option>
+            <option value="no" ${(st.auctionEnabled === false) ? 'selected' : ''}>ปิดใช้งาน</option>
+          </select>
+        </div>
+
+        <div class="field">
           <label>ปักหมุดสินค้าในห้องสตรีม</label>
           <select id="setStreamProd">
             ${db.products.map(p => `<option value="${p.id}" ${st.linkedProductId===p.id?'selected':''}>${p.title} (${fmt(p.price)})</option>`).join('')}
@@ -1835,44 +1930,54 @@ function saveUserProfileInfo() {
 }
 
 function saveProfileAndStreamSettings() {
+  if (!requireApprovedStreamer()) return;
   const title = document.getElementById('setStreamTitle').value.trim();
   const cat = document.getElementById('setStreamCat').value;
   const quality = document.getElementById('setStreamQuality').value;
   const linkedProductId = document.getElementById('setStreamProd').value;
   const minDonate = Number(document.getElementById('setStreamMinDonate')?.value || 20);
   const donateGoal = Number(document.getElementById('setStreamGoal')?.value || 2000);
+  const description = document.getElementById('setStreamDescription')?.value.trim() || '';
+  const allowChat = document.getElementById('setStreamAllowChat')?.value !== 'no';
+  const allowDonations = document.getElementById('setStreamAllowDonations')?.value !== 'no';
+  const auctionEnabled = document.getElementById('setStreamAuctionEnabled')?.value !== 'no';
 
   db.streamSettings = {
-    ...db.streamSettings,
-    title: title || db.streamSettings.title,
-    cat,
-    quality,
-    linkedProductId,
-    minDonate,
-    donateGoal
+    ...db.streamSettings, title: title || db.streamSettings.title, cat, quality,
+    linkedProductId, minDonate, donateGoal, description, allowChat, allowDonations, auctionEnabled
   };
 
-  const myStream = db.streams.find(x => x.id === 'st1') || db.streams[0];
-  if (myStream) {
-    myStream.title = db.streamSettings.title;
-    myStream.cat = cat;
-    myStream.linkedProductId = linkedProductId;
-    myStream.streamerName = db.role === 'seller' ? db.currentSeller.shopName : db.buyer.name;
-    db.activeStreamId = myStream.id;
+  let myStream = db.streams.find(x => x.sellerId === db.currentSeller.id);
+  if (!myStream) {
+    myStream = {
+      id: 'st_' + Date.now(), sellerId: db.currentSeller.id,
+      streamerName: db.currentSeller.shopName, title: db.streamSettings.title, cat,
+      viewers: 0, likes: 0, isLive: false, totalDonations: 0, linkedProductId,
+      description, chat: []
+    };
+    db.streams.unshift(myStream);
+  } else {
+    Object.assign(myStream, {
+      title: db.streamSettings.title, cat, linkedProductId,
+      streamerName: db.currentSeller.shopName, description
+    });
   }
-
+  db.activeStreamId = myStream.id;
   saveDB();
-  toast('อัปเดตห้องสตรีมสดเรียบร้อย!');
-  goPage('streams');
+  toast('บันทึกการตั้งค่าสตรีมเรียบร้อย');
+  goPage('stream_settings');
 }
 
 async function startBrowserScreenShare() {
+  if (!requireApprovedStreamer()) return;
   try {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
       toast('เบราว์เซอร์นี้ไม่รองรับการแชร์หน้าจอ');
       return;
     }
     activeMediaStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+    publishMyStreamLive();
+    render();
     attachActiveStreamToVideo();
     toast('🔴 เริ่มสตรีมแชร์หน้าจอเกมสดสำเร็จ!');
   } catch (err) {
@@ -1881,12 +1986,15 @@ async function startBrowserScreenShare() {
 }
 
 async function startBrowserWebcamStream() {
+  if (!requireApprovedStreamer()) return;
   try {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       toast('เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง');
       return;
     }
     activeMediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    publishMyStreamLive();
+    render();
     attachActiveStreamToVideo();
     toast('📷 เริ่มสตรีมสดด้วยกล้องเว็บแคมสำเร็จ!');
   } catch (err) {
@@ -1894,10 +2002,35 @@ async function startBrowserWebcamStream() {
   }
 }
 
+function publishMyStreamLive() {
+  if (!isApprovedStreamer()) return;
+  let st = db.streams.find(x => x.sellerId === db.currentSeller.id);
+  if (!st) {
+    st = {
+      id: 'st_' + Date.now(), sellerId: db.currentSeller.id,
+      streamerName: db.currentSeller.shopName, title: db.streamSettings.title,
+      cat: db.streamSettings.cat, viewers: 0, likes: 0, isLive: true,
+      totalDonations: 0, linkedProductId: db.streamSettings.linkedProductId,
+      description: db.streamSettings.description || '', chat: []
+    };
+    db.streams.unshift(st);
+  }
+  st.isLive = true;
+  st.title = db.streamSettings.title;
+  st.cat = db.streamSettings.cat;
+  st.streamerName = db.currentSeller.shopName;
+  st.linkedProductId = db.streamSettings.linkedProductId;
+  db.activeStreamId = st.id;
+  saveDB();
+}
+
 function stopBrowserScreenShare() {
   if (activeMediaStream) {
     activeMediaStream.getTracks().forEach(t => t.stop());
     activeMediaStream = null;
+    const myStream = db.streams.find(x => x.sellerId === db.currentSeller?.id);
+    if (myStream) myStream.isLive = false;
+    saveDB();
     toast('⏹️ หยุดสตรีมแล้ว');
     render();
   }
@@ -3059,6 +3192,7 @@ function submitSellerRegistration() {
 }
 
 function sellerAddProduct() {
+  if (db.currentSeller.status !== 'approved') { toast('ต้องได้รับอนุมัติเป็นผู้ขายก่อนลงสินค้า'); return; }
   const s = db.currentSeller;
   const deliveryType = document.getElementById('newPDeliveryType').value;
   const secretPayload = document.getElementById('newPSecret').value.trim();
@@ -3097,7 +3231,37 @@ function sellerAddProduct() {
   goPage('market');
 }
 
+function createLiveAuction(streamId) {
+  if (!requireApprovedStreamer()) return;
+  const stream = db.streams.find(x => x.id === streamId && x.sellerId === db.currentSeller.id);
+  if (!stream || !stream.isLive) { toast('ต้องเริ่มไลฟ์ของร้านตัวเองก่อนจึงจะเปิดประมูลได้'); return; }
+  if (db.streamSettings.auctionEnabled === false) { toast('คุณปิดการประมูลระหว่างไลฟ์ไว้ในตั้งค่าสตรีม'); return; }
+  const title = document.getElementById('liveAucTitle')?.value.trim();
+  const cat = document.getElementById('liveAucCat')?.value || stream.cat;
+  const startPrice = Number(document.getElementById('liveAucStart')?.value || 0);
+  const minStep = Number(document.getElementById('liveAucStep')?.value || 0);
+  const buyoutPrice = Number(document.getElementById('liveAucBuyout')?.value || 0);
+  const mins = Math.max(1, Number(document.getElementById('liveAucMins')?.value || 15));
+  const deliveryType = document.getElementById('liveAucType')?.value || 'account';
+  const secretPayload = document.getElementById('liveAucSecret')?.value.trim();
+  if (!title || !secretPayload || startPrice <= 0 || minStep <= 0 || buyoutPrice <= startPrice) {
+    toast('กรอกชื่อสินค้า ข้อมูลส่งมอบ และราคาให้ครบ (Buyout ต้องสูงกว่าราคาเริ่มต้น)'); return;
+  }
+  db.auctions.unshift({
+    id: 'auc_live_' + Date.now(), streamId, sellerId: db.currentSeller.id,
+    sellerShop: db.currentSeller.shopName, sellerOwner: db.currentSeller.fullName,
+    sellerStars: db.currentSeller.stars || 3, title, cat, deliveryType, secretPayload,
+    icon: '🔴', startPrice, currentBid: startPrice, minStep, buyoutPrice,
+    highestBidder: 'ยังไม่มีผู้บิด', bidCount: 0,
+    endTime: Date.now() + mins * 60000, status: 'active', bidHistory: []
+  });
+  saveDB();
+  toast('เปิดประมูลระหว่างไลฟ์เรียบร้อยแล้ว!');
+  render();
+}
+
 function sellerCreateAuction() {
+  if (!requireApprovedStreamer()) return;
   const s = db.currentSeller;
   const title = document.getElementById('aucTitle').value.trim();
   const cat = document.getElementById('aucCat').value;
