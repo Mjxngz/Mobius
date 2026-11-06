@@ -3,44 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobius Club — Live Stream Auction · ประมูลกลางแชทสตรีม · โดเนทมีเสียง (8%)</title>
+<title>Mobius Club — สตรีมเกมสด · โดเนทเสียงพูดผู้หญิง/ผู้ชาย · ประมูลเรียลไทม์ · ตลาดกลาง Escrow</title>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <style>
   :root {
-    --bg: #f4f6fb;
+    --bg: #f6f8fd;
+    --bg-accent: radial-gradient(circle at 10% 10%, #eef2ff 0%, #fdf2f8 45%, #f0fdf4 100%);
     --card: #ffffff;
     --border: #e2e8f0;
-    --text: #0f172a;
+    --text: #1e293b;
     --muted: #64748b;
-    --gold: #d97706;
+    --gold: #f59e0b;
+    --gold-dark: #d97706;
     --gold-bg: #fffbeb;
     --gold-border: #fde68a;
-    --green: #059669;
+    --green: #10b981;
     --green-bg: #ecfdf5;
-    --red: #e11d48;
+    --red: #f43f5e;
     --red-bg: #ffe4e6;
-    --blue: #2563eb;
+    --blue: #3b82f6;
     --blue-bg: #eff6ff;
-    --purple: #7c3aed;
+    --purple: #8b5cf6;
     --purple-bg: #f5f3ff;
+    --pink: #ec4899;
+    --shadow-soft: 0 10px 28px -6px rgba(99, 102, 241, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
   }
   body.soft-eye-mode {
-    --bg: #eaeff5;
+    --bg: #edf2f7;
+    --bg-accent: linear-gradient(135deg, #e2e8f0 0%, #edf2f7 100%);
     --card: #f8fafc;
     --border: #cbd5e1;
+  }
+  body.neon-dark-mode {
+    --bg: #0b0f19;
+    --bg-accent: radial-gradient(circle at 20% 20%, #1e1b4b 0%, #090d16 70%);
+    --card: #151c2c;
+    --border: #2a3449;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --gold-bg: rgba(245, 158, 11, 0.14);
+    --gold-border: rgba(251, 191, 36, 0.35);
+    --green-bg: rgba(16, 185, 129, 0.15);
+    --red-bg: rgba(244, 63, 94, 0.15);
+    --blue-bg: rgba(59, 130, 246, 0.15);
+    --purple-bg: rgba(139, 92, 246, 0.15);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Prompt', sans-serif;
-    background: var(--bg);
+    background: var(--bg-accent);
+    background-attachment: fixed;
     color: var(--text);
     line-height: 1.5;
+    transition: background .25s, color .25s;
   }
 
   /* แถบควบคุมการทดสอบด้านบนสุด */
   .role-bar {
-    background: #0f172a;
+    background: linear-gradient(90deg, #0f172a, #1e1b4b);
     color: #fff;
     padding: 7px 16px;
     position: sticky;
@@ -58,22 +79,23 @@
   }
   .role-tabs { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .role-tab {
-    padding: 5px 11px;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background: #1e293b;
+    padding: 5px 12px;
+    border-radius: 99px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.08);
     cursor: pointer;
     font-family: inherit;
     font-size: 12px;
     font-weight: 600;
     color: #e2e8f0;
-    transition: .15s;
+    transition: all .18s cubic-bezier(.34,1.56,.64,1);
   }
-  .role-tab:hover { background: #334155; }
+  .role-tab:hover { transform: translateY(-1px); background: rgba(255,255,255,0.18); }
   .role-tab.active {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #f59e0b, #ec4899);
     color: #fff;
     border-color: transparent;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
   }
   .notify-dot {
     background: #ef4444;
@@ -99,14 +121,17 @@
     cursor: pointer;
   }
 
-  /* Header หลัก */
+  /* Header หลักสไตล์ Glassmorphism สดใส */
   header {
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(8px);
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 39px;
     z-index: 60;
+  }
+  body.neon-dark-mode header {
+    background: rgba(21, 28, 44, 0.88);
   }
   .header-inner {
     max-width: 1280px;
@@ -120,20 +145,29 @@
   }
   .brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
   .logo-circle {
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    background: var(--gold-bg);
-    border: 1px solid var(--gold-border);
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #fffbeb, #fce7f3);
+    border: 2px solid #fcd34d;
     display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+    transition: transform .2s;
   }
-  .brand h1 { font-size: 19px; font-weight: 700; }
+  .brand:hover .logo-circle { transform: rotate(-6deg) scale(1.06); }
+  .brand h1 {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #d97706, #ec4899, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   .brand small { color: var(--muted); font-size: 11px; display: block; }
   .menu-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 
-  /* ปุ่ม */
+  /* ปุ่มแบบ Bouncy ทันสมัย */
   .btn {
-    padding: 7px 13px;
-    border-radius: 10px;
+    padding: 8px 14px;
+    border-radius: 12px;
     border: 1px solid var(--border);
     background: var(--card);
     font-family: inherit;
@@ -142,18 +176,37 @@
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     color: var(--text);
-    transition: .15s;
+    transition: all .18s cubic-bezier(.34,1.56,.64,1);
   }
-  .btn:hover { background: #f1f5f9; }
-  .btn.nav-active { border-color: var(--gold); background: var(--gold-bg); color: #92400e; }
-  .btn-gold { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; }
-  .btn-gold:hover { opacity: .92; }
-  .btn-green { background: var(--green); color: #fff; border: none; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(15,23,42,0.06); }
+  .btn:active { transform: scale(0.96); }
+  .btn.nav-active {
+    border-color: #f59e0b;
+    background: var(--gold-bg);
+    color: #b45309;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+  }
+  .btn-green {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.28);
+  }
   .btn-red { background: var(--red-bg); color: var(--red); border-color: #fecdd3; }
   .btn-blue { background: var(--blue-bg); color: var(--blue); border-color: #bfdbfe; }
-  .btn-purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; }
+  .btn-purple {
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+  }
 
   main { max-width: 1280px; margin: 16px auto 50px; padding: 0 16px; }
 
@@ -161,7 +214,7 @@
   .user-hub-bar {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 12px 18px;
     margin-bottom: 16px;
     display: flex;
@@ -169,23 +222,26 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-    box-shadow: 0 2px 12px rgba(15,23,42,0.03);
+    box-shadow: var(--shadow-soft);
   }
   .user-hub-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .user-avatar-circle {
-    width: 44px; height: 44px;
+    width: 46px; height: 46px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #6366f1, #ec4899);
     color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; font-weight: 700;
+    font-size: 22px; font-weight: 700;
     cursor: pointer;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+    transition: transform .2s;
   }
+  .user-avatar-circle:hover { transform: scale(1.1) rotate(6deg); }
   .promo-mini {
     background: var(--gold-bg);
     border: 1px solid var(--gold-border);
-    border-radius: 10px;
-    padding: 5px 12px;
+    border-radius: 12px;
+    padding: 6px 12px;
     font-size: 12px;
     display: flex;
     align-items: center;
@@ -193,12 +249,12 @@
     flex-wrap: wrap;
   }
   .mini-progress { width: 80px; height: 8px; background: #fff; border: 1px solid #fcd34d; border-radius: 99px; overflow: hidden; }
-  .mini-progress-fill { height: 100%; background: var(--green); }
+  .mini-progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #f59e0b); }
 
-  /* ==================== 1. ดีไซน์หน้าสตรีม + ประมูลตรงช่องแชท ==================== */
+  /* ==================== 1. หน้าสตรีมเกมสด + เลือกเสียงโดเนทได้เยอะๆ ==================== */
   .stream-layout {
     display: grid;
-    grid-template-columns: 1fr 410px;
+    grid-template-columns: 1fr 425px;
     gap: 18px;
     margin-bottom: 20px;
     align-items: start;
@@ -206,17 +262,17 @@
   .stream-layout.theater-mode {
     grid-template-columns: 1fr;
   }
-  @media(max-width: 1020px) { .stream-layout { grid-template-columns: 1fr; } }
+  @media(max-width: 1040px) { .stream-layout { grid-template-columns: 1fr; } }
 
   .stream-player-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 22px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(15,23,42,0.07);
+    box-shadow: var(--shadow-soft);
   }
   .stream-stage {
-    background: radial-gradient(circle at 30% 20%, #1e1b4b 0%, #090d16 70%);
+    background: radial-gradient(circle at 30% 20%, #2e1065 0%, #0f172a 55%, #090d16 100%);
     position: relative;
     aspect-ratio: 16 / 9;
     width: 100%;
@@ -250,7 +306,7 @@
     pointer-events: none;
   }
   .live-pill {
-    background: linear-gradient(135deg, #ef4444, #be123c);
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
     color: #fff;
     font-size: 12px;
     font-weight: 700;
@@ -259,12 +315,12 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 4px 14px rgba(239,68,68,0.45);
+    box-shadow: 0 4px 14px rgba(244,63,94,0.5);
   }
   .hype-meter-pill {
     background: rgba(15,23,42,0.82);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(251,191,36,0.4);
+    border: 1px solid rgba(251,191,36,0.45);
     color: #fff;
     padding: 5px 12px;
     border-radius: 99px;
@@ -274,19 +330,19 @@
     gap: 8px;
   }
   .hype-bar-mini {
-    width: 70px;
-    height: 7px;
+    width: 75px;
+    height: 8px;
     background: rgba(255,255,255,0.15);
     border-radius: 99px;
     overflow: hidden;
   }
   .hype-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #f59e0b, #ec4899, #8b5cf6);
+    background: linear-gradient(90deg, #fbbf24, #ec4899, #8b5cf6);
     transition: width 0.3s ease;
   }
 
-  /* แถบปุ่มกดส่งอิโมจิลอยขึ้นจอ */
+  /* แถบปุ่มกดส่งสติกเกอร์/อิโมจิลอยขึ้นจอ */
   .reaction-dock {
     position: absolute;
     bottom: 12px;
@@ -294,31 +350,31 @@
     display: flex;
     gap: 6px;
     z-index: 7;
-    background: rgba(15,23,42,0.72);
-    backdrop-filter: blur(8px);
-    padding: 5px 10px;
+    background: rgba(15,23,42,0.75);
+    backdrop-filter: blur(10px);
+    padding: 5px 12px;
     border-radius: 99px;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.18);
   }
   .react-btn {
     background: transparent;
     border: none;
-    font-size: 18px;
+    font-size: 19px;
     cursor: pointer;
     padding: 2px 5px;
-    transition: transform .15s;
+    transition: transform .18s cubic-bezier(.34,1.56,.64,1);
   }
-  .react-btn:hover { transform: scale(1.35) translateY(-3px); }
+  .react-btn:hover { transform: scale(1.45) translateY(-4px); }
 
   @keyframes floatUpEmoji {
     0% { opacity: 1; transform: translateY(0) scale(0.8) rotate(0deg); }
-    50% { opacity: 0.95; transform: translateY(-130px) scale(1.25) rotate(-8deg); }
-    100% { opacity: 0; transform: translateY(-260px) scale(1.5) rotate(10deg); }
+    50% { opacity: 0.95; transform: translateY(-140px) scale(1.3) rotate(-10deg); }
+    100% { opacity: 0; transform: translateY(-280px) scale(1.6) rotate(12deg); }
   }
   .floating-emoji {
     position: absolute;
     bottom: 55px;
-    font-size: 32px;
+    font-size: 34px;
     pointer-events: none;
     z-index: 9;
     animation: floatUpEmoji 2.2s ease-out forwards;
@@ -333,11 +389,11 @@
     z-index: 7;
   }
   .ctrl-btn {
-    background: rgba(15,23,42,0.78);
+    background: rgba(15,23,42,0.8);
     backdrop-filter: blur(6px);
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.22);
+    padding: 6px 13px;
     border-radius: 99px;
     font-family: inherit;
     font-size: 12px;
@@ -345,34 +401,56 @@
     cursor: pointer;
     transition: .15s;
   }
-  .ctrl-btn:hover { background: rgba(245,158,11,0.95); border-color: transparent; }
+  .ctrl-btn:hover { background: linear-gradient(135deg,#f59e0b,#ec4899); border-color: transparent; }
 
-  /* ป๊อปอัปโดเนทมีเสียงที่เด้งขึ้นมาแล้วค่อยๆ หายไปเอง */
+  /* ป๊อปอัปโดเนทพร้อมอนิเมชันคลื่นเสียงพูด (Voice Equalizer) */
   @keyframes donatePopFade {
-    0% { opacity: 0; transform: translate(-50%, 28px) scale(0.85); }
-    12% { opacity: 1; transform: translate(-50%, 0) scale(1.04); }
-    20% { transform: translate(-50%, 0) scale(1); }
-    82% { opacity: 1; transform: translate(-50%, 0) scale(1); }
-    100% { opacity: 0; transform: translate(-50%, -22px) scale(0.95); }
+    0% { opacity: 0; transform: translate(-50%, 30px) scale(0.82); }
+    10% { opacity: 1; transform: translate(-50%, 0) scale(1.04); }
+    18% { transform: translate(-50%, 0) scale(1); }
+    85% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -24px) scale(0.94); }
   }
   .donate-alert-overlay {
     position: absolute;
-    bottom: 65px;
+    bottom: 66px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, rgba(245,158,11,0.97), rgba(124,58,237,0.97));
+    background: linear-gradient(135deg, rgba(245,158,11,0.97), rgba(236,72,153,0.96), rgba(124,58,237,0.97));
     color: #fff;
-    padding: 14px 26px;
-    border-radius: 18px;
+    padding: 15px 28px;
+    border-radius: 20px;
     font-size: 14.5px;
     font-weight: 600;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.55);
+    box-shadow: 0 14px 38px rgba(0,0,0,0.55);
     border: 2px solid #fde68a;
     z-index: 10;
     text-align: center;
-    min-width: 310px;
+    min-width: 320px;
     pointer-events: none;
-    animation: donatePopFade 5s ease forwards;
+    animation: donatePopFade 5.5s ease forwards;
+  }
+  .voice-wave {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    height: 14px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .voice-wave span {
+    width: 3px;
+    height: 100%;
+    background: #fde68a;
+    border-radius: 99px;
+    animation: waveBounce 0.6s infinite ease-in-out alternate;
+  }
+  .voice-wave span:nth-child(2) { animation-delay: 0.15s; }
+  .voice-wave span:nth-child(3) { animation-delay: 0.3s; }
+  .voice-wave span:nth-child(4) { animation-delay: 0.45s; }
+  @keyframes waveBounce {
+    0% { transform: scaleY(0.3); }
+    100% { transform: scaleY(1.1); }
   }
 
   .stream-info-footer {
@@ -383,28 +461,27 @@
     flex-wrap: wrap;
     gap: 12px;
     background: var(--card);
-    border-bottom: 1px solid var(--border);
   }
   .streamer-profile-mini { display: flex; align-items: center; gap: 12px; }
   .streamer-avatar {
     width: 48px; height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #f59e0b, #ec4899);
     color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-size: 20px; font-weight: 700;
     border: 2px solid #fde68a;
   }
 
-  /* กล่องประมูลสดตรงแชทสตรีม (In-Chat Live Auction Widget) */
+  /* กล่องประมูลสดตรงแชทสตรีม */
   .chat-auction-widget {
-    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+    background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
     color: #fff;
     border: 2px solid #f59e0b;
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 12px;
     margin-bottom: 10px;
-    box-shadow: 0 6px 18px rgba(15,23,42,0.18);
+    box-shadow: 0 6px 18px rgba(15,23,42,0.16);
   }
   .chat-auc-top {
     display: flex;
@@ -417,30 +494,27 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.1);
     padding: 6px 10px;
-    border-radius: 9px;
+    border-radius: 10px;
     margin-bottom: 8px;
   }
-  .chat-auc-btns {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
+  .chat-auc-btns { display: flex; gap: 5px; flex-wrap: wrap; }
   .chat-auc-btn {
     flex: 1;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
     color: #fff;
     border: none;
     padding: 6px 8px;
-    border-radius: 8px;
+    border-radius: 9px;
     font-family: inherit;
     font-size: 11.5px;
     font-weight: 700;
     cursor: pointer;
     text-align: center;
+    transition: transform .15s;
   }
-  .chat-auc-btn:hover { opacity: 0.92; }
+  .chat-auc-btn:hover { transform: translateY(-1px); opacity: 0.95; }
 
   .podium-row {
     display: grid;
@@ -449,37 +523,62 @@
     margin-bottom: 8px;
   }
   .podium-card {
-    background: linear-gradient(135deg, #fffbeb, #ffffff);
-    border: 1px solid #fde68a;
+    background: linear-gradient(135deg, var(--gold-bg), var(--card));
+    border: 1px solid var(--gold-border);
     border-radius: 10px;
     padding: 5px 6px;
     text-align: center;
     font-size: 10.5px;
   }
-  .podium-card b { display: block; color: var(--gold); font-size: 11.5px; }
+  .podium-card b { display: block; color: var(--gold-dark); font-size: 11.5px; }
+
+  /* ปุ่มเลือกเสียงผู้หญิง / ผู้ชาย ในกล่องโดเนท */
+  .voice-gender-pills {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-bottom: 7px;
+  }
+  .voice-pill {
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 8px;
+    padding: 5px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: .15s;
+  }
+  .voice-pill.active {
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    color: #fff;
+    border-color: transparent;
+  }
 
   .donate-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin-bottom: 8px;
+    gap: 5px;
+    margin-bottom: 7px;
   }
   .donate-pkg {
     border: 1px solid var(--gold-border);
-    background: var(--gold-bg);
+    background: var(--card);
     border-radius: 9px;
     padding: 5px;
     text-align: center;
     cursor: pointer;
     font-size: 11.5px;
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--gold-dark);
     transition: .15s;
   }
-  .donate-pkg:hover { background: #fde68a; transform: translateY(-1px); }
+  .donate-pkg:hover { background: #fde68a; transform: scale(1.04); }
 
-  /* ==================== 2. ดีไซน์หน้าประมูลใหม่ (Sniper Auction Arena) ==================== */
+  /* ==================== 2. หน้าประมูลสินค้า (Sniper Auction Arena) ==================== */
   .auction-spotlight {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #2e1065 100%);
     color: #fff;
     border-radius: 22px;
     padding: 24px;
@@ -493,13 +592,7 @@
   }
   @media(max-width: 860px) { .auction-spotlight { grid-template-columns: 1fr; } }
 
-  .spotlight-badge-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
+  .spotlight-badge-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
   .pulse-live-auc {
     background: #ef4444;
     color: #fff;
@@ -507,7 +600,6 @@
     border-radius: 99px;
     font-size: 11.5px;
     font-weight: 700;
-    letter-spacing: 0.5px;
   }
   .anti-snipe-pill {
     background: rgba(251,191,36,0.18);
@@ -535,16 +627,11 @@
   }
   .auc-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+    background: linear-gradient(90deg, #10b981, #f59e0b, #ec4899);
     border-radius: 99px;
     transition: width 0.3s ease;
   }
-  .quick-bid-chips {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 12px;
-  }
+  .quick-bid-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
   .chip-bid-btn {
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(251,191,36,0.6);
@@ -557,11 +644,7 @@
     cursor: pointer;
     transition: .15s;
   }
-  .chip-bid-btn:hover {
-    background: #f59e0b;
-    color: #0f172a;
-    transform: translateY(-2px);
-  }
+  .chip-bid-btn:hover { background: #f59e0b; color: #0f172a; transform: translateY(-2px); }
   .bid-feed-card {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.14);
@@ -583,13 +666,16 @@
     border: 1px solid #fbbf24;
   }
 
-  /* โซน FLASH SALE นับถอยหลังเรียลไทม์ */
+  /* โซน FLASH SALE */
   .flash-sale-section {
     background: linear-gradient(135deg, #fff1f2 0%, #fffbeb 100%);
     border: 2px solid #fda4af;
-    border-radius: 18px;
+    border-radius: 20px;
     padding: 18px;
     margin-bottom: 20px;
+  }
+  body.neon-dark-mode .flash-sale-section {
+    background: linear-gradient(135deg, rgba(244,63,94,0.15), rgba(245,158,11,0.12));
   }
   .flash-header {
     display: flex;
@@ -605,12 +691,12 @@
     gap: 10px;
     font-size: 18px;
     font-weight: 700;
-    color: #be123c;
+    color: #e11d48;
   }
   .realtime-clock {
-    background: #be123c;
+    background: linear-gradient(135deg, #e11d48, #be123c);
     color: #fff;
-    padding: 3px 10px;
+    padding: 3px 11px;
     border-radius: 99px;
     font-family: monospace;
     font-size: 13px;
@@ -622,12 +708,13 @@
   .filter-bar {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 12px 16px;
     margin-bottom: 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    box-shadow: var(--shadow-soft);
   }
   .search-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .search-input-wrap { flex: 1; min-width: 220px; position: relative; }
@@ -638,7 +725,8 @@
     border: 1px solid var(--border);
     font-family: inherit;
     font-size: 13px;
-    background: #f8fafc;
+    background: var(--bg);
+    color: var(--text);
   }
   .search-input-wrap span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; }
   .cat-pills { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -646,49 +734,58 @@
     padding: 5px 13px;
     border-radius: 99px;
     border: 1px solid var(--border);
-    background: #f8fafc;
+    background: var(--bg);
+    color: var(--text);
     font-family: inherit;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: .15s;
   }
-  .cat-pill.active { background: var(--gold); color: #fff; border-color: var(--gold); }
+  .cat-pill.active {
+    background: linear-gradient(135deg, #f59e0b, #ec4899);
+    color: #fff;
+    border-color: transparent;
+  }
 
-  /* การ์ดสินค้า & ประมูล */
+  /* การ์ดสินค้า */
   .grid-products {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 14px;
+    gap: 16px;
   }
   .p-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 18px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: .15s;
+    box-shadow: var(--shadow-soft);
+    transition: all .2s cubic-bezier(.34,1.56,.64,1);
   }
-  .p-card:hover { border-color: #fcd34d; box-shadow: 0 6px 16px rgba(0,0,0,0.05); }
+  .p-card:hover { transform: translateY(-4px); border-color: #fcd34d; }
   .p-img {
-    height: 104px;
-    background: linear-gradient(135deg, #fffbeb, #f1f5f9);
+    height: 106px;
+    background: linear-gradient(135deg, #fffbeb, #fce7f3, #e0e7ff);
     display: flex; align-items: center; justify-content: center;
-    font-size: 38px;
+    font-size: 40px;
     position: relative;
   }
+  body.neon-dark-mode .p-img {
+    background: linear-gradient(135deg, #1e1b4b, #311042);
+  }
   .p-cat {
-    position: absolute; top: 6px; left: 6px;
-    background: #fff; border: 1px solid var(--border);
-    font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 600;
+    position: absolute; top: 8px; left: 8px;
+    background: rgba(255,255,255,0.92); color: #0f172a; border: 1px solid var(--border);
+    font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 700;
   }
   .p-type-badge {
-    position: absolute; bottom: 6px; right: 6px;
+    position: absolute; bottom: 6px; right: 8px;
     background: #0f172a; color: #fbbf24;
     font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 600;
   }
-  .p-body { padding: 12px; flex: 1; display: flex; flex-direction: column; }
+  .p-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
   .p-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; line-height: 1.35; }
   .p-shop-row {
     font-size: 12px; color: var(--muted); margin-bottom: 8px;
@@ -698,7 +795,7 @@
   .p-price-row {
     margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px;
   }
-  .p-price { font-size: 18px; font-weight: 700; color: var(--gold); }
+  .p-price { font-size: 19px; font-weight: 700; color: var(--gold-dark); }
   .p-actions { display: flex; gap: 6px; }
   .p-actions .btn { flex: 1; justify-content: center; padding: 7px 8px; font-size: 12px; }
 
@@ -706,9 +803,10 @@
   .box {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 18px;
     margin-bottom: 16px;
+    box-shadow: var(--shadow-soft);
   }
   .box-title {
     font-size: 16px;
@@ -725,7 +823,7 @@
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media(max-width: 820px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
 
-  .stat-box { border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: var(--card); }
+  .stat-box { border: 1px solid var(--border); border-radius: 14px; padding: 14px; background: var(--card); }
   .stat-box.highlight { background: var(--green-bg); border-color: #a7f3d0; }
   .stat-box.clickable { cursor: pointer; }
   .stat-box small { color: var(--muted); font-size: 12px; display: block; }
@@ -733,60 +831,86 @@
 
   .dash-bar-row { margin-bottom: 10px; }
   .dash-bar-head { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 4px; }
-  .dash-bar-track { width: 100%; height: 12px; background: #f1f5f9; border-radius: 99px; overflow: hidden; }
+  .dash-bar-track { width: 100%; height: 12px; background: var(--bg); border-radius: 99px; overflow: hidden; }
   .dash-bar-fill { height: 100%; border-radius: 99px; }
 
   .field { margin-bottom: 10px; }
   .field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
   .field input, .field select, .field textarea {
     width: 100%; padding: 8px 11px; border: 1px solid var(--border);
-    border-radius: 9px; font-family: inherit; font-size: 13px; background: #fff;
+    border-radius: 10px; font-family: inherit; font-size: 13px; background: var(--card); color: var(--text);
+  }
+
+  /* การ์ดเลือกเสียงเอฟเฟกต์โดเนท 10 แบบ */
+  .sfx-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .sfx-card {
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--bg);
+    transition: .15s;
+  }
+  .sfx-card:hover { border-color: var(--gold); }
+  .sfx-card.active {
+    border-color: #ec4899;
+    background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(236,72,153,0.12));
   }
 
   .secret-code-box {
-    background: #0f172a; color: #fbbf24; border-radius: 8px; padding: 8px 12px;
+    background: #0f172a; color: #fbbf24; border-radius: 10px; padding: 8px 12px;
     font-family: monospace; font-size: 13px; font-weight: 700;
     display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px;
   }
 
   .doc-upload-card {
-    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
-    margin-bottom: 8px; background: #f8fafc;
+    border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px;
+    margin-bottom: 8px; background: var(--bg);
     display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
   }
-  .doc-upload-card.has-file { background: #fffbeb; border-color: #fcd34d; }
+  .doc-upload-card.has-file { background: var(--gold-bg); border-color: #fcd34d; }
   .doc-preview-thumb { width: 50px; height: 38px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
 
-  .alert { padding: 10px 12px; border-radius: 10px; font-size: 12.5px; margin-bottom: 10px; font-weight: 500; }
+  .alert { padding: 10px 14px; border-radius: 12px; font-size: 12.5px; margin-bottom: 12px; font-weight: 500; }
   .alert-ok { background: var(--green-bg); color: var(--green); border: 1px solid #a7f3d0; }
-  .alert-warn { background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-border); }
+  .alert-warn { background: var(--gold-bg); color: var(--gold-dark); border: 1px solid var(--gold-border); }
 
   table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
   th, td { padding: 9px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
-  th { background: #f8fafc; color: var(--muted); font-weight: 600; }
+  th { background: var(--bg); color: var(--muted); font-weight: 600; }
 
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; }
-  .b-gold { background: var(--gold-bg); color: var(--gold); }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+  .b-gold { background: var(--gold-bg); color: var(--gold-dark); }
   .b-green { background: var(--green-bg); color: var(--green); }
   .b-blue { background: var(--blue-bg); color: var(--blue); }
   .b-red { background: var(--red-bg); color: var(--red); }
   .b-purple { background: var(--purple-bg); color: var(--purple); }
 
   /* แชท */
-  .chat-box { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .chat-box { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
   .chat-top {
-    background: #fffbeb; padding: 10px 14px; border-bottom: 1px solid var(--gold-border);
+    background: var(--gold-bg); padding: 10px 14px; border-bottom: 1px solid var(--gold-border);
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
   }
   .chat-messages {
-    height: 175px; overflow-y: auto; padding: 10px; background: #f8fafc;
+    height: 165px; overflow-y: auto; padding: 10px; background: var(--bg);
     display: flex; flex-direction: column; gap: 6px;
   }
-  .msg { max-width: 92%; padding: 6px 10px; border-radius: 9px; background: #fff; border: 1px solid var(--border); font-size: 12px; align-self: flex-start; }
+  .msg { max-width: 92%; padding: 6px 10px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); font-size: 12px; align-self: flex-start; }
   .msg.me { align-self: flex-end; background: var(--gold-bg); border-color: var(--gold-border); }
   .msg.sys { align-self: center; background: var(--green-bg); color: var(--green); border-color: #a7f3d0; font-weight: 600; }
-  .msg.bid-msg { align-self: center; background: #eef2ff; color: #4338ca; border-color: #c7d2fe; font-weight: 700; }
-  .chat-bar { padding: 8px; background: #fff; border-top: 1px solid var(--border); display: flex; gap: 6px; flex-wrap: wrap; }
+  .msg.bid-msg { align-self: center; background: var(--purple-bg); color: var(--purple); border-color: #ddd6fe; font-weight: 700; }
+  .chat-bar { padding: 8px; background: var(--card); border-top: 1px solid var(--border); display: flex; gap: 6px; flex-wrap: wrap; }
 
   .pay-method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
   .pay-option { border: 2px solid var(--border); border-radius: 10px; padding: 10px; cursor: pointer; text-align: center; }
@@ -795,27 +919,38 @@
   .credit-card-form label { color: #cbd5e1; font-size: 11px; }
   .credit-card-form input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); color: #fff; }
 
-  .review-item { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; background: #f8fafc; font-size: 13px; }
+  .review-item { border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; background: var(--bg); font-size: 13px; }
 
   /* Modal */
   .modal-bg {
     position: fixed; inset: 0; background: rgba(15,23,42,0.55);
+    backdrop-filter: blur(4px);
     display: none; align-items: center; justify-content: center; z-index: 100; padding: 16px;
   }
   .modal-card {
-    background: #fff; border-radius: 16px; max-width: 480px; width: 100%;
-    padding: 20px; position: relative; max-height: 92vh; overflow-y: auto;
+    background: var(--card); color: var(--text); border-radius: 20px; max-width: 480px; width: 100%;
+    padding: 22px; position: relative; max-height: 92vh; overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   }
   .modal-card.wide { max-width: 780px; }
-  .close-x { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 18px; cursor: pointer; color: var(--muted); }
+  .close-x { position: absolute; top: 12px; right: 14px; border: none; background: none; font-size: 18px; cursor: pointer; color: var(--muted); }
   .doc-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
   @media(max-width: 680px) { .doc-gallery { grid-template-columns: 1fr; } }
-  .doc-item { border: 1px solid var(--border); border-radius: 10px; padding: 8px; background: #f8fafc; text-align: center; }
-  .doc-item img { width: 100%; height: 140px; object-fit: contain; background: #fff; border-radius: 6px; border: 1px solid var(--border); margin: 4px 0; }
+  .doc-item { border: 1px solid var(--border); border-radius: 12px; padding: 8px; background: var(--bg); text-align: center; }
+  .doc-item img { width: 100%; height: 140px; object-fit: contain; background: #fff; border-radius: 8px; border: 1px solid var(--border); margin: 4px 0; }
   #toast {
-    position: fixed; bottom: 20px; right: 20px; background: #0f172a; color: #fff;
-    padding: 10px 16px; border-radius: 10px; font-size: 13px; display: none; z-index: 200;
+    position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #0f172a, #1e1b4b); color: #fff;
+    padding: 11px 18px; border-radius: 12px; font-size: 13px; display: none; z-index: 200;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
   }
+
+  .studio-settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .studio-panel{border:1px solid var(--border);border-radius:13px;padding:12px;background:var(--bg);margin:10px 0}
+  .studio-panel h4{font-size:13px;margin-bottom:9px}
+  .studio-panel input[type=range]{width:100%}
+  .studio-panel input,.studio-panel select,.studio-panel textarea{max-width:100%}
+  @media(max-width:700px){.studio-settings-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -854,7 +989,8 @@
           <defs>
             <linearGradient id="gMob" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#f59e0b"/>
-              <stop offset="100%" stop-color="#b45309"/>
+              <stop offset="50%" stop-color="#ec4899"/>
+              <stop offset="100%" stop-color="#6366f1"/>
             </linearGradient>
           </defs>
           <path d="M50 30 C38 8 10 8 10 30 C10 52 38 52 50 30 C62 8 90 8 90 30 C90 52 62 52 50 30 Z"
@@ -862,8 +998,8 @@
         </svg>
       </div>
       <div>
-        <h1>Mobius Club</h1>
-        <small>Live Stream Auction · ประมูลกลางแชทสตรีม · โดเนทมีเสียง (8%)</small>
+        <h1>Mobius Club ✨</h1>
+        <small>สตรีมเกมสด · เสียงโดเนทผู้หญิง/ผู้ชาย 10 สไตล์ · ประมูลเรียลไทม์ (8%)</small>
       </div>
     </div>
 
@@ -878,9 +1014,9 @@
   <div class="modal-card">
     <button class="close-x" onclick="hideModal('modalGmail')">✕</button>
     <div style="text-align:center; margin-bottom:12px;">
-      <div style="font-size:34px;">🔐</div>
+      <div style="font-size:36px;">🎮</div>
       <h3>สมัครสมาชิก / เข้าสู่ระบบ</h3>
-      <p style="font-size:12px; color:var(--muted);">สมัครสมาชิกด้วยอีเมลและรหัสผ่านเพื่อพิมพ์แชทสตรีม ส่งโดเนท และบิดประมูลกลางสตรีม</p>
+      <p style="font-size:12px; color:var(--muted);">สมัครสมาชิกด้วยอีเมลและรหัสผ่านเพื่อพิมพ์แชทสตรีม ส่งโดเนทเสียงพูด และบิดประมูลกลางสตรีม</p>
     </div>
     <div class="field">
       <label>ชื่อโปรไฟล์ของคุณ (Display Name)</label>
@@ -927,7 +1063,7 @@
     <div id="topupSectionQR" style="text-align:center; background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:12px;">
       <b style="color:#1e3a8a; font-size:12px;">THAI QR PROMPTPAY</b>
       <div id="qrSvgWrap" style="margin:6px auto; display:flex; justify-content:center;"></div>
-      <div>ยอดเติม: <b style="color:var(--gold); font-size:16px;" id="qrTextAmt">฿1,000</b></div>
+      <div>ยอดเติม: <b style="color:var(--gold-dark); font-size:16px;" id="qrTextAmt">฿1,000</b></div>
     </div>
 
     <div id="topupSectionCard" style="display:none;">
@@ -1006,7 +1142,7 @@
 
     <div class="field">
       <label>ชื่อสินค้าที่นำมาประมูลในสตรีม *</label>
-      <input type="text" id="liveAucTitle" placeholder="เช่น ไอดี Valorant มีด Champions 2024 (ประมูลสดในไลฟ์)" value="โค้ดสกินแรร์พิเศษประจำไลฟ์ (ประมูลด่วนกลางสตรีม)">
+      <input type="text" id="liveAucTitle" value="โค้ดสกินแรร์พิเศษประจำไลฟ์ (ประมูลด่วนกลางสตรีม)">
     </div>
 
     <div class="grid-2">
@@ -1061,68 +1197,320 @@
 <div id="toast"></div>
 
 <script>
-const FEE_RATE = 0.08; // ค่าธรรมเนียมแอดมิน 8% (ผู้ขายรับ 92%)
-const STORAGE_KEY = 'mobius_v11_live_auction_sound';
+const FEE_RATE = 0.08;
+const STORAGE_KEY = 'mobius_v12_pastel_voices';
 const CATEGORIES = ['ทั้งหมด', 'Valorant', 'RoV', 'Blox Fruits', 'Genshin Impact', 'CS2', 'RedM / GTA RP', 'บัตรเติมเกม'];
 
 let activeMediaStream = null;
 let donateAlertTimeout = null;
+let sharedAudioCtx = null;
 
-/* ==================== ระบบเสียงแจ้งเตือนโดเนท (Web Audio API Chime + เสียงอ่าน TTS) ==================== */
-function playDonationSoundAndVoice(donorName, amount, message) {
-  if (!db.streamSettings?.soundEnabled) return;
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (AudioCtx) {
-      const ctx = new AudioCtx();
-      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (เสียงระฆังโดเนทสดใส)
-      notes.forEach((freq, idx) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.11);
-        gain.gain.setValueAtTime(0.22, ctx.currentTime + idx * 0.11);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.11 + 0.45);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(ctx.currentTime + idx * 0.11);
-        osc.stop(ctx.currentTime + idx * 0.11 + 0.46);
-      });
-    }
-  } catch (e) {}
+/* ==================== คลังเสียงเอฟเฟกต์โดเนท 10 แบบ (Web Audio Synthesizer) ==================== */
+const DONATE_SFX_LIST = {
+  crystal_chime: {
+    name: '🔔 1. ระฆังคริสตัลใส (Crystal Chime)',
+    notes: [
+      { f: 523.25, t: 0, d: 0.35, type: 'triangle' },
+      { f: 659.25, t: 0.1, d: 0.35, type: 'triangle' },
+      { f: 783.99, t: 0.2, d: 0.35, type: 'triangle' },
+      { f: 1046.50, t: 0.3, d: 0.55, type: 'sine' }
+    ]
+  },
+  retro_coin: {
+    name: '🪙 2. เหรียญทองมาริโอ้ (8-Bit Coin)',
+    notes: [
+      { f: 987.77, t: 0, d: 0.09, type: 'square' },
+      { f: 1318.51, t: 0.09, d: 0.45, type: 'square' }
+    ]
+  },
+  victory_fanfare: {
+    name: '🎺 3. แตรชัยชนะแฟนแฟร์ (Victory Fanfare)',
+    notes: [
+      { f: 523.25, t: 0, d: 0.12, type: 'sawtooth' },
+      { f: 523.25, t: 0.13, d: 0.12, type: 'sawtooth' },
+      { f: 523.25, t: 0.26, d: 0.12, type: 'sawtooth' },
+      { f: 659.25, t: 0.40, d: 0.32, type: 'sawtooth' },
+      { f: 587.33, t: 0.74, d: 0.20, type: 'sawtooth' },
+      { f: 783.99, t: 0.96, d: 0.50, type: 'sawtooth' }
+    ]
+  },
+  level_up: {
+    name: '✨ 4. เลเวลอัป RPG (Level Up Sparkle)',
+    notes: [
+      { f: 440, t: 0, d: 0.1, type: 'triangle' },
+      { f: 554.37, t: 0.08, d: 0.1, type: 'triangle' },
+      { f: 659.25, t: 0.16, d: 0.1, type: 'triangle' },
+      { f: 880, t: 0.24, d: 0.12, type: 'triangle' },
+      { f: 1108.73, t: 0.34, d: 0.12, type: 'sine' },
+      { f: 1318.51, t: 0.44, d: 0.45, type: 'sine' }
+    ]
+  },
+  kawaii_pop: {
+    name: '💖 5. คาวาอี้ป๊อปใสๆ (Kawaii Pop)',
+    notes: [
+      { f: 659.25, t: 0, d: 0.12, type: 'sine' },
+      { f: 880, t: 0.1, d: 0.12, type: 'sine' },
+      { f: 1046.50, t: 0.2, d: 0.15, type: 'sine' },
+      { f: 1396.91, t: 0.32, d: 0.35, type: 'sine' }
+    ]
+  },
+  cyber_laser: {
+    name: '🚀 6. ไซเบอร์เลเซอร์ (Cyberpunk Laser)',
+    notes: [
+      { f: 1400, fEnd: 280, t: 0, d: 0.22, type: 'sawtooth' },
+      { f: 1600, fEnd: 400, t: 0.18, d: 0.25, type: 'sawtooth' },
+      { f: 880, t: 0.42, d: 0.35, type: 'triangle' }
+    ]
+  },
+  jackpot_win: {
+    name: '🎰 7. แจ็คพอตแตกรัวๆ (Jackpot Slot Win)',
+    notes: [
+      { f: 784, t: 0, d: 0.08, type: 'square' },
+      { f: 987, t: 0.08, d: 0.08, type: 'square' },
+      { f: 1174, t: 0.16, d: 0.08, type: 'square' },
+      { f: 784, t: 0.24, d: 0.08, type: 'square' },
+      { f: 987, t: 0.32, d: 0.08, type: 'square' },
+      { f: 1567, t: 0.40, d: 0.45, type: 'square' }
+    ]
+  },
+  magic_harp: {
+    name: '🪄 8. เวทมนตร์นางฟ้า (Magic Fairy Harp)',
+    notes: [
+      { f: 523.25, t: 0.00, d: 0.3, type: 'sine' },
+      { f: 587.33, t: 0.06, d: 0.3, type: 'sine' },
+      { f: 659.25, t: 0.12, d: 0.3, type: 'sine' },
+      { f: 783.99, t: 0.18, d: 0.3, type: 'sine' },
+      { f: 987.77, t: 0.24, d: 0.3, type: 'sine' },
+      { f: 1174.66, t: 0.30, d: 0.3, type: 'sine' },
+      { f: 1567.98, t: 0.36, d: 0.5, type: 'sine' }
+    ]
+  },
+  hype_horn: {
+    name: '🔥 9. แอร์ฮอร์นไฮป์สายตี้ (Hype Airhorn)',
+    notes: [
+      { f: 466.16, t: 0, d: 0.14, type: 'sawtooth' },
+      { f: 466.16, t: 0.17, d: 0.14, type: 'sawtooth' },
+      { f: 466.16, t: 0.34, d: 0.55, type: 'sawtooth' }
+    ]
+  },
+  boss_drum: {
+    name: '🥁 10. กลองเปิดตัวบอส (Epic Boss Alert)',
+    notes: [
+      { f: 130.81, t: 0, d: 0.18, type: 'triangle' },
+      { f: 130.81, t: 0.18, d: 0.18, type: 'triangle' },
+      { f: 196.00, t: 0.36, d: 0.22, type: 'sawtooth' },
+      { f: 261.63, t: 0.56, d: 0.50, type: 'sawtooth' }
+    ]
+  }
+};
 
-  // เสียงอ่านข้อความโดเนทอัตโนมัติ (SpeechSynthesis)
-  if (db.streamSettings?.voiceTtsEnabled && 'speechSynthesis' in window) {
-    try {
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(`${donorName} โดเนท ${amount} บาท ข้อความว่า ${message}`);
-      utter.lang = 'th-TH';
-      utter.rate = 1.05;
-      window.speechSynthesis.speak(utter);
-    } catch (e) {}
+/* ==================== คลังโทนเสียงพูดอ่านโดเนท (ผู้หญิง / ผู้ชาย / ไอดอล / แคสเตอร์) ==================== */
+const VOICE_PROFILES = {
+  female_sweet: {
+    label: '👩 เสียงผู้หญิงหวานใส',
+    shortLabel: '👩 ผู้หญิงหวานใส',
+    gender: 'female',
+    pitch: 1.32,
+    rate: 1.02,
+    prefix: 'ขอบคุณคุณ',
+    suffix: 'มากๆ เลยนะคะ'
+  },
+  female_anime: {
+    label: '👧 เสียงผู้หญิงร่าเริง (ไอดอล)',
+    shortLabel: '👧 ผู้หญิงไอดอล',
+    gender: 'female',
+    pitch: 1.52,
+    rate: 1.08,
+    prefix: 'ว้าว ขอบคุณคุณ',
+    suffix: 'สุดยอดไปเลยค่ะ'
+  },
+  male_cool: {
+    label: '👨 เสียงผู้ชายทุ้มเท่',
+    shortLabel: '👨 ผู้ชายทุ้มเท่',
+    gender: 'male',
+    pitch: 0.78,
+    rate: 0.98,
+    prefix: 'ขอบคุณคุณ',
+    suffix: 'มากครับผม'
+  },
+  male_caster: {
+    label: '👦 เสียงผู้ชายแคสเตอร์เกมมันส์ๆ',
+    shortLabel: '👦 ผู้ชายแคสเตอร์',
+    gender: 'male',
+    pitch: 0.92,
+    rate: 1.12,
+    prefix: 'จัดหนัก! คุณ',
+    suffix: 'ขอบคุณที่ซัพพอร์ตครับ'
+  },
+  cute_mascot: {
+    label: '🦊 เสียงมาสคอตตัวน้อยน่ารัก',
+    shortLabel: '🦊 มาสคอตน่ารัก',
+    gender: 'female',
+    pitch: 1.68,
+    rate: 1.1,
+    prefix: 'เย้ๆ คุณ',
+    suffix: 'น่ารักที่สุดเลย'
+  },
+  female_natural: {
+    label: '👩 เสียงผู้หญิงธรรมชาติ',
+    shortLabel: '👩 ผู้หญิงธรรมชาติ',
+    gender: 'female', pitch: 1.12, rate: 0.96,
+    prefix: 'ขอบคุณคุณ', suffix: 'นะคะ'
+  },
+  male_friendly: {
+    label: '🧑 เสียงผู้ชายเป็นกันเอง',
+    shortLabel: '🧑 ผู้ชายเป็นกันเอง',
+    gender: 'male', pitch: 1.0, rate: 1.0,
+    prefix: 'ขอบคุณคุณ', suffix: 'มากเลยครับ'
+  },
+  cyber_ai: {
+    label: '🤖 เสียง AI โรบอทอนาคต',
+    shortLabel: '🤖 AI โรบอท',
+    gender: 'male',
+    pitch: 0.65,
+    rate: 1.05,
+    prefix: 'ระบบได้รับโดเนทจากคุณ',
+    suffix: 'ขอบคุณครับ'
+  }
+};
+
+/* โหลดรายชื่อเสียงของเบราว์เซอร์ล่วงหน้าเพื่อให้อ่านลื่นไหลทันที */
+let cachedVoices = [];
+function loadBrowserVoices() {
+  if ('speechSynthesis' in window) {
+    cachedVoices = window.speechSynthesis.getVoices();
   }
 }
+if ('speechSynthesis' in window) {
+  loadBrowserVoices();
+  window.speechSynthesis.onvoiceschanged = loadBrowserVoices;
+}
 
-/* เสียงเคาะประมูลสั้นๆ เวลาคนบิดในแชท */
+function getAudioContext() {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return null;
+  if (!sharedAudioCtx) sharedAudioCtx = new AudioCtx();
+  if (sharedAudioCtx.state === 'suspended') sharedAudioCtx.resume();
+  return sharedAudioCtx;
+}
+
+/* เล่นเฉพาะเสียงเอฟเฟกต์ SFX ตามคีย์ที่เลือก */
+function playSfxOnly(sfxKey) {
+  if (!db.streamSettings?.soundEnabled) return 0;
+  const sfx = DONATE_SFX_LIST[sfxKey] || DONATE_SFX_LIST.crystal_chime;
+  const ctx = getAudioContext();
+  if (!ctx) return 0;
+
+  let maxEnd = 0;
+  sfx.notes.forEach(n => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = n.type || 'sine';
+    const startT = ctx.currentTime + n.t;
+    const endT = startT + n.d;
+    if (n.t + n.d > maxEnd) maxEnd = n.t + n.d;
+
+    osc.frequency.setValueAtTime(n.f, startT);
+    if (n.fEnd) {
+      osc.frequency.exponentialRampToValueAtTime(n.fEnd, endT);
+    }
+    gain.gain.setValueAtTime(0.20, startT);
+    gain.gain.exponentialRampToValueAtTime(0.001, endT);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(startT);
+    osc.stop(endT + 0.02);
+  });
+  return maxEnd;
+}
+
+/* ปรับแต่งข้อความโดเนทให้อ่านลื่นไหลเป็นธรรมชาติ */
+function cleanTextForSmoothThaiSpeech(name, amount, msg, profile) {
+  const cleanName = String(name || 'ผู้ชม').replace(/_/g, ' ').replace(/TH/gi, 'ทีเอช');
+  const cleanMsg = String(msg || '')
+    .replace(/[!~@#$%^&*()_+=\-[\]{};:"\\|<>\/?]+/g, ' ')
+    .replace(/555+/g, 'ฮ่าฮ่าฮ่า')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return `${profile.prefix} ${cleanName} โดเนท ${amount} บาท ข้อความว่า ${cleanMsg} ${profile.suffix}`;
+}
+
+/* TTS queue: ไม่ cancel ข้อความก่อนหน้า แบ่งประโยคยาว และรอ onend เพื่อไม่ให้เสียงชน/สะดุด */
+let donateSpeechQueue = [];
+let donateSpeechBusy = false;
+let donateSpeechTimer = null;
+
+function chooseThaiVoice(profile) {
+  loadBrowserVoices();
+  const th = cachedVoices.filter(v => v.lang && v.lang.toLowerCase().startsWith('th'));
+  if (!th.length) return null;
+  const patterns = profile.gender === 'female'
+    ? /premwadee|kanya|female|woman|google.*thai/i
+    : /niwat|pattara|male|man/i;
+  return th.find(v => patterns.test(v.name)) || th[0];
+}
+function splitSpeechText(text, maxLen=170) {
+  const sentences = String(text).match(/[^.!?。！？]+[.!?。！？]?/g) || [String(text)];
+  const chunks=[]; let current='';
+  sentences.forEach(sentence=>{
+    const part=sentence.trim(); if(!part) return;
+    if((current+' '+part).trim().length<=maxLen) current=(current+' '+part).trim();
+    else { if(current) chunks.push(current); 
+      if(part.length>maxLen){ for(let i=0;i<part.length;i+=maxLen) chunks.push(part.slice(i,i+maxLen)); current=''; }
+      else current=part;
+    }
+  });
+  if(current) chunks.push(current);
+  return chunks;
+}
+function speakSmoothDonation(donorName, amount, message, voiceKey) {
+  if (!db.streamSettings?.voiceTtsEnabled || !('speechSynthesis' in window)) return;
+  const profile=VOICE_PROFILES[voiceKey]||VOICE_PROFILES.female_sweet;
+  const textToRead=cleanTextForSmoothThaiSpeech(donorName,amount,message,profile);
+  splitSpeechText(textToRead).forEach(chunk=>donateSpeechQueue.push({text:chunk,profile}));
+  processDonateSpeechQueue();
+}
+function processDonateSpeechQueue(){
+  if(donateSpeechBusy || !donateSpeechQueue.length || !('speechSynthesis' in window)) return;
+  donateSpeechBusy=true;
+  const item=donateSpeechQueue.shift();
+  const utter=new SpeechSynthesisUtterance(item.text);
+  utter.lang='th-TH'; utter.pitch=item.profile.pitch; utter.rate=item.profile.rate;
+  utter.volume=Math.max(0,Math.min(1,Number(db.streamSettings?.voiceVolume ?? 0.9)));
+  utter.voice=chooseThaiVoice(item.profile);
+  const finish=()=>{ donateSpeechBusy=false; clearTimeout(donateSpeechTimer); donateSpeechTimer=null; setTimeout(processDonateSpeechQueue,180); };
+  utter.onend=finish; utter.onerror=finish;
+  donateSpeechTimer=setTimeout(()=>{ if(donateSpeechBusy){window.speechSynthesis.cancel();finish();}},Math.max(12000,item.text.length*220));
+  window.speechSynthesis.speak(utter);
+}
+function stopDonateSpeech(){
+  donateSpeechQueue=[]; donateSpeechBusy=false; clearTimeout(donateSpeechTimer);
+  if('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+/* เล่นเอฟเฟกต์ก่อน แล้วค่อยเข้าคิวเสียงพูด */
+function playDonationSoundAndVoice(donorName, amount, message, customSfxKey, customVoiceKey) {
+  const sfxKey=customSfxKey||db.streamSettings?.sfxType||'crystal_chime';
+  const voiceKey=customVoiceKey||db.streamSettings?.voiceProfile||'female_sweet';
+  const duration=playSfxOnly(sfxKey);
+  setTimeout(()=>speakSmoothDonation(donorName,amount,message,voiceKey),Math.max(250,Math.round(duration*1000)));
+}
+
 function playBidSoundEffect() {
   if (!db.streamSettings?.soundEnabled) return;
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (AudioCtx) {
-      const ctx = new AudioCtx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(880, ctx.currentTime);
-      osc.frequency.setValueAtTime(1174.66, ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.18, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.26);
-    }
-  } catch (e) {}
+  const ctx = getAudioContext();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(880, ctx.currentTime);
+  osc.frequency.setValueAtTime(1174.66, ctx.currentTime + 0.08);
+  gain.gain.setValueAtTime(0.18, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 0.26);
 }
 
 const DELIVERY_TYPES = {
@@ -1181,11 +1569,12 @@ function getInitialData() {
   const existingApprovedSellerDocs = createDefaultDocs('วรเมธ พิทักษ์กุล');
 
   return {
-    role: 'guest', // เปิดมาหน้าแรกเป็นหน้าสตรีมสด
-    page: 'streams', // 'streams' | 'stream_settings' | 'user_profile' | 'market' | 'auctions' | 'chat' | 'orders' | 'seller' | 'admin' | 'shop_profile'
+    role: 'guest',
+    page: 'streams',
     hideRoleBar: false,
     theaterMode: false,
     softEyeMode: false,
+    neonDarkMode: false,
     searchQuery: '',
     selectedCategory: 'ทั้งหมด',
     selectedTypeFilter: 'all',
@@ -1209,7 +1598,7 @@ function getInitialData() {
 
     currentSeller: {
       id: 'seller_main',
-      status: 'unregistered', // ต้องลงทะเบียนผู้ขายและผ่านแอดมินก่อนจึงจะขายของหรือเริ่มสตรีมได้!
+      status: 'unregistered',
       shopName: 'Zeed Store Official',
       fullName: 'กิตติพงศ์ รัตนโชติ',
       bankName: 'ธนาคารกสิกรไทย',
@@ -1219,7 +1608,7 @@ function getInitialData() {
       wallet: 3680,
       completedSalesCount: 2,
       isSellerStreaming: false,
-      streamMode: 'screen' // 'screen' | 'webcam' | 'simulated'
+      streamMode: 'screen'
     },
 
     approvedSellers: [
@@ -1357,13 +1746,6 @@ function getInitialData() {
         totalDonations: 850,
         linkedProductId: 'p1',
         linkedAuctionId: 'auc1',
-        poll: {
-          question: '🗳️ โหวตสด: ชิ้นต่อไปเอาอะไรขึ้นประมูลกลางแชทดี?',
-          optA: '🦊 โค้ดผล Kitsune',
-          votesA: 68,
-          optB: '🗡️ ไอดีมีด Kuronami',
-          votesB: 42
-        },
         topSupporters: [
           { name: 'Korn_Esports', total: 500 },
           { name: 'Non_Gamer_TH', total: 250 },
@@ -1387,13 +1769,6 @@ function getInitialData() {
         totalDonations: 300,
         linkedProductId: 'p7',
         linkedAuctionId: 'auc2',
-        poll: {
-          question: '🗳️ โหวตผลปีศาจที่อยากให้นำมาลดราคา Flash Sale รอบหน้า?',
-          optA: '🐉 ผลมังกร Dragon',
-          votesA: 51,
-          optB: '⚡ ผลสายฟ้า Rumble',
-          votesB: 29
-        },
         topSupporters: [
           { name: 'SeaHunter99', total: 300 }
         ],
@@ -1414,13 +1789,6 @@ function getInitialData() {
         totalDonations: 0,
         linkedProductId: 'p11',
         linkedAuctionId: 'auc3',
-        poll: {
-          question: '🗳️ คืนนี้ขี่ม้าไปล่าค่าหัวเมืองไหนดี?',
-          optA: '🤠 Valentine',
-          votesA: 34,
-          optB: '🏜️ Blackwater',
-          votesB: 41
-        },
         topSupporters: [],
         chat: [
           { user: 'Cowboy_TH', text: 'ม้าวิ่งไวมากครับ' }
@@ -1439,7 +1807,9 @@ function getInitialData() {
       linkedAuctionId: 'auc1',
       quality: '1080p 60fps',
       soundEnabled: true,
-      voiceTtsEnabled: true
+      voiceTtsEnabled: true,
+      sfxType: 'crystal_chime',
+      voiceProfile: 'female_sweet'
     },
 
     donations: [
@@ -1517,6 +1887,8 @@ function getInitialData() {
 }
 
 let db = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || getInitialData();
+if (!db.streamSettings.sfxType) db.streamSettings.sfxType = 'crystal_chime';
+if (!db.streamSettings.voiceProfile) db.streamSettings.voiceProfile = 'female_sweet';
 
 function saveDB() { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); }
 function resetAllData() {
@@ -1583,11 +1955,15 @@ function toggleRoleBar(hide) {
   document.getElementById('showRoleBarBtn').style.display = hide ? 'block' : 'none';
 }
 
-function toggleSoftEyeMode() {
-  db.softEyeMode = !db.softEyeMode;
-  document.body.classList.toggle('soft-eye-mode', db.softEyeMode);
+function toggleThemeStyle(mode) {
+  if (mode === 'soft') {
+    db.softEyeMode = !db.softEyeMode;
+    db.neonDarkMode = false;
+  } else if (mode === 'neon') {
+    db.neonDarkMode = !db.neonDarkMode;
+    db.softEyeMode = false;
+  }
   saveDB();
-  toast(db.softEyeMode ? '🌿 เปิดโหมดถนอมสายตาแล้ว' : '☀️ ใช้โหมดสีปกติ');
   render();
 }
 
@@ -1602,7 +1978,6 @@ function setRole(role) {
 }
 
 function goPage(p) {
-  // กฎเหล็ก: หน้าตั้งค่าสตรีม / เริ่มสตรีม ต้องเป็นผู้ขายที่ได้รับอนุมัติแล้วเท่านั้น!
   if (p === 'stream_settings') {
     if (db.role !== 'seller' || db.currentSeller.status !== 'approved') {
       toast('🔒 ผู้ที่ต้องการสตรีมต้องลงทะเบียนเป็นผู้ขายและได้รับการอนุมัติจากแอดมินก่อนเท่านั้น!');
@@ -1627,6 +2002,7 @@ function openShopProfile(shopName) {
 function render() {
   toggleRoleBar(!!db.hideRoleBar);
   document.body.classList.toggle('soft-eye-mode', !!db.softEyeMode);
+  document.body.classList.toggle('neon-dark-mode', !!db.neonDarkMode);
 
   ['guest','buyer','seller','admin'].forEach(r => {
     const el = document.getElementById('tab-' + r);
@@ -1666,12 +2042,17 @@ function render() {
 function renderHeader() {
   const h = document.getElementById('headerMenu');
   const activeCls = p => db.page === p ? ' nav-active' : '';
+  const themeButtons = `
+    <button class="btn" onclick="toggleThemeStyle('soft')" title="โหมดถนอมสายตา">${db.softEyeMode ? '☀️ สีพาสเทล' : '🌿 สบายตา'}</button>
+    <button class="btn" onclick="toggleThemeStyle('neon')" title="โหมดมืดนีออนเกมมิ่ง">${db.neonDarkMode ? '☀️ โหมดสว่าง' : '🌙 นีออน'}</button>
+  `;
 
   if (db.role === 'guest') {
     h.innerHTML = `
       <button class="btn${activeCls('streams')}" onclick="goPage('streams')">🔴 สตรีมสด (หน้าแรก)</button>
       <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 ประมูลสด (${db.auctions.filter(a=>a.status==='active').length})</button>
       <button class="btn${activeCls('market')}" onclick="goPage('market')">⚡ ตลาด & Flash Sale</button>
+      ${themeButtons}
       <button class="btn btn-gold" onclick="showModal('modalGmail')">🔐 สมัครสมาชิก / เข้าสู่ระบบ</button>
     `;
     return;
@@ -1683,7 +2064,8 @@ function renderHeader() {
       <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 ประมูลสด (${db.auctions.filter(a=>a.status==='active').length})</button>
       <button class="btn${activeCls('market')}" onclick="goPage('market')">⚡ ตลาด & Flash Sale</button>
       <button class="btn${activeCls('orders')}" onclick="goPage('orders')">📦 คำสั่งซื้อ (${db.orders.length + db.completedOrders.length})</button>
-      <button class="btn${activeCls('user_profile')}" onclick="goPage('user_profile')">👤 โปรไฟล์ผู้ซื้อ</button>
+      <button class="btn${activeCls('user_profile')}" onclick="goPage('user_profile')">👤 โปรไฟล์</button>
+      ${themeButtons}
       <button class="btn btn-gold" onclick="openQRModal()">💳 ${fmt(db.buyer.wallet)}</button>
     `;
     return;
@@ -1693,10 +2075,11 @@ function renderHeader() {
     const s = db.currentSeller;
     h.innerHTML = `
       <button class="btn${activeCls('streams')}" onclick="goPage('streams')">🔴 หน้าสตรีมสด</button>
-      <button class="btn${activeCls('stream_settings')}" onclick="goPage('stream_settings')">⚙️ ตั้งค่าสตรีม / เริ่มไลฟ์</button>
+      <button class="btn${activeCls('stream_settings')}" onclick="goPage('stream_settings')">⚙️ ตั้งค่าสตรีม & เสียงโดเนท</button>
       <button class="btn${activeCls('seller')}" onclick="goPage('seller')">🏪 จัดการร้าน / ลงของ</button>
       <button class="btn${activeCls('auctions')}" onclick="goPage('auctions')">🔨 ลานประมูล</button>
       <button class="btn${activeCls('chat')}" onclick="goPage('chat')">💬 แชทแก้ราคา</button>
+      ${themeButtons}
       <span class="badge b-gold" style="padding:7px 12px; font-size:12.5px;">รายได้ (92%): ${fmt(s.wallet)}</span>
     `;
     return;
@@ -1709,6 +2092,7 @@ function renderHeader() {
       <button class="btn" onclick="goPage('streams')">🔴 สตรีมสด</button>
       <button class="btn" onclick="goPage('auctions')">🔨 ประมูล</button>
       <button class="btn" onclick="goPage('market')">⚡ ตลาด & Flash Sale</button>
+      ${themeButtons}
     `;
   }
 }
@@ -1719,10 +2103,10 @@ function renderUserHubBar() {
     return `
       <div class="user-hub-bar">
         <div class="user-hub-left">
-          <div class="user-avatar-circle" style="background:#64748b;" onclick="showModal('modalGmail')">👀</div>
+          <div class="user-avatar-circle" style="background:linear-gradient(135deg,#6366f1,#ec4899);" onclick="showModal('modalGmail')">🎮</div>
           <div>
-            <b>โหมดผู้เยี่ยมชม (Guest) — รับชมสตรีมสดและดูการประมูลในแชทได้ทุกช่อง</b>
-            <div style="font-size:12px; color:var(--muted);">หากต้องการพิมพ์แชท ส่งโดเนท หรือกดบิดประมูลกลางสตรีม กรุณาสมัครสมาชิกก่อน (และผู้ที่ต้องการสตรีมต้องเป็นผู้ขายเท่านั้น)</div>
+            <b>ยินดีต้อนรับสู่ Mobius Club Live Arena ✨ (รับชมสตรีมและฟังเสียงโดเนทได้ทันที)</b>
+            <div style="font-size:12px; color:var(--muted);">สามารถทดลองเปลี่ยนเสียงโดเนทผู้หญิง/ผู้ชายได้ทันที หากต้องการส่งโดเนทหรือบิดประมูล กรุณาสมัครสมาชิกก่อน</div>
           </div>
         </div>
         <button class="btn btn-gold" onclick="showModal('modalGmail')">🔐 สมัครสมาชิก / เข้าสู่ระบบ</button>
@@ -1742,8 +2126,8 @@ function renderUserHubBar() {
         <div>
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
             <b style="cursor:pointer;" onclick="goPage('user_profile')">${db.role === 'seller' ? db.currentSeller.shopName : db.buyer.name}</b>
-            <span class="badge b-green">เงินผู้ซื้อ: ${fmt(db.buyer.wallet)}</span>
-            ${isApprovedSeller ? `<span class="badge b-purple">🏪 สถานะผู้ขายอนุมัติแล้ว (สตรีมได้)</span>` : `<span class="badge b-gold">🔒 ยังไม่เป็นผู้ขาย (ต้องสมัครผู้ขายก่อนสตรีม)</span>`}
+            <span class="badge b-green">เงินคงเหลือ: ${fmt(db.buyer.wallet)}</span>
+            ${isApprovedSeller ? `<span class="badge b-purple">🏪 ผู้ขายยืนยันแล้ว (เปิดสตรีมได้)</span>` : `<span class="badge b-gold">🔒 สมัครผู้ขายก่อนเพื่อเปิดสตรีม</span>`}
           </div>
           <div style="font-size:12px; color:var(--muted);">${db.buyer.bio}</div>
         </div>
@@ -1756,7 +2140,7 @@ function renderUserHubBar() {
           <span class="badge b-green">🎟️ คูปองลด 10%: ${coupons} ใบ</span>
         </div>
         <button class="btn btn-purple" onclick="handleStartStreamClick()">
-          🎥 ${isApprovedSeller ? 'ตั้งค่าสตรีม / เริ่มไลฟ์สด' : 'สมัครเป็นผู้ขายเพื่อเริ่มสตรีม'}
+          🎥 ${isApprovedSeller ? 'ตั้งค่าสตรีม & เสียงโดเนท' : 'สมัครเป็นผู้ขายเพื่อเริ่มสตรีม'}
         </button>
       </div>
     </div>
@@ -1791,7 +2175,7 @@ function simulatePromoStep() {
   render();
 }
 
-/* ==================== 1. หน้าสตรีมเกมสด + เปิดประมูลตรงแชทสตรีม + โดเนทมีเสียง ==================== */
+/* ==================== 1. หน้าสตรีมเกมสด + เลือกเสียงโดเนท 10 แบบ & เสียงผู้หญิง/ผู้ชาย ==================== */
 function renderStreams() {
   const now = Date.now();
   const cat = db.selectedStreamCategory || 'ทั้งหมด';
@@ -1802,14 +2186,16 @@ function renderStreams() {
   const isFollowing = db.buyer.followedStreamers?.includes(activeStream?.streamerName);
   const canSellerManageThisStream = (db.role === 'seller' && db.currentSeller.status === 'approved');
 
+  const curSfx = db.streamSettings.sfxType || 'crystal_chime';
+  const curVoice = db.streamSettings.voiceProfile || 'female_sweet';
+
   return `
     ${renderUserHubBar()}
 
-    <!-- แถบแจ้งสถานะเมื่อผู้ขายกดเริ่มสตรีมแล้ว ฝั่งคนดูจะเห็นห้องไลฟ์นี้ทันที -->
     ${db.currentSeller.isSellerStreaming ? `
       <div class="alert alert-ok" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
         <div>
-          🔴 <b>กำลังถ่ายทอดสด (LIVE ON AIR):</b> ห้องสตรีมของผู้ขาย <b>"${db.currentSeller.shopName}"</b> กำลังไลฟ์สดอยู่! ไม่ว่าจะสลับไปมุมมอง <b>ผู้ซื้อ</b> หรือ <b>คนทั่วไป</b> ก็จะเห็นสตรีมนี้และร่วมประมูลในแชทได้ทันที
+          🔴 <b>กำลังถ่ายทอดสด (LIVE ON AIR):</b> ห้องสตรีมของผู้ขาย <b>"${db.currentSeller.shopName}"</b> กำลังไลฟ์สดอยู่! ฝั่งคนดูเห็นสตรีมนี้และร่วมประมูลในแชทได้ทันที
         </div>
         ${canSellerManageThisStream ? `
           <div style="display:flex; gap:6px;">
@@ -1830,8 +2216,8 @@ function renderStreams() {
         `).join('')}
       </div>
       <div style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button class="btn" onclick="db.streamSettings.soundEnabled=!db.streamSettings.soundEnabled; saveDB(); render();">
-          ${db.streamSettings.soundEnabled ? '🔊 เสียงโดเนท: เปิด' : '🔇 เสียงโดเนท: ปิด'}
+        <button class="btn btn-blue" onclick="testCurrentDonateVoiceNow()">
+          🔊 ทดสอบเสียงโดเนท (${VOICE_PROFILES[curVoice]?.shortLabel || 'ผู้หญิง'})
         </button>
         ${canSellerManageThisStream ? `
           <button class="btn btn-gold" onclick="showModal('modalStreamAddAuction')">🔨 + เพิ่มของประมูลในสตรีม</button>
@@ -1856,22 +2242,22 @@ function renderStreams() {
               <span class="viewer-pill">👁️ ${activeStream.viewers.toLocaleString()} คนดู · ❤️ ${(activeStream.likes || 0).toLocaleString()}</span>
             </div>
 
-            <!-- วิดีโอสตรีมจริงเมื่อผู้ขายแชร์หน้าจอหรือเปิดกล้อง (คนดูเห็นด้วยเมื่อสลับบทบาท) -->
             <video id="liveScreenVideo" autoplay playsinline muted style="display:none;"></video>
+            ${db.streamSettings.overlayImage ? `<img src="${db.streamSettings.overlayImage}" alt="Stream overlay" style="position:absolute;right:16px;top:64px;max-width:22%;max-height:28%;object-fit:contain;z-index:5;pointer-events:none;">` : ''}
+            ${db.streamSettings.challengeText ? `<div style="position:absolute;left:50%;top:62px;transform:translateX(-50%);z-index:5;background:rgba(15,23,42,.82);border:1px solid #fbbf24;color:#fff;padding:6px 12px;border-radius:10px;font-size:12px;max-width:80%;text-align:center;">🎯 ${db.streamSettings.challengeText} ${db.streamSettings.challengeGoal?`· เป้าหมาย ${fmt(db.streamSettings.challengeGoal)}`:''}</div>` : ''}
 
-            <!-- หน้าจอแสดงการสตรีม (แสดงทั้งฝั่งผู้ขายและฝั่งคนดูเมื่อกดเริ่มสตรีม) -->
             <div id="simulatedStreamView" style="text-align:center; padding:24px; color:#fff;">
               ${db.currentSeller.isSellerStreaming && activeStream.isSellerLiveRoom ? `
                 <div style="display:inline-block; background:#ef4444; color:#fff; padding:4px 14px; border-radius:99px; font-size:12px; font-weight:700; margin-bottom:10px;">
                   📡 สัญญาณสดจากผู้ขาย: ${activeStream.streamerName}
                 </div>
               ` : ''}
-              <div style="font-size:60px; margin-bottom:8px;">🎮</div>
-              <h2 style="color:#fbbf24; font-weight:700;">${activeStream.streamerName} — กำลังสตรีมสด</h2>
-              <p style="font-size:14px; color:#cbd5e1; margin-top:4px;">${activeStream.title}</p>
+              <div style="font-size:62px; margin-bottom:8px;">🎮</div>
+              <h2 style="color:#fbbf24; font-weight:700;">${activeStream.streamerName} — Live Arena</h2>
+              <p style="font-size:14px; color:#e2e8f0; margin-top:4px;">${activeStream.title}</p>
               ${linkedAuc ? `
-                <div style="margin-top:12px; display:inline-block; background:rgba(15,23,42,0.85); border:1px solid #f59e0b; padding:8px 16px; border-radius:12px;">
-                  🔨 กำลังเปิดประมูลในแชท: <b style="color:#fbbf24;">${linkedAuc.title}</b> · ราคาปัจจุบัน <b style="color:#34d399;">${fmt(linkedAuc.currentBid)}</b> (โดย ${linkedAuc.highestBidder})
+                <div style="margin-top:12px; display:inline-block; background:rgba(15,23,42,0.85); border:1px solid #f59e0b; padding:8px 16px; border-radius:14px;">
+                  🔨 ประมูลสดในแชท: <b style="color:#fbbf24;">${linkedAuc.title}</b> · ราคาปัจจุบัน <b style="color:#34d399;">${fmt(linkedAuc.currentBid)}</b> (โดย ${linkedAuc.highestBidder})
                 </div>
               ` : ''}
             </div>
@@ -1879,13 +2265,14 @@ function renderStreams() {
             <div id="floatingEmojiLayer"></div>
             <div id="donatePopupHolder"></div>
 
-            <!-- ปุ่มส่งอิโมจิลอยขึ้นจอ -->
+            <!-- ปุ่มส่งสติกเกอร์ลอยขึ้นจอ -->
             <div class="reaction-dock">
               <button class="react-btn" onclick="spawnFloatingEmoji('🔥', '${activeStream.id}')">🔥</button>
               <button class="react-btn" onclick="spawnFloatingEmoji('💖', '${activeStream.id}')">💖</button>
               <button class="react-btn" onclick="spawnFloatingEmoji('⚡', '${activeStream.id}')">⚡</button>
               <button class="react-btn" onclick="spawnFloatingEmoji('🎉', '${activeStream.id}')">🎉</button>
               <button class="react-btn" onclick="spawnFloatingEmoji('👑', '${activeStream.id}')">👑</button>
+              <button class="react-btn" onclick="spawnFloatingEmoji('🦊', '${activeStream.id}')">🦊</button>
             </div>
 
             <!-- ปุ่มควบคุมมุมขวาล่าง -->
@@ -1905,7 +2292,7 @@ function renderStreams() {
               <div>
                 <div style="font-weight:700; font-size:15px;">${activeStream.title}</div>
                 <div style="font-size:12.5px; color:var(--muted);">
-                  สตรีมเมอร์ (ผู้ขายยืนยันตัวตน ⭐⭐⭐): <span class="shop-link" onclick="openShopProfile('${activeStream.streamerName}')">${activeStream.streamerName}</span>
+                  สตรีมเมอร์ (⭐⭐⭐): <span class="shop-link" onclick="openShopProfile('${activeStream.streamerName}')">${activeStream.streamerName}</span>
                   · ยอดโดเนทไลฟ์นี้: <b style="color:var(--green);">${fmt(activeStream.totalDonations)}</b>
                 </div>
               </div>
@@ -1924,9 +2311,9 @@ function renderStreams() {
           </div>
         </div>
 
-        <!-- คอลัมน์ขวา: กล่องประมูลสดตรงแชท + แชทสตรีม + โดเนทมีเสียง -->
+        <!-- คอลัมน์ขวา: กล่องประมูลสดตรงแชท + แชทสตรีม + เลือกเสียงโดเนทผู้หญิง/ผู้ชาย -->
         <div class="box" style="margin-bottom:0; padding:14px;">
-          <!-- 🔨 กล่องประมูลสดตรงช่องแชทสตรีม (In-Chat Live Auction Box) -->
+          <!-- 🔨 กล่องประมูลสดตรงช่องแชทสตรีม -->
           ${linkedAuc ? (() => {
             const endMs = linkedAuc.endTime || (now + 900000);
             const step = linkedAuc.minStep || 100;
@@ -1950,7 +2337,6 @@ function renderStreams() {
                   </div>
                 </div>
 
-                <!-- ปุ่มกดบิดด่วนตรงช่องแชท -->
                 <div class="chat-auc-btns" style="margin-bottom:6px;">
                   <button class="chat-auc-btn" onclick="bidFromStreamChat('${linkedAuc.id}', ${linkedAuc.currentBid + step})">
                     🔨 บิด ${fmt(linkedAuc.currentBid + step)}
@@ -1958,44 +2344,23 @@ function renderStreams() {
                   <button class="chat-auc-btn" onclick="bidFromStreamChat('${linkedAuc.id}', ${linkedAuc.currentBid + step * 2})">
                     🔨 บิด ${fmt(linkedAuc.currentBid + step * 2)}
                   </button>
-                  <button class="chat-auc-btn" style="background:#059669;" onclick="buyoutAuction('${linkedAuc.id}')">
+                  <button class="chat-auc-btn" style="background:#10b981;" onclick="buyoutAuction('${linkedAuc.id}')">
                     ⚡ ซื้อทันที ${fmt(linkedAuc.buyoutPrice)}
                   </button>
                 </div>
 
-                <!-- ช่องพิมพ์ราคาบิดเองตรงแชท -->
                 <div style="display:flex; gap:5px;">
                   <input type="number" id="chatCustomBidInput" value="${linkedAuc.currentBid + step}" min="${linkedAuc.currentBid + step}" style="flex:1; padding:5px 8px; border-radius:7px; border:1px solid #475569; background:#0f172a; color:#fff; font-size:12px;">
-                  <button class="btn btn-gold" style="padding:5px 10px; font-size:11.5px;" onclick="bidCustomFromStreamChat('${linkedAuc.id}')">ส่งราคาบิด</button>
+                  <button class="btn btn-gold" style="padding:5px 10px; font-size:11.5px;" onclick="bidCustomFromStreamChat('${linkedAuc.id}')">ส่งบิด</button>
                   ${canSellerManageThisStream ? `
-                    <button class="btn btn-blue" style="padding:5px 8px; font-size:11px;" onclick="endAuctionNow('${linkedAuc.id}')" title="ปิดประมูลส่งโค้ดให้ผู้ชนะทันที">🏁 ปิดประมูล</button>
+                    <button class="btn btn-blue" style="padding:5px 8px; font-size:11px;" onclick="endAuctionNow('${linkedAuc.id}')">🏁 ปิดประมูล</button>
                   ` : ''}
                 </div>
               </div>
             `;
-          })() : `
-            <div style="background:#f8fafc; border:1px dashed var(--border); border-radius:12px; padding:10px; text-align:center; margin-bottom:10px; font-size:12px; color:var(--muted);">
-              ยังไม่มีสินค้าประมูลในแชทตอนนี้
-              ${canSellerManageThisStream ? `<div style="margin-top:6px;"><button class="btn btn-gold" onclick="showModal('modalStreamAddAuction')">➕ เพิ่มของมาประมูลกลางสตรีม</button></div>` : ''}
-            </div>
-          `}
+          })() : ''}
 
-          <!-- แท่น Top Supporters -->
-          <div class="podium-row">
-            ${[0,1,2].map(idx => {
-              const sup = activeStream.topSupporters?.[idx];
-              const medals = ['🥇 Top 1', '🥈 Top 2', '🥉 Top 3'];
-              return `
-                <div class="podium-card">
-                  <span>${medals[idx]}</span>
-                  <b>${sup ? sup.name : '-'}</b>
-                  <small>${sup ? fmt(sup.total) : '฿0'}</small>
-                </div>
-              `;
-            }).join('')}
-          </div>
-
-          <!-- แชทสตรีมสด (แสดงทั้งข้อความคุย ข้อความบิดประมูล และโดเนท) -->
+          <!-- แชทสตรีมสด -->
           <div class="chat-messages" id="streamChatScroll" style="margin-bottom:8px;">
             ${activeStream.chat.map(c => `
               <div class="msg ${c.isDonate ? 'sys' : c.isBid ? 'bid-msg' : ''}" style="max-width:100%;">
@@ -2005,28 +2370,31 @@ function renderStreams() {
           </div>
 
           <div style="display:flex; gap:6px; margin-bottom:10px;">
-            <input type="text" id="streamChatInput" placeholder="${db.role === 'guest' ? 'สมัครสมาชิกก่อนแชท/ประมูล...' : 'พิมพ์แชท หรือพิมพ์ /bid 2600 เพื่อประมูล...'}" style="flex:1; padding:7px 10px; border:1px solid var(--border); border-radius:9px; font-size:12px;" onkeydown="if(event.key==='Enter') sendStreamChat('${activeStream.id}')">
+            <input type="text" id="streamChatInput" placeholder="${db.role === 'guest' ? 'สมัครสมาชิกก่อนแชท/ประมูล...' : 'พิมพ์แชท หรือพิมพ์ /bid 2600...'}" style="flex:1; padding:7px 10px; border:1px solid var(--border); border-radius:9px; font-size:12px;" onkeydown="if(event.key==='Enter') sendStreamChat('${activeStream.id}')">
             <button class="btn btn-blue" onclick="sendStreamChat('${activeStream.id}')">ส่ง</button>
           </div>
 
-          <!-- กล่องส่งโดเนทพร้อมเสียงแจ้งเตือน -->
-          <div style="background:var(--gold-bg); border:1px solid var(--gold-border); border-radius:12px; padding:10px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-              <b style="font-size:12px; color:#92400e;">🔊 โดเนทขึ้นจอ + มีเสียงพูด (5 วิแล้วหายไป)</b>
-              <small style="color:var(--muted); font-size:10.5px;">หัก 8%</small>
+          <!-- 🔊 กล่องส่งโดเนท + เลือกเสียงเอฟเฟกต์ 10 แบบ & เลือกเสียงผู้หญิง/ผู้ชายได้ทันที -->
+          <div style="background:var(--gold-bg); border:1.5px solid var(--gold-border); border-radius:14px; padding:11px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <b style="font-size:12px; color:#b45309;">🔊 เลือกเสียงโดเนท & เสียงคนอ่านข้อความ</b>
+              <button class="btn" style="padding:2px 8px; font-size:11px;" onclick="testCurrentDonateVoiceNow()">▶️ ฟังเสียงตัวอย่าง</button>
             </div>
+
+            <div class="alert alert-ok" style="margin:0 0 8px">🎙️ เสียงอ่านและเอฟเฟกต์ถูกควบคุมโดยสตรีมเมอร์เจ้าของช่อง ผู้ชมไม่สามารถเปลี่ยนเสียงของไลฟ์ได้ · เสียงปัจจุบัน ${VOICE_PROFILES[curVoice]?.shortLabel||'ผู้หญิงหวานใส'}</div>
+
             <div class="donate-grid">
               <div class="donate-pkg" onclick="setDonateAmt(50)">☕ ฿50</div>
               <div class="donate-pkg" onclick="setDonateAmt(100)">🔥 ฿100</div>
               <div class="donate-pkg" onclick="setDonateAmt(500)">💎 ฿500</div>
               <div class="donate-pkg" onclick="setDonateAmt(1000)">👑 ฿1,000</div>
             </div>
-            <div style="display:flex; gap:6px; margin-bottom:6px;">
+            <div style="display:flex; gap:6px; margin-bottom:7px;">
               <input type="number" id="donateAmtInput" value="100" style="width:80px; padding:6px 8px; border:1px solid var(--border); border-radius:8px; font-size:12px;">
-              <input type="text" id="donateMsgInput" placeholder="ข้อความโดเนทขึ้นหน้าจอ..." value="สตรีมสนุกมากครับ!" style="flex:1; padding:6px 8px; border:1px solid var(--border); border-radius:8px; font-size:12px;">
+              <input type="text" id="donateMsgInput" placeholder="ข้อความโดเนทให้อ่านออกเสียง..." value="สตรีมสนุกมาก ขอให้ขายดีนะครับ" style="flex:1; padding:6px 8px; border:1px solid var(--border); border-radius:8px; font-size:12px;">
             </div>
-            <button class="btn btn-gold" style="width:100%; justify-content:center; padding:8px;" onclick="sendStreamDonate('${activeStream.id}')">
-              💖 ${db.role === 'guest' ? 'สมัครสมาชิกเพื่อส่งโดเนท' : 'ส่งโดเนทขึ้นจอ + เสียงแจ้งเตือน'}
+            <button class="btn btn-purple" style="width:100%; justify-content:center; padding:9px;" onclick="sendStreamDonate('${activeStream.id}')">
+              💖 ${db.role === 'guest' ? 'สมัครสมาชิกเพื่อส่งโดเนทเสียงพูด' : 'ส่งโดเนทขึ้นจอ + อ่านออกเสียงทันที'}
             </button>
           </div>
         </div>
@@ -2040,8 +2408,8 @@ function renderStreams() {
     <div class="grid-3">
       ${filteredStreams.map(st => `
         <div class="p-card" style="cursor:pointer; border:2px solid ${st.id===activeStream?.id?'var(--gold)':'var(--border)'};" onclick="db.activeStreamId='${st.id}'; saveDB(); render();">
-          <div class="p-img" style="background:linear-gradient(135deg,#1e1b4b,#090d16); color:#fff;">
-            <span class="p-cat" style="background:#ef4444; color:#fff; border:none;">● LIVE · ${st.cat}</span>
+          <div class="p-img" style="background:linear-gradient(135deg,#1e1b4b,#311042); color:#fff;">
+            <span class="p-cat" style="background:#f43f5e; color:#fff; border:none;">● LIVE · ${st.cat}</span>
             <span>🎥</span>
             <span class="p-type-badge">🔥 Hype ${st.hypeLevel || 70}% · 👁️ ${st.viewers}</span>
           </div>
@@ -2054,6 +2422,38 @@ function renderStreams() {
       `).join('')}
     </div>
   `;
+}
+
+function selectVoiceProfileQuick(voiceKey) {
+  if(db.role!=='seller' || db.currentSeller.status!=='approved'){toast('เฉพาะสตรีมเมอร์เจ้าของช่องเท่านั้นที่ปรับเสียงอ่านโดเนทได้');return;}
+  db.streamSettings.voiceProfile = voiceKey;
+  saveDB();
+  render();
+  const amt = Number(document.getElementById('donateAmtInput')?.value || 100);
+  const msg = document.getElementById('donateMsgInput')?.value || 'สตรีมสนุกมากครับ';
+  speakSmoothDonation(db.buyer.name || 'ผู้ชม', amt, msg, voiceKey);
+  toast(`เปลี่ยนเป็น "${VOICE_PROFILES[voiceKey].label}" แล้ว`);
+}
+
+function selectSfxQuick(sfxKey) {
+  db.streamSettings.sfxType = sfxKey;
+  saveDB();
+  playSfxOnly(sfxKey);
+  toast(`เลือกเสียงเอฟเฟกต์ "${DONATE_SFX_LIST[sfxKey].name}" แล้ว`);
+}
+
+function testCurrentDonateVoiceNow() {
+  const amt = Number(document.getElementById('donateAmtInput')?.value || 100);
+  const msg = document.getElementById('donateMsgInput')?.value || 'สตรีมสนุกมาก ขอให้ขายดีนะครับ';
+  const vProfile = VOICE_PROFILES[db.streamSettings.voiceProfile] || VOICE_PROFILES.female_sweet;
+  const sfxObj = DONATE_SFX_LIST[db.streamSettings.sfxType] || DONATE_SFX_LIST.crystal_chime;
+
+  triggerTemporaryDonateOverlay(`
+    <div>🔊 ${sfxObj.name} · ${vProfile.shortLabel}</div>
+    <div style="font-size:16px; margin:3px 0;">🎁 <b>${db.buyer.name}</b> โดเนท <b>${fmt(amt)}</b></div>
+    <div>"${msg}" <span class="voice-wave"><span></span><span></span><span></span><span></span></span></div>
+  `);
+  playDonationSoundAndVoice(db.buyer.name, amt, msg);
 }
 
 /* ==================== ฟังก์ชันประมูลกลางแชทสตรีม & เพิ่มของประมูลระหว่างสตรีม ==================== */
@@ -2103,7 +2503,6 @@ function createLiveStreamAuctionNow() {
   db.auctions.unshift(newAuc);
   db.spotlightAuctionId = newAucId;
 
-  // ผูกเข้ากับห้องสตรีมปัจจุบันทันที และประกาศลงแชทสตรีม
   const activeStream = db.streams.find(x => x.id === db.activeStreamId) || db.streams[0];
   if (activeStream) {
     activeStream.linkedAuctionId = newAucId;
@@ -2217,7 +2616,6 @@ function sendStreamChat(streamId) {
   if (!st || !inp || !inp.value.trim()) return;
   const text = inp.value.trim();
 
-  // รองรับการพิมพ์ /bid [ราคา] ในช่องแชทเพื่อประมูลสดได้ด้วย!
   if (text.toLowerCase().startsWith('/bid')) {
     const num = Number(text.replace(/[^0-9]/g, ''));
     const linkedAuc = db.auctions.find(a => a.id === st.linkedAuctionId && a.status === 'active');
@@ -2241,7 +2639,7 @@ function triggerTemporaryDonateOverlay(htmlText) {
   donateAlertTimeout = setTimeout(() => {
     const h = document.getElementById('donatePopupHolder');
     if (h) h.innerHTML = '';
-  }, 5000);
+  }, 5500);
 }
 
 function sendStreamDonate(streamId) {
@@ -2263,8 +2661,9 @@ function sendStreamDonate(streamId) {
     return;
   }
 
-  const fee8 = Math.round(amt * FEE_RATE);
-  const net92 = amt - fee8;
+  // โดเนทเข้าผู้ขายเต็มจำนวน ไม่คิดค่าธรรมเนียมแพลตฟอร์ม
+  const fee8 = 0;
+  const net92 = amt;
 
   db.buyer.wallet -= amt;
   db.admin.totalRevenue8Percent += fee8;
@@ -2283,8 +2682,15 @@ function sendStreamDonate(streamId) {
   const ap = db.approvedSellers.find(s => s.shopName === st.streamerName);
   if (ap) ap.wallet += net92;
 
-  const alertText = `🔊🎁 <b>${db.buyer.name}</b> โดเนท <b>${fmt(amt)}</b><br>"${msg}"`;
-  st.chat.push({ user: db.buyer.name, text: `🎁 โดเนท ${fmt(amt)} — "${msg}"`, isDonate: true });
+  const vProfile = VOICE_PROFILES[db.streamSettings.voiceProfile] || VOICE_PROFILES.female_sweet;
+  const sfxObj = DONATE_SFX_LIST[db.streamSettings.sfxType] || DONATE_SFX_LIST.crystal_chime;
+
+  const alertText = `
+    <div style="font-size:11.5px; opacity:0.9;">${sfxObj.name} · ${vProfile.shortLabel}</div>
+    <div style="font-size:16px; margin:2px 0;">🎁 <b>${db.buyer.name}</b> โดเนท <b>${fmt(amt)}</b></div>
+    <div>"${msg}" <span class="voice-wave"><span></span><span></span><span></span><span></span></span></div>
+  `;
+  st.chat.push({ user: db.buyer.name, text: `🎁 โดเนท ${fmt(amt)} (${vProfile.shortLabel}) — "${msg}"`, isDonate: true });
 
   db.donations.unshift({
     id: 'DON-' + Math.floor(100 + Math.random() * 900),
@@ -2300,14 +2706,13 @@ function sendStreamDonate(streamId) {
 
   saveDB();
   render();
-  // แสดงป๊อปอัปโดเนทบนหน้าจอ + เล่นเสียงระฆังและเสียงพูดอ่านข้อความโดเนท!
   triggerTemporaryDonateOverlay(alertText);
   playDonationSoundAndVoice(db.buyer.name, amt, msg);
   spawnFloatingEmoji('🎉', streamId);
-  toast(`🔊 ส่งโดเนท ${fmt(amt)} สำเร็จ!`);
+  toast(`🔊 ส่งโดเนท ${fmt(amt)} สำเร็จ! ผู้ขายได้รับยอดเต็มจำนวน (จำลองในกระเป๋าระบบ)`);
 }
 
-/* ==================== 2. หน้าตั้งค่าสตรีมสำหรับผู้ขายเท่านั้น (Stream Settings Studio) ==================== */
+/* ==================== 2. หน้าตั้งค่าสตรีม & คลังเสียงโดเนท 10 แบบ + เสียงผู้หญิง/ผู้ชาย ==================== */
 function renderStreamSettingsPage() {
   const s = db.currentSeller;
   if (s.status !== 'approved') {
@@ -2324,75 +2729,87 @@ function renderStreamSettingsPage() {
   const st = db.streamSettings;
   const isLive = !!s.isSellerStreaming;
 
+  setTimeout(enumerateStudioDevices,0);
   return `
     <div class="box-title">
-      <span>⚙️ หน้าตั้งค่าสตรีม & สตูดิโอถ่ายทอดสด (สำหรับผู้ขาย: ${s.shopName} ${'⭐'.repeat(s.stars)})</span>
+      <span>⚙️ สตูดิโอตั้งค่าสตรีม & ตั้งค่าเสียงโดเนท (สำหรับผู้ขาย: ${s.shopName} ${'⭐'.repeat(s.stars)})</span>
       <button class="btn btn-purple" onclick="goPage('streams')">🔴 ไปดูหน้าจอสตรีมฝั่งคนดู</button>
     </div>
 
     <div class="alert ${isLive ? 'alert-ok' : 'alert-warn'}">
       ${isLive
-        ? `🔴 <b>สถานะปัจจุบัน: คุณกำลังไลฟ์สดอยู่!</b> เมื่อสลับไปมุมมอง "ผู้ซื้อ/ผู้ชม" หรือ "ยังไม่ล็อกอิน" คนดูจะเห็นห้องสตรีมของร้าน <b>${s.shopName}</b> และประมูลสินค้าในแชทได้ทันที`
-        : `⚪ <b>สถานะปัจจุบัน: เตรียมพร้อมไลฟ์</b> ตั้งค่าชื่อสตรีมและสินค้าประมูลด้านล่าง แล้วกดปุ่ม "เริ่มสตรีมสด" เพื่อให้ฝั่งคนดูเห็นสตรีมของคุณได้เลย`}
+        ? `🔴 <b>สถานะปัจจุบัน: คุณกำลังไลฟ์สดอยู่!</b> คนดูเห็นห้องสตรีมของร้าน <b>${s.shopName}</b> และได้ยินเสียงโดเนทที่คุณตั้งไว้ทันที`
+        : `⚪ <b>สถานะปัจจุบัน: เตรียมพร้อมไลฟ์</b> เลือกเสียงเอฟเฟกต์โดเนทและเสียงพูดผู้หญิง/ผู้ชายด้านล่าง แล้วกดปุ่ม "เริ่มสตรีมสด" ได้เลย`}
     </div>
 
     <div class="grid-2">
-      <!-- คอลัมน์ซ้าย: จอพรีวิว + ปุ่มกดเริ่มสตรีม (แชร์หน้าจอ / กล้อง / จำลองไลฟ์) -->
+      <!-- คอลัมน์ซ้าย: เลือกเสียงเอฟเฟกต์โดเนท 10 แบบ & เสียงผู้หญิง/ผู้ชาย 6 โทน -->
       <div class="box">
         <div class="box-title">
-          <span>🎥 1. สัญญาณภาพสตรีม & เริ่มไลฟ์สด</span>
-          <span class="badge ${isLive ? 'b-red' : 'b-blue'}">${isLive ? '● ON AIR' : 'OFFLINE'}</span>
+          <span>🔊 1. ตั้งค่าเสียงเอฟเฟกต์โดเนท (10 แบบ) & เสียงคนอ่าน (หญิง/ชาย)</span>
         </div>
 
-        <div class="stream-stage" style="border-radius:14px; margin-bottom:12px; min-height:220px;">
-          <video id="liveScreenVideo" autoplay playsinline muted style="display:none;"></video>
-          <div id="simulatedStreamView" style="text-align:center; color:#cbd5e1; padding:16px;">
-            <div style="font-size:42px;">🖥️</div>
-            <b>${isLive ? 'กำลังส่งสัญญาณสตรีมสดไปที่หน้าเว็บคนดู' : 'จอพรีวิวสตรีมของผู้ขาย'}</b>
-            <p style="font-size:12px; color:#94a3b8;">เลือกโหมดเริ่มสตรีมด้านล่าง (แชร์หน้าจอเกมจริง / กล้องเว็บแคม / หรือเริ่มสตรีมทันที)</p>
-          </div>
+        <label style="font-size:12.5px; font-weight:700; display:block; margin-bottom:6px;">🗣️ เลือกโทนเสียงคนอ่านข้อความโดเนท (คลิกเพื่อฟังเสียงได้เลย):</label>
+        <div class="voice-gender-pills" style="margin-bottom:12px;">
+          ${Object.entries(VOICE_PROFILES).map(([k, v]) => `
+            <div class="voice-pill ${st.voiceProfile === k ? 'active' : ''}" onclick="selectVoiceProfileQuick('${k}')" style="padding:8px;">
+              ${v.label}
+            </div>
+          `).join('')}
         </div>
 
-        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
-          <button class="btn btn-purple" style="flex:1; justify-content:center; padding:10px;" onclick="startSellerLiveStream('screen')">
-            🖥️ เริ่มสตรีม (แชร์หน้าจอเกม)
+        <label style="font-size:12.5px; font-weight:700; display:block; margin-bottom:6px;">🎵 เลือกเสียงเอฟเฟกต์ดนตรีก่อนอ่านโดเนท (10 สไตล์ — คลิกเพื่อทดลองฟัง):</label>
+        <div class="sfx-grid">
+          ${Object.entries(DONATE_SFX_LIST).map(([k, v]) => `
+            <div class="sfx-card ${st.sfxType === k ? 'active' : ''}" onclick="selectSfxQuick('${k}')">
+              <span>${v.name}</span>
+              <span class="badge b-purple">▶️ ฟัง</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="background:var(--gold-bg); border:1px solid var(--gold-border); border-radius:12px; padding:12px;">
+          <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; margin-bottom:6px; cursor:pointer;">
+            <input type="checkbox" id="setSoundChk" ${st.soundEnabled ? 'checked' : ''} style="width:16px; height:16px;">
+            <span>เปิดเสียงเอฟเฟกต์ดนตรีโดเนท</span>
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; cursor:pointer;">
+            <input type="checkbox" id="setVoiceChk" ${st.voiceTtsEnabled ? 'checked' : ''} style="width:16px; height:16px;">
+            <span>เปิดเสียงพูดอ่านข้อความโดเนทลื่นไหลอัตโนมัติ</span>
+          </label>
+          <button class="btn btn-gold" style="margin-top:8px; width:100%; justify-content:center;" onclick="playDonationSoundAndVoice('น้องเมย์', 500, 'สตรีมสนุกมาก ขอให้ขายดีนะคะ')">
+            🔊 ทดสอบฟังเสียงเอฟเฟกต์ + เสียงพูดที่เลือกไว้ตอนนี้
           </button>
-          <button class="btn btn-blue" style="flex:1; justify-content:center; padding:10px;" onclick="startSellerLiveStream('webcam')">
-            📷 เริ่มสตรีม (กล้องเว็บแคม)
-          </button>
-          <button class="btn btn-gold" style="flex:1; justify-content:center; padding:10px;" onclick="startSellerLiveStream('simulated')">
-            🔴 เริ่มสตรีมทันที (ไม่ต้องใช้กล้อง)
-          </button>
-        </div>
-
-        ${isLive ? `
-          <div style="display:flex; gap:8px; margin-bottom:12px;">
-            <button class="btn btn-gold" style="flex:1; justify-content:center;" onclick="showModal('modalStreamAddAuction')">
-              🔨 + เพิ่มของมาประมูลกลางสตรีมตอนนี้
-            </button>
-            <button class="btn btn-red" onclick="stopSellerLiveStream()">⏹️ หยุดสตรีม</button>
-          </div>
-        ` : ''}
-
-        <div class="field">
-          <label>RTMP Server URL (สำหรับ OBS Studio)</label>
-          <div style="display:flex; gap:6px;">
-            <input type="text" value="${st.rtmpUrl}" readonly style="background:#f8fafc;">
-            <button class="btn" onclick="copyText('${st.rtmpUrl}')">คัดลอก</button>
-          </div>
-        </div>
-        <div class="field">
-          <label>Stream Key</label>
-          <div style="display:flex; gap:6px;">
-            <input type="password" value="${st.streamKey}" readonly style="background:#f8fafc;">
-            <button class="btn" onclick="copyText('${st.streamKey}')">คัดลอก Key</button>
-          </div>
         </div>
       </div>
 
-      <!-- คอลัมน์ขวา: ตั้งค่าข้อมูลสตรีม, เสียงโดเนท, และสินค้าประมูลในแชท -->
+      <!-- คอลัมน์ขวา: เริ่มสตรีมสด & ตั้งค่าห้องสตรีม -->
       <div class="box">
-        <div class="box-title"><span>⚙️ 2. ตั้งค่าห้องสตรีม · เสียงโดเนท · สินค้าประมูล</span></div>
+        <div class="alert alert-ok">🏦 บัญชีรับเงินที่ลงทะเบียน: <b>${s.bankName||'ยังไม่ระบุธนาคาร'}</b> · เลขบัญชี <b>${s.bankNo||'ยังไม่ลงทะเบียน'}</b><br><small>โดเนทจะบันทึกเข้ายอดผู้ขาย 100% ในระบบจำลองนี้ การโอนเงินจริงเข้าธนาคารอัตโนมัติต้องเชื่อมต่อ Payment Gateway / API ธนาคารและยืนยันตัวตนก่อน</small></div>
+        <div class="box-title">
+          <span>🎥 2. เริ่มสตรีมสด & ตั้งค่าห้องไลฟ์</span>
+          <span class="badge ${isLive ? 'b-red' : 'b-blue'}">${isLive ? '● ON AIR' : 'OFFLINE'}</span>
+        </div>
+
+        <div class="stream-stage" style="border-radius:14px; margin-bottom:12px; min-height:200px;">
+          <video id="liveScreenVideo" autoplay playsinline muted style="display:none;"></video>
+          <div id="simulatedStreamView" style="text-align:center; color:#cbd5e1; padding:16px;">
+            <div style="font-size:40px;">🖥️</div>
+            <b>${isLive ? 'กำลังส่งสัญญาณสตรีมสดไปที่หน้าเว็บคนดู' : 'จอพรีวิวสตรีมของผู้ขาย'}</b>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+          <button class="btn btn-purple" style="flex:1; justify-content:center; padding:10px;" onclick="startSellerLiveStream('screen')">
+            🖥️ แชร์หน้าจอเกม
+          </button>
+          <button class="btn btn-blue" style="flex:1; justify-content:center; padding:10px;" onclick="startSellerLiveStream('webcam')">
+            📷 เปิดเว็บแคม
+          </button>
+          <button class="btn btn-gold" style="flex:1; justify-content:center; padding:10px;" onclick="startSellerLiveStream('simulated')">
+            🔴 เริ่มไลฟ์ทันที
+          </button>
+        </div>
 
         <div class="field">
           <label>ชื่อหัวข้อสตรีม (Stream Title) *</label>
@@ -2413,47 +2830,70 @@ function renderStreamSettingsPage() {
             <select id="setStreamQuality">
               <option value="1080p 60fps" ${st.quality==='1080p 60fps'?'selected':''}>1080p 60fps (Full HD)</option>
               <option value="1440p 60fps" ${st.quality==='1440p 60fps'?'selected':''}>1440p 60fps (2K Ultra)</option>
-              <option value="720p 60fps" ${st.quality==='720p 60fps'?'selected':''}>720p 60fps</option>
             </select>
           </div>
         </div>
 
         <div class="grid-2">
           <div class="field">
-            <label>ปักหมุดสินค้าขายตรงในสตรีม</label>
+            <label>ปักหมุดสินค้าขายตรง</label>
             <select id="setStreamProd">
               ${db.products.map(p => `<option value="${p.id}" ${st.linkedProductId===p.id?'selected':''}>${p.title} (${fmt(p.price)})</option>`).join('')}
             </select>
           </div>
           <div class="field">
-            <label>เลือกสินค้าประมูลขึ้นช่องแชทสตรีม</label>
+            <label>สินค้าประมูลในแชทสตรีม</label>
             <select id="setStreamAuc">
-              ${db.auctions.filter(a=>a.status==='active').map(a => `<option value="${a.id}" ${st.linkedAuctionId===a.id?'selected':''}>${a.title} (บิด ${fmt(a.currentBid)})</option>`).join('')}
+              ${db.auctions.filter(a=>a.status==='active').map(a => `<option value="${a.id}" ${st.linkedAuctionId===a.id?'selected':''}>${a.title}</option>`).join('')}
             </select>
           </div>
         </div>
 
-        <div style="background:#fffbeb; border:1px solid var(--gold-border); border-radius:12px; padding:12px; margin-bottom:12px;">
-          <b style="font-size:13px; color:#92400e; display:block; margin-bottom:8px;">🔊 ตั้งค่าเสียงแจ้งเตือนเมื่อคนดูส่งโดเนท</b>
-          <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; margin-bottom:6px; cursor:pointer;">
-            <input type="checkbox" id="setSoundChk" ${st.soundEnabled ? 'checked' : ''} style="width:16px; height:16px;">
-            <span>เปิดเสียงเอฟเฟกต์ระฆังโดเนท (Chime Sound Effect)</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; cursor:pointer;">
-            <input type="checkbox" id="setVoiceChk" ${st.voiceTtsEnabled ? 'checked' : ''} style="width:16px; height:16px;">
-            <span>เปิดเสียงพูดอ่านชื่อและข้อความโดเนทอัตโนมัติ (Voice TTS)</span>
-          </label>
-          <button class="btn" style="margin-top:8px; font-size:11.5px;" onclick="playDonationSoundAndVoice('ลูกค้าทดสอบ', 500, 'ขอให้ขายดีครับ')">
-            🔊 กดฟังเสียงโดเนทตัวอย่าง
-          </button>
+        <div class="studio-panel">
+          <h4>🎛️ ภาพ / อินพุต / เอาต์พุต / เสียง</h4>
+          <div class="studio-settings-grid">
+            <div class="field"><label>กล้อง (Video input)</label><select id="studioVideoInput"><option value="">เลือกอุปกรณ์อัตโนมัติ</option></select></div>
+            <div class="field"><label>ไมโครโฟน (Audio input)</label><select id="studioAudioInput"><option value="">เลือกอุปกรณ์อัตโนมัติ</option></select></div>
+            <div class="field"><label>เอาต์พุตเสียง (เลือกอุปกรณ์)</label><select id="studioAudioOutput"><option value="">เสียงเริ่มต้นของเบราว์เซอร์</option></select></div>
+            <div class="field"><label>ความดังเสียงโดเนท <span id="donateVolLabel">${Math.round((st.voiceVolume ?? .9)*100)}%</span></label><input id="studioDonateVol" type="range" min="0" max="100" value="${Math.round((st.voiceVolume ?? .9)*100)}" oninput="document.getElementById('donateVolLabel').textContent=this.value+'%'"></div>
+          </div>
+          <label style="display:flex;gap:8px;align-items:center;font-size:12px;margin:6px 0"><input type="checkbox" id="studioNoise" ${st.noiseSuppression!==false?'checked':''}> ตัดเสียงรบกวนไมโครโฟน</label>
+          <label style="display:flex;gap:8px;align-items:center;font-size:12px;margin:6px 0"><input type="checkbox" id="studioEcho" ${st.echoCancellation!==false?'checked':''}> ลดเสียงสะท้อน (Echo cancellation)</label>
+          <label style="display:flex;gap:8px;align-items:center;font-size:12px;margin:6px 0"><input type="checkbox" id="studioAutoGain" ${st.autoGainControl!==false?'checked':''}> ปรับระดับไมค์อัตโนมัติ</label>
+          <div class="field" style="margin-top:8px"><label>เพิ่มรูปภาพบนหน้าจอสตรีม (Overlay)</label><input type="file" id="studioOverlayFile" accept="image/*" onchange="previewStreamOverlay(event)"><small id="studioOverlayStatus" style="color:var(--muted)">${st.overlayImage?'มีรูป Overlay แล้ว':'ยังไม่ได้เพิ่มรูป'}</small></div>
+          <img id="studioOverlayPreview" src="${st.overlayImage||''}" style="max-width:100%;max-height:130px;${st.overlayImage?'':'display:none;'}border-radius:8px">
+          <div class="field"><label>ชาเลนจ์ / เป้าหมายระหว่างไลฟ์</label><input id="studioChallenge" value="${st.challengeText||''}" placeholder="เช่น ถ้าโดเนทครบ 1,000 บาท เล่นโหมดท้าทาย"></div>
+          <div class="grid-2">
+            <div class="field"><label>เป้าหมายชาเลนจ์ (บาท)</label><input type="number" id="studioChallengeGoal" min="0" value="${st.challengeGoal||0}"></div>
+            <div class="field"><label>ระดับเสียงไมค์ (%)</label><input type="number" id="studioMicLevel" min="0" max="100" value="${st.micLevel??100}"></div>
+          </div>
+          <button class="btn btn-blue" onclick="enumerateStudioDevices()">🔄 โหลดรายการอุปกรณ์อีกครั้ง</button>
+          <button class="btn" onclick="stopDonateSpeech()">⏹ หยุดเสียงอ่านโดเนท</button>
         </div>
 
-        <button class="btn btn-gold" style="width:100%; justify-content:center; padding:11px;" onclick="saveSellerStreamSettings()">
-          💾 บันทึกการตั้งค่าสตรีม & ไปหน้าไลฟ์สด
+        <button class="btn btn-green" style="width:100%; justify-content:center; padding:11px;" onclick="saveSellerStreamSettings()">
+          💾 บันทึกการตั้งค่าทั้งหมด & ไปหน้าไลฟ์สด
         </button>
       </div>
     </div>
   `;
+}
+
+async function enumerateStudioDevices(){
+  try{
+    if(!navigator.mediaDevices?.enumerateDevices) return;
+    const devices=await navigator.mediaDevices.enumerateDevices();
+    const fill=(id,kind,empty)=>{const el=document.getElementById(id);if(!el)return;const old=el.value;el.innerHTML=`<option value="">${empty}</option>`+devices.filter(d=>d.kind===kind).map(d=>`<option value="${d.deviceId}">${d.label||'อุปกรณ์ '+d.deviceId.slice(0,5)}</option>`).join('');el.value=old;};
+    fill('studioVideoInput','videoinput','เลือกอุปกรณ์อัตโนมัติ');
+    fill('studioAudioInput','audioinput','เลือกอุปกรณ์อัตโนมัติ');
+    fill('studioAudioOutput','audiooutput','เสียงเริ่มต้นของเบราว์เซอร์');
+  }catch(e){toast('เบราว์เซอร์ไม่อนุญาตให้โหลดรายการอุปกรณ์');}
+}
+function previewStreamOverlay(event){
+  const file=event.target.files?.[0];if(!file)return;
+  if(file.size>3*1024*1024){toast('รูปต้องมีขนาดไม่เกิน 3MB');event.target.value='';return;}
+  const reader=new FileReader();reader.onload=()=>{const img=document.getElementById('studioOverlayPreview');img.src=reader.result;img.style.display='block';document.getElementById('studioOverlayStatus').textContent=file.name;};
+  reader.readAsDataURL(file);
 }
 
 function saveSellerStreamSettings() {
@@ -2464,7 +2904,8 @@ function saveSellerStreamSettings() {
   const linkedAuctionId = document.getElementById('setStreamAuc')?.value || 'auc1';
   const soundEnabled = document.getElementById('setSoundChk')?.checked ?? true;
   const voiceTtsEnabled = document.getElementById('setVoiceChk')?.checked ?? true;
-
+  const overlayPreview=document.getElementById('studioOverlayPreview');
+  const overlayImage=overlayPreview?.src && overlayPreview.style.display!=='none' ? overlayPreview.src : (db.streamSettings.overlayImage||'');
   db.streamSettings = {
     ...db.streamSettings,
     title: title || db.streamSettings.title,
@@ -2473,12 +2914,23 @@ function saveSellerStreamSettings() {
     linkedProductId,
     linkedAuctionId,
     soundEnabled,
-    voiceTtsEnabled
+    voiceTtsEnabled,
+    voiceVolume: Number(document.getElementById('studioDonateVol')?.value ?? 90)/100,
+    noiseSuppression: document.getElementById('studioNoise')?.checked ?? true,
+    echoCancellation: document.getElementById('studioEcho')?.checked ?? true,
+    autoGainControl: document.getElementById('studioAutoGain')?.checked ?? true,
+    videoInputId: document.getElementById('studioVideoInput')?.value || '',
+    audioInputId: document.getElementById('studioAudioInput')?.value || '',
+    audioOutputId: document.getElementById('studioAudioOutput')?.value || '',
+    micLevel: Number(document.getElementById('studioMicLevel')?.value ?? 100),
+    challengeText: document.getElementById('studioChallenge')?.value || '',
+    challengeGoal: Number(document.getElementById('studioChallengeGoal')?.value || 0),
+    overlayImage
   };
 
   syncSellerLiveRoom();
   saveDB();
-  toast('บันทึกการตั้งค่าสตรีมเรียบร้อย!');
+  toast('บันทึกการตั้งค่าสตรีมและเสียงโดเนทเรียบร้อย!');
   goPage('streams');
 }
 
@@ -2521,15 +2973,21 @@ async function startSellerLiveStream(mode) {
   if (mode === 'screen') {
     try {
       if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
-        activeMediaStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+        activeMediaStream = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: { ideal: 60, max: 60 } }, audio: { noiseSuppression: db.streamSettings.noiseSuppression!==false, echoCancellation: db.streamSettings.echoCancellation!==false, autoGainControl: db.streamSettings.autoGainControl!==false } });
       }
     } catch (e) {
-      toast('เปิดโหมดสตรีมสดขึ้นหน้าเว็บ (แบบจำลองภาพเกม)');
+      toast('เปิดโหมดสตรีมสดขึ้นหน้าเว็บเรียบร้อย');
     }
   } else if (mode === 'webcam') {
     try {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        activeMediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        activeMediaStream = await navigator.mediaDevices.getUserMedia({
+          video: db.streamSettings.videoInputId ? { deviceId:{exact:db.streamSettings.videoInputId} } : true,
+          audio: { ...(db.streamSettings.audioInputId?{deviceId:{exact:db.streamSettings.audioInputId}}:{}),
+            noiseSuppression: db.streamSettings.noiseSuppression!==false,
+            echoCancellation: db.streamSettings.echoCancellation!==false,
+            autoGainControl: db.streamSettings.autoGainControl!==false }
+        });
       }
     } catch (e) {
       toast('เปิดโหมดสตรีมสดขึ้นหน้าเว็บเรียบร้อย');
@@ -2550,7 +3008,7 @@ async function startSellerLiveStream(mode) {
   }
 
   saveDB();
-  toast('🔴 เริ่มสตรีมสดสำเร็จ! ลองสลับไปแท็บ "ผู้ซื้อ/ผู้ชม" เพื่อดูสตรีมของคุณได้เลย');
+  toast('🔴 เริ่มสตรีมสดสำเร็จ! ฝั่งคนดูเห็นสตรีมของคุณแล้ว');
   goPage('streams');
 }
 
@@ -2747,10 +3205,10 @@ function renderAuctions() {
                 <span>${'⭐'.repeat(a.sellerStars || 3)}</span>
               </div>
 
-              <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:8px 10px; margin-bottom:8px; font-size:12px;">
+              <div style="background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:8px 10px; margin-bottom:8px; font-size:12px;">
                 <div style="display:flex; justify-content:space-between;">
                   <span>บิดปัจจุบัน:</span>
-                  <b style="color:var(--gold); font-size:16px;">${fmt(a.currentBid)}</b>
+                  <b style="color:var(--gold-dark); font-size:16px;">${fmt(a.currentBid)}</b>
                 </div>
                 <div style="display:flex; justify-content:space-between; color:var(--muted); margin-top:2px;">
                   <span>ผู้นำ: <b>${a.highestBidder}</b></span>
@@ -2810,9 +3268,9 @@ function openBidModal(aucId) {
     <h3 style="margin-bottom:6px;">🔨 ร่วมประมูลสินค้า</h3>
     <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">${a.title}</p>
 
-    <div class="box" style="background:#f8fafc; padding:12px; margin-bottom:12px; font-size:13px;">
+    <div class="box" style="background:var(--bg); padding:12px; margin-bottom:12px; font-size:13px;">
       <div>เวลาที่เหลือ: <b style="color:var(--red);" data-endtime="${a.endTime}">${formatDuration(a.endTime - Date.now())}</b></div>
-      <div>ราคาปัจจุบัน: <b style="color:var(--gold); font-size:17px;">${fmt(a.currentBid)}</b> (โดย ${a.highestBidder})</div>
+      <div>ราคาปัจจุบัน: <b style="color:var(--gold-dark); font-size:17px;">${fmt(a.currentBid)}</b> (โดย ${a.highestBidder})</div>
       <div>บิดขั้นต่ำครั้งถัดไป: <b style="color:var(--green);">${fmt(minBid)}</b> (+${fmt(a.minStep)})</div>
     </div>
 
@@ -2859,7 +3317,6 @@ function processBidSubmission(a, bidVal, fromStreamChat = false) {
   a.bidCount += 1;
   a.bidHistory.unshift({ bidder: db.buyer.name, amount: bidVal, time: 'เมื่อสักครู่' });
 
-  // ประกาศการบิดลงในช่องแชทสตรีมที่ผูกกับประมูลนี้โดยอัตโนมัติ!
   db.streams.forEach(st => {
     if (st.linkedAuctionId === a.id) {
       st.chat.push({
@@ -2887,7 +3344,7 @@ function processBidSubmission(a, bidVal, fromStreamChat = false) {
   }
 
   saveDB();
-  toast(`👑 บิดประมูลที่ ${fmt(bidVal)} สำเร็จ! แสดงในแชทสตรีมแล้ว`);
+  toast(`👑 บิดประมูลที่ ${fmt(bidVal)} สำเร็จ!`);
   render();
   if (fromStreamChat) {
     spawnFloatingEmoji('🔥', db.activeStreamId);
@@ -2974,7 +3431,7 @@ function adminCancelAuction(aucId) {
   render();
 }
 
-/* ==================== 4. หน้าตลาดสินค้า + ระบบ FLASH SALE เวลาเดินเรียลไทม์ ==================== */
+/* ==================== 4. หน้าตลาดสินค้า + ระบบ FLASH SALE ==================== */
 function getShopReviewSummary(shopName) {
   const list = db.reviews.filter(r => r.sellerShop === shopName);
   if (list.length === 0) return { avg: '5.0', count: 0 };
@@ -3028,7 +3485,7 @@ function renderFlashSaleSectionHTML() {
           <span>⚡ FLASH SALE ลดราคาด่วน</span>
           <span class="realtime-clock">⏳ หมดเวลาใน <span data-endtime="${nearestEnd}">${formatDuration(nearestEnd - now)}</span></span>
         </div>
-        <span style="font-size:12px; color:#be123c; font-weight:600;">🔥 เวลาเดินถอยหลังแบบเรียลไทม์ กดซื้อรับ Code ทันที!</span>
+        <span style="font-size:12px; color:#e11d48; font-weight:600;">🔥 เวลาเดินถอยหลังแบบเรียลไทม์ กดซื้อรับ Code ทันที!</span>
       </div>
 
       <div class="grid-products">
@@ -3037,7 +3494,7 @@ function renderFlashSaleSectionHTML() {
           const discountPct = p.originalPrice ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 20;
           return `
             <div class="p-card" style="border:2px solid #fb7185;">
-              <div class="p-img" style="background:linear-gradient(135deg,#ffe4e6,#fffbeb);">
+              <div class="p-img">
                 <span class="p-cat" style="background:#e11d48; color:#fff; border:none;">⚡ ลด ${discountPct}%</span>
                 <span style="position:absolute; top:6px; right:6px;" class="badge b-red">⏰ <span data-endtime="${p.flashEndTime}">${formatDuration(p.flashEndTime - now)}</span></span>
                 <span>${p.icon || tInfo.icon}</span>
@@ -3132,7 +3589,7 @@ function renderMarket() {
           <span>🔍</span>
           <input type="text" value="${db.searchQuery || ''}" placeholder="ค้นหาสินค้า, ชื่อเกม, ชื่อร้าน..." oninput="onSearchInput(this.value)">
         </div>
-        <select onchange="selectTypeFilter(this.value)" style="max-width:200px; padding:8px 10px; border-radius:9px; border:1px solid var(--border); font-family:inherit; font-size:12.5px; font-weight:600;">
+        <select onchange="selectTypeFilter(this.value)" style="max-width:200px; padding:8px 10px; border-radius:9px; border:1px solid var(--border); font-family:inherit; font-size:12.5px; font-weight:600; background:var(--card); color:var(--text);">
           <option value="all" ${db.selectedTypeFilter==='all'?'selected':''}>📦 ทุกประเภท</option>
           <option value="account" ${db.selectedTypeFilter==='account'?'selected':''}>🎮 ไอดีเกม</option>
           <option value="item_code" ${db.selectedTypeFilter==='item_code'?'selected':''}>🎁 Code ไอเท็ม</option>
@@ -3183,7 +3640,7 @@ function renderShopProfile() {
         <div style="display:flex; gap:10px;">
           <div class="stat-box" style="padding:10px 14px; text-align:center;">
             <small>คะแนนรีวิว</small>
-            <b style="color:var(--gold); font-size:18px;">⭐ ${revSum.avg}/5</b>
+            <b style="color:var(--gold-dark); font-size:18px;">⭐ ${revSum.avg}/5</b>
           </div>
           <div class="stat-box" style="padding:10px 14px; text-align:center;">
             <small>ขายแล้ว</small>
@@ -3220,7 +3677,7 @@ function renderShopProfile() {
                 <td><b>${o.id}</b></td>
                 <td>${o.title}</td>
                 <td>${o.buyerName}</td>
-                <td><b style="color:var(--gold)">${fmt(o.price)}</b></td>
+                <td><b style="color:var(--gold-dark)">${fmt(o.price)}</b></td>
               </tr>
             `).join('')}
           </tbody>
@@ -3270,19 +3727,19 @@ function renderCheckoutConfirmModal(p) {
   document.getElementById('modalCheckoutConfirmContent').innerHTML = `
     <h3 style="margin-bottom:8px;">🛡️ ยืนยันการสั่งซื้อ</h3>
 
-    <div class="box" style="background:#f8fafc; padding:12px; margin-bottom:12px;">
+    <div class="box" style="background:var(--bg); padding:12px; margin-bottom:12px;">
       <b>${p.icon || tInfo.icon} ${p.title}</b>
       <div style="font-size:12px; color:var(--muted); margin-top:2px;">
         ร้าน: ${p.sellerShop} · ${tInfo.label}
       </div>
-      <div style="font-size:18px; font-weight:700; color:var(--gold); margin-top:6px;">
+      <div style="font-size:18px; font-weight:700; color:var(--gold-dark); margin-top:6px;">
         ยอดชำระ: ${fmt(finalPayPrice)}
         ${discountAmt > 0 ? `<small style="color:var(--green); font-size:12px;">(ลด 10% = -${fmt(discountAmt)})</small>` : ''}
       </div>
     </div>
 
     ${canApplyCoupon ? `
-      <label style="display:flex; align-items:center; justify-content:space-between; background:#ecfdf5; border:1px solid #10b981; padding:8px 12px; border-radius:9px; cursor:pointer; font-size:12.5px; margin-bottom:10px;">
+      <label style="display:flex; align-items:center; justify-content:space-between; background:var(--green-bg); border:1px solid #10b981; padding:8px 12px; border-radius:9px; cursor:pointer; font-size:12.5px; margin-bottom:10px;">
         <span>🎟️ ใช้คูปองลด 10% (สำหรับสินค้าไม่เกิน 2,000฿)</span>
         <input type="checkbox" ${usePromoCoupon10 ? 'checked' : ''} onchange="togglePromoCoupon(this.checked, '${p.id}')" style="width:16px; height:16px;">
       </label>
@@ -3408,7 +3865,7 @@ function showDeliveredSecretModal(order, earnedNewCoupon = false) {
 
     ${earnedNewCoupon ? `<div class="alert alert-ok">🎁 สะสมครบ 10 ชิ้น! ได้รับคูปองลด 10% เพิ่ม 1 ใบ</div>` : ''}
 
-    <div class="box" style="background:#fffbeb; border-color:#fcd34d; padding:12px; margin-bottom:12px;">
+    <div class="box" style="background:var(--gold-bg); border-color:var(--gold-border); padding:12px; margin-bottom:12px;">
       <small style="color:#92400e; font-weight:700;">📦 ${tInfo.label} ของคุณ:</small>
       <div class="secret-code-box">
         <span>${order.secretPayload}</span>
@@ -3443,7 +3900,7 @@ function renderChat() {
     <div class="box">
       <div class="box-title">
         <span>💬 แชทต่อรองราคา (หักค่าธรรมเนียมระบบ 8%)</span>
-        <select onchange="db.selectedProductId=this.value; saveDB(); render();" style="padding:5px 8px; border-radius:8px; border:1px solid var(--border);">
+        <select onchange="db.selectedProductId=this.value; saveDB(); render();" style="padding:5px 8px; border-radius:8px; border:1px solid var(--border); background:var(--card); color:var(--text);">
           ${db.products.map(item => `<option value="${item.id}" ${item.id===p.id?'selected':''}>${item.title} (${fmt(item.price)})</option>`).join('')}
         </select>
       </div>
@@ -3451,7 +3908,7 @@ function renderChat() {
       <div class="chat-box">
         <div class="chat-top">
           <div>
-            <b>${p.title}</b> · <span style="color:var(--gold); font-weight:700;">${fmt(p.price)}</span>
+            <b>${p.title}</b> · <span style="color:var(--gold-dark); font-weight:700;">${fmt(p.price)}</span>
             <small style="color:var(--muted);"> (แอดมิน 8% = ${fmt(Math.round(p.price*FEE_RATE))} · ผู้ขายรับ 92% = ${fmt(p.price - Math.round(p.price*FEE_RATE))})</small>
           </div>
           <div style="display:flex; gap:6px; align-items:center;">
@@ -3726,13 +4183,12 @@ function renderSeller() {
         ✅ <b>คุณเป็นผู้ขายที่ได้รับอนุมัติแล้ว (${s.shopName} ${'⭐'.repeat(s.stars)}):</b> สามารถลงขายสินค้า เปิดประมูล และเริ่มสตรีมสดได้ทันที
       </div>
       <div style="display:flex; gap:6px;">
-        <button class="btn btn-purple" onclick="goPage('stream_settings')">🎥 ไปหน้าตั้งค่าสตรีม & เริ่มไลฟ์สด</button>
+        <button class="btn btn-purple" onclick="goPage('stream_settings')">🎥 ไปหน้าตั้งค่าสตรีม & เสียงโดเนท</button>
         <button class="btn btn-gold" onclick="showModal('modalStreamAddAuction')">🔨 เพิ่มของประมูลเข้าแชทสตรีม</button>
       </div>
     </div>
 
     <div class="grid-2">
-      <!-- ลงขายสินค้าปกติ หรือ ตั้งเวลา Flash Sale -->
       <div class="box">
         <div class="box-title">
           <span>➕ 1. ลงขายสินค้า / จัดโปร Flash Sale (${s.shopName})</span>
@@ -3771,8 +4227,8 @@ function renderSeller() {
           </div>
         </div>
 
-        <div style="background:#fff1f2; border:1px solid #fecdd3; padding:10px 12px; border-radius:10px; margin-bottom:10px;">
-          <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:#be123c; cursor:pointer;">
+        <div style="background:var(--red-bg); border:1px solid #fecdd3; padding:10px 12px; border-radius:10px; margin-bottom:10px;">
+          <label style="display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; color:var(--red); cursor:pointer;">
             <input type="checkbox" id="newPFlashCheck" style="width:16px; height:16px;">
             <span>⚡ ตั้งเป็นสินค้า FLASH SALE (มีเวลานับถอยหลังเรียลไทม์)</span>
           </label>
@@ -3793,7 +4249,6 @@ function renderSeller() {
         </button>
       </div>
 
-      <!-- เปิดประมูลสินค้าใหม่ (เชื่อมกับแชทสตรีมสดด้วย) -->
       <div class="box">
         <div class="box-title">
           <span>🔨 2. เปิดประมูลสินค้า (แสดงทั้งหน้าประมูล & ในแชทสตรีม)</span>
@@ -4011,7 +4466,7 @@ function renderAdminDashboard() {
       </div>
       <div class="stat-box">
         <small>⏳ รายได้ 8% รอปล่อยเงิน</small>
-        <div class="num" style="color:var(--gold);">${fmt(expectedPendingFee)}</div>
+        <div class="num" style="color:var(--gold-dark);">${fmt(expectedPendingFee)}</div>
         <small>เงินพักใน Escrow: ${fmt(db.admin.escrowHolding)}</small>
       </div>
       <div class="stat-box">
@@ -4065,7 +4520,7 @@ function renderAdminDashboard() {
           </div>
           <div style="flex:1; background:var(--gold-bg); border:1px solid var(--gold-border); padding:14px; border-radius:12px; text-align:center;">
             <small style="color:var(--muted);">ค่าธรรมเนียมแอดมินคนกลาง</small>
-            <div style="font-size:26px; font-weight:700; color:var(--gold);">8%</div>
+            <div style="font-size:26px; font-weight:700; color:var(--gold-dark);">8%</div>
             <small>คุ้มครองความปลอดภัย Escrow 100%</small>
           </div>
         </div>
@@ -4218,7 +4673,7 @@ function openSellerDocsModal(targetId) {
     <h3>🪪 ข้อมูลผู้ขาย: ${seller.shopName} (${seller.fullName})</h3>
     <div class="grid-3" style="margin:10px 0;">
       <div class="stat-box"><small>รายได้ผู้ขายสุทธิ (92%)</small><div class="num" style="color:var(--green)">${fmt(seller.wallet)}</div></div>
-      <div class="stat-box"><small>รายได้แอดมิน 8% จากร้านนี้</small><div class="num" style="color:var(--gold)">${fmt(feeFromSeller)}</div></div>
+      <div class="stat-box"><small>รายได้แอดมิน 8% จากร้านนี้</small><div class="num" style="color:var(--gold-dark)">${fmt(feeFromSeller)}</div></div>
       <div class="stat-box"><small>บัญชีธนาคาร</small><b>${seller.bankName}</b><br><small>${seller.bankNo}</small></div>
     </div>
     <div class="doc-gallery">
